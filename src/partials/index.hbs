@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{> head}}
+</head>
+
+<body>
+    <div class="modals"> {{> modals}} </div>
+    <span class="copy">
+        <span class="m-3"> Beta 1.2.0 </span>
+        &copy; &nbsp; 37 Web Production
+    </span>
+
+    {{> navbar}}
+
+    <div class="content-wrapper">
+        <div class="content" id="root">
+
+        </div>
+    </div>
+
+    <div id="templates">
+        <template data-content="files">
+            {{> files}}
+        </template>
+        <template data-content="boards">
+            {{> boards}}
+        </template>
+        <template data-content="charts">
+            {{> files}}
+        </template>
+        <template data-content="clPanel">
+            {{> files}}
+        </template>
+    </div>
+
+    {{> scripts}}
+</body>
+
+</html>
