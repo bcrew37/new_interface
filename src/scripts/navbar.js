@@ -17,29 +17,57 @@
 
         init(obj) {
             for (let key in obj) {
-                let constructor = this
-
                 this.elements[key] = { observers: [] }
 
-                this.elements[key].sub = function () {
+                let sub = function () {
                     for (let i = 0; i < arguments.length; i++) {
                         let f = arguments[i]
-                        constructor.elements[key].observers.push(f)
+                        this.elements[key].observers.push(f)
                     }
-                }
+                }.bind(this)
 
-                this.elements[key].unsub = function () {
+                this.elements[key].sub = sub;
+
+                let unsub = function () {
                     for (let i = 0; i < arguments.length; i++) {
                         let f = arguments[i]
-                        constructor.elements[key].observers = constructor.elements[key].observers.filter(m => m !== f)
+                        this.elements[key].observers = constructor
+                            .elements[key]
+                            .observers
+                            .filter(m => m !== f)
                     }
-                }
+                }.bind(this);
 
-                this.elements[key].style = (css) => obj[key].forEach(node => {
-                    for (let key in css) node.style[key] = css[key]
+                this.elements[key].unsub = unsub;
+
+                this.elements[key].style = function (css) {
+                    this[key].forEach(node => {
+                        for (let key in css) {
+                            node.style[key] = css[key]
+                        }
+                    })
+                }.bind(obj)
+
+                this.elements[key].active = () => obj[key].forEach(node => {
+                    let activeNode = node.closest(".nav-rail").querySelector(".active")
+                    if (activeNode) {
+                        activeNode.classList.remove("active")
+                        node.classList.add("active")
+                    } else {
+                        node.classList.add("active")
+                    }
                 })
 
-                obj[key].forEach(node => node.addEventListener("click", () => this.elements[key].observers.forEach(f => f())))
+                obj[key].forEach(
+                    node => {
+                        node.addEventListener(
+                            "click",
+                            () => this.elements[key]
+                                .observers
+                                .forEach(f => f())
+                        )
+                    }
+                )
             }
         }
     }

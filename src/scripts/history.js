@@ -13,22 +13,27 @@
                 "/clPanel": document.querySelector('#templates [data-content="clPanel"]'),
             })
 
-            this.Navbar.elements["files"].sub(() => this.set({
-                title: "Чарти",
-                url: "/files",
-            }))
-            this.Navbar.elements["boards"].sub(() => this.set({
-                title: "Дошки",
-                url: "/?boardId=2134",
-            }))
+            this.Navbar.elements["files"].sub(
+                () => this.set({ title: "Файли", url: "/files" }),
+                () => this.Navbar.elements["files"].active()
+            )
 
-            this.set(history.state, location.pathname)
+            this.Navbar.elements["boards"].sub(
+                () => this.set({ title: "Дошки", url: "/" }),
+                () => this.Navbar.elements["boards"].active()
+            )
+
+            if (history.state == null) {
+                this.set({
+                    title: "Дошки",
+                    url: "/"
+                })
+            } else this.set(history.state)
         }
 
-        set(data, url) {
-            history.pushState(data, data.title, url)
-            this.Content.render(url)
-            console.log("URL set to - ", url, history.state)
+        set(data) {
+            history.pushState(data, data.title, data.url)
+            this.Content.render(data.url)
         }
 
     }
