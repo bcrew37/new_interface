@@ -7,18 +7,17 @@
         }
 
         setPrototype(className, classConstructor) {
-            this.classes.set(className, () => new classConstructor)
-            this.classes.set(`${className} -g`, () => classConstructor)
+            this.classes.set(className, (args) => new classConstructor(args))
         }
 
         setSingletone(className, classConstructor) {
             this.classes.set(className, new classConstructor)
         }
 
-        getClass = className => {
+        getClass = (className, obj) => {
             let constructor = this.classes.get(className)
             if (typeof constructor == "function") {
-                return constructor()
+                return constructor(obj)
             } else return constructor || console.error(`Oops! not possible to read class: ${className}`)
         }
 

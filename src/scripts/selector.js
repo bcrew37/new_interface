@@ -4,27 +4,37 @@
 
         constructor(obj) {
             this.selected = []
-            // Obj: block, selectors, callback, clearFunction
+            // Obj: selector, on, off, length
 
             this.obj = obj
-            document.querySelector(`${obj.block} ${obj.selectors}`)
+            document.querySelectorAll(`${this.obj.selector}`)
                 .forEach(node => node.addEventListener("click",
                     (e) => {
-                        let target = e.target.closest(obj.selectors)
-                        this.selected.push(target)
-                        if (obj.callbak) obj.callback(target)
+                        let target = e.target.closest(this.obj.selector);
+                        (!target.classList.contains("active")) ? this.on(target) : this.off(target)
                     }))
         }
 
-        clear() {
+        clear(callback) {
             this.selected = []
-            document.querySelector(`${this.obj.block} ${this.obj.selectors}`)
-                .forEach(node => node.addEventListener("click",
-                    (e) => {
-                        let target = e.target.closest(this.obj.selectors)
-                        target.setAttribute("style", "")
-                        if (this.obj.clearFunction) this.obj.clearFunction(target)
-                    }))
+            document.querySelectorAll(`${this.obj.selector}`)
+                .forEach(node => {
+                    if (node.classList.contains("active")) node.classList.remove("active")
+                    callback(node)
+                })
+        }
+
+        off(target) {
+            this.selected = this.selected.filter(node => node !== target)
+            target.classList.remove("active")
+            if (this.obj.off) this.obj.off(target)
+        }
+
+        on(target) {
+            if (this.selected.length > this.obj.length - 1) this.off(this.selected[this.selected.length - 1])
+            this.selected.push(target)
+            target.classList.add("active")
+            if (this.obj.on) this.obj.on(target)
         }
 
     }
