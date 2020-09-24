@@ -68,6 +68,14 @@ input:focus {
   border: 1px solid #fff;
 }
 
+a {
+  color: #47b2fa;
+}
+
+a:hover {
+  color: #47b2fa;
+}
+
 .copy {
   color: rgba(67, 78, 106, 0.35);
   position: absolute;
@@ -166,7 +174,7 @@ input:focus {
 }
 
 .nav-rail {
-  background-color: #434e6a;
+  background-color: #2f374b;
   position: fixed;
   z-index: 2;
   width: 50px;
@@ -243,6 +251,11 @@ input:focus {
 .nav-rail .nav-items.nav-bottom .nav-item:not(:last-child) {
   margin-bottom: 20px;
 }
+
+.nav-rail .nav-items.nav-bottom {
+  margin-top: 20px;
+}
+
 .nav-rail .nav-items.nav-top .nav-item:not(:first-child) {
   margin-top: 20px;
 }
@@ -314,7 +327,7 @@ input:focus {
   flex-direction: column;
 
   opacity: 0;
-  transition: opacity 200ms;
+  transition: opacity 100ms;
 }
 .content-wrapper .content .tool-bar {
   margin-bottom: 40px;
@@ -560,12 +573,10 @@ input:focus {
   transition: all 100ms;
 }
 .content-wrapper .content .body table tr:hover {
-  background-color: #d8ddeb;
-  box-shadow: 0px 0px 4px rgba(67, 78, 106, 0.8);
+  box-shadow: 0px 1px 3px rgba(67, 78, 106, 0.3);
 }
 .content-wrapper .content .body table tr.active {
-  background-color: #d8ddeb;
-  box-shadow: 0px 0px 4px rgba(67, 78, 106, 0.8);
+  box-shadow: 0px 1px 3px rgba(67, 78, 106, 0.3);
 }
 .content-wrapper .content .body table td {
   color: rgba(67, 78, 106, 0.8);

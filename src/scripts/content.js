@@ -14,7 +14,7 @@
                 this.content.innerHTML = ""
                 this.content.append(template)
                 this.content.style.opacity = 1
-            }, 200)
+            }, 100)
         }
 
         init(obj) {

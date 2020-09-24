@@ -6,12 +6,16 @@
             this.elements = {}
 
             this.init({
-                charts: document.querySelectorAll('[data-event="charts"]'),
-                files: document.querySelectorAll('[data-event="files"]'),
-                settigns: document.querySelectorAll('[data-event="settings"]'),
-                clPanel: document.querySelectorAll('[data-event="clPanel"]'),
-                boards: document.querySelectorAll('[data-event="boards"]'),
-                profileImg: document.querySelectorAll('[data-event="profileImg"]'),
+                "charts": document.querySelectorAll('[data-event="charts"]'),
+                "files": document.querySelectorAll('[data-event="files"]'),
+                "settigns": document.querySelectorAll('[data-event="settings"]'),
+                'clPanel': document.querySelectorAll('[data-event="clPanel"]'),
+                "boards": document.querySelectorAll('[data-event="boards"]'),
+                "profileImg": document.querySelectorAll('[data-event="profileImg"]'),
+            })
+
+            this.elements["profileImg"].sub(() => {
+                $(".modals #upload-docs").modal("show")
             })
         }
 

@@ -9,31 +9,43 @@
             this.Content.init({
                 "/charts": document.querySelector('#templates [data-content="charts"]'),
                 "/files": document.querySelector('#templates [data-content="files"]'),
-                "/": document.querySelector('#templates [data-content="boards"]'),
+                "/boards": document.querySelector('#templates [data-content="boards"]'),
                 "/clPanel": document.querySelector('#templates [data-content="clPanel"]'),
             })
 
             this.Navbar.elements["files"].sub(
-                () => this.set({ title: "Файли", url: "/files" }),
-                () => this.Navbar.elements["files"].active()
+                () => this.push({ title: "Файли", url: "/files" }),
             )
 
             this.Navbar.elements["boards"].sub(
-                () => this.set({ title: "Дошки", url: "/" }),
-                () => this.Navbar.elements["boards"].active()
+                () => this.push({ title: "Дошки", url: "/boards" }),
             )
 
             if (history.state == null) {
-                this.set({
-                    title: "Дошки",
-                    url: "/"
-                })
+                this.set({ title: "Дошки", url: "/boards" })
             } else this.set(history.state)
+
+            window.onpopstate = (e) => {
+                if (e.state) {
+                    this.set(e.state)
+                } else return
+            }
+        }
+
+        render(data) {
+            this.Content.render(data.url)
+            this.Navbar.elements[data.url.substring(1)].active()
+            document.title = data.title
+        }
+
+        push(data) {
+            history.pushState(data, data.title, data.url)
+            this.render(data)
         }
 
         set(data) {
-            history.pushState(data, data.title, data.url)
-            this.Content.render(data.url)
+            history.replaceState(data, data.title, data.url)
+            this.render(data)
         }
 
     }
