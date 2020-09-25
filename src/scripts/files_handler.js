@@ -4,20 +4,32 @@
 
         constructor() {
             this.Selector = Factory.getClass("Selector", {
-                selector: ".body .table-row",
+                selector: '.body .table-row input[type="checkbox"]',
                 on: (target) => this.select(target),
                 off: (target) => this.unselect(target),
-                length: 4
+            })
+
+            this.init("#newTodo", (e) => $('[data-modal="newTodo"]').modal("show"))
+            this.init("#existTodo", (e) => $('[data-modal="existTodo"]').modal("show"))
+            this.init("#shareDoc", (e) => $('[data-modal="shareDoc"]').modal("show"))
+            this.init("#uploadDoc", (e) => $('[data-modal="uploadDoc"]').modal("show"))
+            this.init("#downloadDoc ", (e) => {
+
             })
         }
 
         select(target) {
-            target.style.background = "green"
+            target.checked = true
+            target.closest(".table-row").classList.add("active")
         }
 
         unselect(target) {
-            target.setAttribute("style", "")
-            console.log(this.Selector.selected)
+            target.checked = false
+            target.closest(".table-row").classList.remove("active")
+        }
+
+        init(selector, callback) {
+            document.querySelector(`${selector}`).addEventListener("click", (e) => callback(e))
         }
 
     }

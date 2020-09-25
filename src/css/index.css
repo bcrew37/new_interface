@@ -96,6 +96,9 @@ a:hover {
   display: flex;
   justify-content: center;
 }
+
+/* Modals */
+
 .auth-wrapper .auth-form {
   margin: 0px auto;
   margin-top: 100px;
@@ -572,11 +575,15 @@ a:hover {
   cursor: pointer;
   transition: all 100ms;
 }
+.content-wrapper .content .body table tr.active {
+  box-shadow: 0px 0px 2px rgba(67, 78, 106, 0.2);
+  background: rgba(67, 78, 106, 5%);
+}
 .content-wrapper .content .body table tr:hover {
-  box-shadow: 0px 1px 3px rgba(67, 78, 106, 0.3);
+  box-shadow: 0px 0px 2px rgba(67, 78, 106, 0.2);
 }
 .content-wrapper .content .body table tr.active {
-  box-shadow: 0px 1px 3px rgba(67, 78, 106, 0.3);
+  box-shadow: 0px 0px 2px rgba(67, 78, 106, 0.2);
 }
 .content-wrapper .content .body table td {
   color: rgba(67, 78, 106, 0.8);

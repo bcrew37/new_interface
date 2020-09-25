@@ -31,7 +31,7 @@
         }
 
         on(target) {
-            if (this.selected.length > this.obj.length - 1) this.off(this.selected[this.selected.length - 1])
+            if (this.obj.length && this.selected.length > this.obj.length - 1) this.off(this.selected[this.selected.length - 1])
             this.selected.push(target)
             target.classList.add("active")
             if (this.obj.on) this.obj.on(target)
