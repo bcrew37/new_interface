@@ -9,13 +9,10 @@
                 off: (target) => this.unselect(target),
             })
 
-            this.init("#newTodo", (e) => $('[data-modal="newTodo"]').modal("show"))
+            this.init("#newTodo", (e) => $('[data-modal="todoInfo"]').modal("show"))
             this.init("#existTodo", (e) => $('[data-modal="existTodo"]').modal("show"))
             this.init("#shareDoc", (e) => $('[data-modal="shareDoc"]').modal("show"))
             this.init("#uploadDoc", (e) => $('[data-modal="uploadDoc"]').modal("show"))
-            this.init("#downloadDoc ", (e) => {
-
-            })
         }
 
         select(target) {

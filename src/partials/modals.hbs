@@ -78,182 +78,6 @@
 	</div>
 </div>
 
-<div class="modal fade" data-modal="newTodo" tabindex="-1" role="dialog" aria-hidden="true">
-
-	<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-		<div class="modal-content">
-			<div class="modal-header" style="padding: 12px; padding-bottom:0px">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<dioiv class="modal-body d-flex" style="padding:12px">
-				<div class="col-4" style="height:462px">
-
-					<div class="calendar" id="dateControl">
-						<div class="head-block mb-2" style="padding-top:12px; padding-bottom:12px">
-							<div class="date">
-								Nov 13, 2020
-							</div>
-							<div class="title">
-								Контроль
-							</div>
-						</div>
-						<div class="body">
-							<table class="date-selector" align="center">
-								<div class="control w-100 d-flex justify-content-between align-items-center"
-									style="padding: 12px;">
-									<i class="far fa-chevron-left" id="previousMonth"></i>
-									<div class="d-flex">
-										<span class="current-month mr-1">
-
-										</span>
-										<span class="current-year ml-1">
-
-										</span>
-									</div>
-									<i class="far fa-chevron-right" id="nextMonth"></i>
-								</div>
-								<thead>
-									<tr>
-										<td class="week-day">
-											<div>Пн</div>
-										</td>
-										<td class="week-day">
-											<div>Вт</div>
-										</td>
-										<td class="week-day">
-											<div>Ср</div>
-										</td>
-										<td class="week-day">
-											<div>Чт</div>
-										</td>
-										<td class="week-day">
-											<div>Пт</div>
-										</td>
-										<td class="week-day">
-											<div>Сб</div>
-										</td>
-										<td class="week-day">
-											<div>Нд</div>
-										</td>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-						</div>
-					</div>
-
-					<div class="files-container" style="padding: 12px;"></div>
-
-				</div>
-				<div class="col-4" style="height:462px">
-
-					<div class="calendar" id="dateDeadline">
-						<div class="head-block mb-2" style="padding-top:12px; padding-bottom:12px">
-							<div class="date">
-								Nov 13, 2020
-							</div>
-							<div class="title">
-								Дедлайн
-							</div>
-						</div>
-						<div class="body">
-							<table class="date-selector" align="center">
-								<div class="control w-100 d-flex justify-content-between align-items-center"
-									style="padding: 12px;">
-									<i class="far fa-chevron-left" id="previousMonth"></i>
-									<div class="d-flex">
-										<span class="current-month mr-1">
-
-										</span>
-										<span class="current-year ml-1">
-
-										</span>
-									</div>
-									<i class="far fa-chevron-right" id="nextMonth"></i>
-								</div>
-								<thead>
-									<tr>
-										<td class="week-day">
-											<div>ПН</div>
-										</td>
-										<td class="week-day">
-											<div>ВТ</div>
-										</td>
-										<td class="week-day">
-											<div>СР</div>
-										</td>
-										<td class="week-day">
-											<div>ЧТ</div>
-										</td>
-										<td class="week-day">
-											<div>ПТ</div>
-										</td>
-										<td class="week-day">
-											<div>СБ</div>
-										</td>
-										<td class="week-day">
-											<div>Нд</div>
-										</td>
-									</tr>
-								</thead>
-								<tbody></tbody>
-							</table>
-						</div>
-					</div>
-
-					<div class="performers">
-
-						<div class="add-new-user w-100">
-							<div class="drop-down w-100">
-								<div class="drop-down_btn" style="height: 35px; margin-bottom:30px; padding:5px">
-									<div>+</div>
-									Додати виконавця
-								</div>
-								<div class="drop-down_list w-100" id="user-list">
-
-								</div>
-							</div>
-						</div>
-
-						<div class="performer-list">
-
-						</div>
-
-					</div>
-
-				</div>
-				<div class="col-4">
-
-					<input type="text" id="name" class="custom-input w-100 mb-2" placeholder="Todo name">
-					<textarea name="" id="description" rows="" class="custom-textarea w-100" placeholder="Description"
-						style="min-height: 367px;"></textarea>
-
-				</div>
-			</dioiv>
-			<div class="modal-footer">
-
-				<div class="status mr-2">
-					<div class="status-spinner d-none">
-						<div class="spinner-border mr-4" role="status"
-							style="color:#34ace0; font-size:10px; width:20px; height:20px;">
-						</div>
-						<a href="#">Sending data...</a>
-					</div>
-					<span class="status-text"></span>
-				</div>
-
-				<div class="d-flex">
-					<button class="ml-auto custom-button" data-dismiss="modal">Close</button>
-					<button id="add-NewTodo_btn" class="custom-button info">Add Todo</button>
-				</div>
-
-			</div>
-		</div>
-	</div>
-</div>
-
 <div class="modal fade" data-modal="existTodo" tabindex="-1" role="dialog" aria-hidden="true">
 
 	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -312,168 +136,623 @@
 
 </div>
 
-<div class="modal fade" data-modal="todoInfo" tabindex="-1" role="dialog" aria-hidden="true">
-
+<div class="modal fade" data-modal="newTodo" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
 		<div class="modal-content">
-			<div class="modal-header" style="padding: 12px; padding-bottom:0px">
-				<h5 class="modal-title w-100" id="lable"><input class="todo-title" value="" type="text" maxlength="128"
-						contenteditable></h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+			<div class="header">
+				<input type="text" data-role="name" placeholder="Назва..." maxlength="232" />
+				<i class="far fa-times"></i>
 			</div>
-			<div class="modal-body" style="padding:12px">
-
-				<div id="todo-slider" class="carousel slide" data-tide="false">
-
-					<div class="carousel-inner" role="listbox">
-
-						<div class="carousel-item active">
-							<div class="d-flex">
-								<div class="col-3 files details-files">
-									<button class="title" id="download-details-files">
-										<i class="far fa-cloud-download-alt"></i>
-										Завантажити <span id="count">(0)</span>
-									</button>
-									<div id="details-files" class="files-container" style="height: 360px;">
-
-									</div>
-								</div>
-
-								<div class="col-3 w-100 performers-container">
-									<div class="title">
-										Виконавці <span id="count">(0)</span>
-									</div>
-									<div class="performers" style="height: 360px;"></div>
-								</div>
-
-								<div class="col-3 comments">
-									<div class="title">
-										Коментарі <span id="count">(0)</span>
-									</div>
-									<div class="add-comment" style="margin-bottom: 20px;">
-										<input type="text" class="custom-input w-100" placeholder="Коментар..."
-											maxlength="64">
-										<button style="color:#34ace0; font-size:14px" type="button"
-											class="mt-2 w-100 d-flex justify-content-end">
-											Відправити
-										</button>
-									</div>
-									<div class="comments-container">
-										<div class="comment">
-											<img class="author-image" src="img/avatars/5.jpg" alt="">
-											<div class="comment-body">
-												<div class="author-name">Jorj Bush Beckley</div>
-												<div class="comment-text">
-													Lorem ipsum dolor, sit amet consectetur adipisicing elit. Beatae,
-													est.
-													Lorem, ipsum.
-												</div>
-												<div class="comment-date">24.05.2020</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-3 description">
-									<div class="title">
-										Опис
-									</div>
-									<div class="description-container">
-										<div class="description-text" maxlength="64" contenteditable>
-
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="carousel-item">
-							<div class="d-flex">
-								<div class="col-3 files files-report">
-									<button class="title" id="download-report-files">
-										<i class="far fa-cloud-download-alt"></i>
-										Завантажити <span id="count">(0)</span>
-									</button>
-									<div class="files-container-report files-container"
-										style="height: 360px; overflow-y:auto">
-
-									</div>
-									<div class="no-files d-none justify-content-center align-items-center"
-										style="color:#999999; height:360px; font-size:14px; border:1px dashed #bbbaba">
-										Немає файлів
-									</div>
-								</div>
-								<div class="col-3 report" id="send-report-files">
-									<div class="title">
-										Завантажити файли
-									</div>
-									<div class="custom-file" style="margin-bottom: 10px;">
-										<input id="report-upload-file" type="file" class="custom-file-input"
-											accept=".jpg, .png, .pdf, .doc, .docx, .xls, .xlsx, odf, .odt, .ods, .ppt, .pptx, .html, .txt, .csv, .dbf, .htm, .html, .info, .nfo, .rtf, .vcf, .xml, .zip">
-										<label class="custom-file-label" id="report-file-lable" for=""
-											style="white-space:nowrap; overflow-x:hidden">Choose
-											file</label>
-									</div>
-									<div class="report-upload-files" style="height: 312px; overflow-y:auto">
-
-									</div>
-								</div>
-								<div class="col-3 report-msg">
-									<div class="title">
-										Коментарі
-									</div>
-									<textarea maxlength="512" class="custom-textarea w-100"
-										style="height: 353px; padding:0px" placeholder="Текст..."></textarea>
-								</div>
-								<div class="col-3 report">
-									<div class="title">
-										Звіт
-									</div>
-									<div class="report-list" style="height:360px; overflow-y:auto">
-
-									</div>
-								</div>
-							</div>
-						</div>
-
+			<div class="block-wrapper">
+				<div class="scroll-y block" data-role="files">
+					<div class="file" data-file-id="211441">
+						<img class="img" src="./pdf.png" alt="" />
+						<span class="name">
+							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo,
+							natus.
+						</span>
+						<span class="extension"> .pdf </span>
+						<span data-event="dismiss"> <i class="fa fa-trash"></i> </span>
 					</div>
-
+					<div class="file dismissed" data-file-id="211441">
+						<img class="img" src="./pdf.png" alt="" />
+						<span class="name">
+							Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo,
+							natus.
+						</span>
+						<span class="extension"> .pdf </span>
+						<span data-event="dismiss"> <i class="fa fa-trash"></i> </span>
+					</div>
 				</div>
-
+				<div class="block" data-role="performers">
+					<div class="drop-down__wrapper" data-role="performersList">
+						<button data-role="dropdownBtn" data-toggle="performersList" data-event="performersList">
+							Виконавці
+							<i class="fa fa-plus-circle"></i>
+						</button>
+						<div class="drop-down" id="performersList">
+							<div class="drop-down__list">
+								<button class="item performer" data-performer-id="1830913">
+									<div class="user-block">
+										<img class="img" src="./pexels-karolina-grabowska-4467687.jpg" alt="" />
+										<span class="name"> Lorem ipsum</span>
+									</div>
+									<span data-event="dismiss">
+										<i class="fa fa-trash"></i>
+									</span>
+									<span data-event="select">
+										<i class="fad fa-arrow-right"></i>
+									</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="list">
+						<button class="select performer" data-performer-id="1830913">
+							<div class="user-block">
+								<img class="img" src="./pexels-karolina-grabowska-4467687.jpg" alt="" />
+								<span class="name"> Lorem ipsum</span>
+							</div>
+							<span data-event="dismiss">
+								<i class="fa fa-trash"></i>
+							</span>
+							<span data-event="select">
+								<i class="fad fa-arrow-right"></i>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div class="block" data-role="description">
+					<div class="title">
+						Опис
+						<i class="fa fa-pencil-alt"></i>
+					</div>
+					<textarea maxlength="2024"> </textarea>
+				</div>
 			</div>
-			<div class="modal-footer d-flex justify-content-between">
-
-				<div class="slider-indicators d-flex">
-					<button id="details" data-target="#todo-slider" data-slide-to="0"
-						class="active mr-2 custom-button info">Деталі</button>
-					<button data-target="#todo-slider" data-slide-to="1" class="custom-button info">Звіт</button>
-				</div>
-
-				<div class="d-flex">
-					<div class="status mr-2">
-						<div class="status-spinner d-none">
-							<div class="spinner-border mr-4" role="status"
-								style="color:#34ace0; font-size:10px; width:20px; height:20px;">
-							</div>
-							<a href="#">Обробка данних...</a>
+			<div class="footer">
+				<div class="block">
+					<div class="calendar drop-down__wrapper">
+						<button data-role="dropdownBtn" data-toggle="deadline" data-event="calendar">
+							Контроль:
+							<span>
+								<span data-name="date">00.00.0000</span>
+								<i class="fa fa-caret-down"></i>
+							</span>
+						</button>
+						<div class="drop-down" id="deadline">
+							<table class="date-picker" valign="center">
+								<div class="control w-100 d-flex justify-content-between align-items-center"
+									style="padding: 12px">
+									<i class="fa fa-caret-left" data-event="previous"></i>
+									<div class="d-flex">
+										<span data-role="month" class="mr-1">Квітень</span>
+										<span data-role="year" class="ml-1">2020</span>
+									</div>
+									<i class="fa fa-caret-right" data-event="next"></i>
+								</div>
+								<thead>
+									<tr>
+										<td class="week-day">
+											<div>Пн</div>
+										</td>
+										<td class="week-day">
+											<div>Вт</div>
+										</td>
+										<td class="week-day">
+											<div>Ср</div>
+										</td>
+										<td class="week-day">
+											<div>Чт</div>
+										</td>
+										<td class="week-day">
+											<div>Пт</div>
+										</td>
+										<td class="week-day">
+											<div>Сб</div>
+										</td>
+										<td class="week-day">
+											<div>Нд</div>
+										</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<div class="date-item active">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<span class="status-text"></span>
-					</div>
-
-					<div class="d-flex" id="todo-send-report-control">
-						<button id="add-modify" class="custom-button info" style="display: none;">Модифікувати</button>
-						<button id="add-report" class="custom-button info" style="display:none">Відправити звіт</button>
-					</div>
-					<div style="display:none" id="todo-complete-control">
-						<button id="task-complete" class="danger custom-button " style="">Переробити</button>
-						<button id="task-overdue" class="success custom-button " style="">Завершити</button>
 					</div>
 				</div>
-
+				<div class="block">
+					<div class="calendar drop-down__wrapper">
+						<button data-role="dropdownBtn" data-toggle="deadline" data-event="calendar">
+							Дедлайн:
+							<span>
+								<span data-name="date">00.00.0000</span>
+								<i class="fa fa-caret-down"></i>
+							</span>
+						</button>
+						<div class="drop-down" id="deadline">
+							<table class="date-picker" valign="center">
+								<div class="control w-100 d-flex justify-content-between align-items-center"
+									style="padding: 12px">
+									<i class="fa fa-caret-left" data-event="previous"></i>
+									<div class="d-flex">
+										<span data-role="month" class="mr-1">Квітень</span>
+										<span data-role="year" class="ml-1">2020</span>
+									</div>
+									<i class="fa fa-caret-right" data-event="next"></i>
+								</div>
+								<thead>
+									<tr>
+										<td class="week-day">
+											<div>Пн</div>
+										</td>
+										<td class="week-day">
+											<div>Вт</div>
+										</td>
+										<td class="week-day">
+											<div>Ср</div>
+										</td>
+										<td class="week-day">
+											<div>Чт</div>
+										</td>
+										<td class="week-day">
+											<div>Пт</div>
+										</td>
+										<td class="week-day">
+											<div>Сб</div>
+										</td>
+										<td class="week-day">
+											<div>Нд</div>
+										</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<div class="date-item active">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="block">
+					<div class="clean"></div>
+					<button type="button" class="button active" data-event="submit">Створити</button>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
+<div class="modal fade" data-modal="todoInfo" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+		<div class="modal-content">
+			<div class="header">
+				<input type="text" data-role="name"
+					value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, ducimus." maxlength="232"
+					readonly="true" />
+				<i class="far fa-times"></i>
+			</div>
+			<div class="block-wrapper" style="display: none">
+				<div class="scroll-y block" data-role="files">
+					<button data-event="download" class="title">
+						Завантажити
+						<i class="fa fa-cloud-download"></i>
+					</button>
+					<div class="wrappper">
+						<div class="file" data-file-id="211441">
+							<img class="img" src="./pdf.png" alt="" />
+							<span class="name">
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+								Quo, natus.
+							</span>
+							<span class="extension"> .pdf </span>
+							<span data-event="dismiss">
+								<i class="fa fa-trash"></i>
+							</span>
+						</div>
+						<div class="file dismissed" data-file-id="211441">
+							<img class="img" src="./pdf.png" alt="" />
+							<span class="name">
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+								Quo, natus.
+							</span>
+							<span class="extension"> .pdf </span>
+							<span data-event="dismiss">
+								<i class="fa fa-trash"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="block" data-role="performers">
+					<div class="drop-down__wrapper" data-role="performersList">
+						<button data-role="dropdownBtn" data-toggle="performersList" data-event="performersList">
+							<div class="title">
+								Виконавці
+								<i style="display: none" class="fa fa-plus-circle"></i>
+							</div>
+						</button>
+						<div class="drop-down" id="performersList">
+							<div class="drop-down__list">
+								<button class="item performer" data-performer-id="1830913">
+									<div class="user-block">
+										<img class="img" src="./pexels-karolina-grabowska-4467687.jpg" alt="" />
+										<span class="name"> Lorem ipsum</span>
+									</div>
+									<span data-event="dismiss">
+										<i class="fa fa-trash"></i>
+									</span>
+									<span data-event="select">
+										<i class="fad fa-arrow-right"></i>
+									</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="list">
+						<button class="select performer" data-performer-id="1830913">
+							<div class="user-block">
+								<img class="img" src="./pexels-karolina-grabowska-4467687.jpg" alt="" />
+								<span class="name">Lorem ipsum</span>
+							</div>
+							<span data-event="dismiss">
+								<i class="fa fa-trash"></i>
+							</span>
+							<span data-event="select">
+								<i class="fad fa-arrow-right"></i>
+							</span>
+						</button>
+					</div>
+				</div>
+				<div class="block" data-role="description">
+					<div class="title">
+						Опис
+						<i class="fa fa-pencil-alt"></i>
+					</div>
+					<textarea disabled maxlength="2024">
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, ducimus.</textarea>
+				</div>
+				<div class="block" data-role="comments">
+					<div class="add-comment">
+						<input maxlength="256" placeholder="Коментар" type="text" data-name="comment" />
+						<button type="button" data-event="sendComment">Додати</button>
+					</div>
+					<div class="comments-wrapper">
+						<div class="comment">
+							<img src="./pexels-karolina-grabowska-4467687.jpg" alt="" />
+							<div class="body">
+								<div class="name">Андрій</div>
+								<div class="text">Lorem, ipsum.</div>
+								<div class="meta">13.03.2020</div>
+							</div>
+						</div>
+						<div class="comment">
+							<img src="./pexels-karolina-grabowska-4467687.jpg" alt="" />
+							<div class="body">
+								<div class="name">Андрій</div>
+								<div class="text">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Fugiat quisquam dolorem molestias repudiandae.
+								</div>
+								<div class="meta">13.03.2020</div>
+							</div>
+						</div>
+						<div class="comment">
+							<img src="./pexels-karolina-grabowska-4467687.jpg" alt="" />
+							<div class="body">
+								<div class="name">Андрій</div>
+								<div class="text">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit.
+								</div>
+								<div class="meta">13.03.2020</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="block-wrapper">
+				<div class="scroll-y block" data-role="files">
+					<button data-event="download" class="title">
+						Завантажити
+						<i class="fa fa-cloud-download"></i>
+					</button>
+					<div class="wrapper">
+						<div class="file" data-file-id="211441">
+							<img class="img" src="./pdf.png" alt="" />
+							<span class="name">
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+								Quo, natus.
+							</span>
+							<span class="extension"> .pdf </span>
+							<span data-event="dismiss">
+								<i class="fa fa-trash"></i>
+							</span>
+						</div>
+						<div class="file dismissed" data-file-id="211441">
+							<img class="img" src="./pdf.png" alt="" />
+							<span class="name">
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+								Quo, natus.
+							</span>
+							<span class="extension"> .pdf </span>
+							<span data-event="dismiss">
+								<i class="fa fa-trash"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="block" data-role="report">
+					<div class="upload-file">
+						<input id="uploadFileReport" type="file" />
+						<label for="uploadFileReport">
+							<i class="fa fa-file-upload"></i>
+							<span class="text"> Оберіть файл або перетягніть cюди </span>
+						</label>
+					</div>
+					<div class="comment">
+						<input placeholder="Коментар" type="text" maxlength="256" />
+						<button>Додати</button>
+					</div>
+					<div class="files">
+						<div class="file" data-file-id="211441">
+							<img class="img" src="./pdf.png" alt="" />
+							<span class="name">
+								Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+								Quo, natus.
+							</span>
+							<span class="extension"> .pdf </span>
+							<span data-event="dismiss">
+								<i class="fa fa-trash"></i>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="block" data-role="comments">
+					<div class="add-comment">
+						<input maxlength="256" placeholder="Коментар" type="text" data-name="comment" />
+						<button type="button" data-event="sendComment">Додати</button>
+					</div>
+					<div class="comments-wrapper">
+						<div class="comment">
+							<img src="./pexels-karolina-grabowska-4467687.jpg" alt="" />
+							<div class="body">
+								<div class="name">Андрій</div>
+								<div class="text">Lorem, ipsum.</div>
+								<div class="meta">13.03.2020</div>
+							</div>
+						</div>
+						<div class="comment">
+							<img src="./pexels-karolina-grabowska-4467687.jpg" alt="" />
+							<div class="body">
+								<div class="name">Андрій</div>
+								<div class="text">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit.
+									Fugiat quisquam dolorem molestias repudiandae.
+								</div>
+								<div class="meta">13.03.2020</div>
+							</div>
+						</div>
+						<div class="comment">
+							<img src="./pexels-karolina-grabowska-4467687.jpg" alt="" />
+							<div class="body">
+								<div class="name">Андрій</div>
+								<div class="text">
+									Lorem ipsum dolor sit amet consectetur adipisicing elit.
+								</div>
+								<div class="meta">13.03.2020</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="block">
+					<button type="button" class="button active" data-event="info">
+						Деталі
+					</button>
+					<button type="button" class="button ml-2" data-event="details">
+						Звіт
+					</button>
+				</div>
+				<div class="block">
+					<div class="calendar drop-down__wrapper">
+						<button data-role="dropdownBtn" data-toggle="deadline" data-event="calendar" disabled>
+							Контроль:
+							<span>
+								<span data-name="date">00.00.0000</span>
+								<i class="fa fa-caret-down"></i>
+							</span>
+						</button>
+						<div class="drop-down" id="deadline" data-disabled="true">
+							<table class="date-picker" valign="center">
+								<div class="control w-100 d-flex justify-content-between align-items-center"
+									style="padding: 12px">
+									<i class="fa fa-caret-left" data-event="previous"></i>
+									<div class="d-flex">
+										<span data-role="month" class="mr-1">Квітень</span>
+										<span data-role="year" class="ml-1">2020</span>
+									</div>
+									<i class="fa fa-caret-right" data-event="next"></i>
+								</div>
+								<thead>
+									<tr>
+										<td class="week-day">
+											<div>Пн</div>
+										</td>
+										<td class="week-day">
+											<div>Вт</div>
+										</td>
+										<td class="week-day">
+											<div>Ср</div>
+										</td>
+										<td class="week-day">
+											<div>Чт</div>
+										</td>
+										<td class="week-day">
+											<div>Пт</div>
+										</td>
+										<td class="week-day">
+											<div>Сб</div>
+										</td>
+										<td class="week-day">
+											<div>Нд</div>
+										</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<div class="date-item active">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="block">
+					<div class="calendar drop-down__wrapper">
+						<button data-role="dropdownBtn" data-toggle="deadline" data-event="calendar" disabled>
+							Дедлайн:
+							<span>
+								<span data-name="date">00.00.0000</span>
+								<i class="fa fa-caret-down"></i>
+							</span>
+						</button>
+						<div class="drop-down" id="deadline">
+							<table class="date-picker" valign="center">
+								<div class="control w-100 d-flex justify-content-between align-items-center"
+									style="padding: 12px">
+									<i class="fa fa-caret-left" data-event="previous"></i>
+									<div class="d-flex">
+										<span data-role="month" class="mr-1">Квітень</span>
+										<span data-role="year" class="ml-1">2020</span>
+									</div>
+									<i class="fa fa-caret-right" data-event="next"></i>
+								</div>
+								<thead>
+									<tr>
+										<td class="week-day">
+											<div>Пн</div>
+										</td>
+										<td class="week-day">
+											<div>Вт</div>
+										</td>
+										<td class="week-day">
+											<div>Ср</div>
+										</td>
+										<td class="week-day">
+											<div>Чт</div>
+										</td>
+										<td class="week-day">
+											<div>Пт</div>
+										</td>
+										<td class="week-day">
+											<div>Сб</div>
+										</td>
+										<td class="week-day">
+											<div>Нд</div>
+										</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<div class="date-item active">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+										<td>
+											<div class="date-item">1</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="block">
+					<div class="clean"></div>
+					<button class="button active" type="button" data-event="submit">
+						Змінити
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
