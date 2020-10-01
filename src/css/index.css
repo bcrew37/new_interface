@@ -78,6 +78,16 @@ a:hover {
   color: #47b2fa;
 }
 
+.drop-down_menu {
+  display: none;
+  opacity: 0;
+  transition: opacity 200ms;
+}
+.drop-down_menu.active {
+  display: block;
+  opacity: 1;
+}
+
 .copy {
   color: rgba(67, 78, 106, 0.35);
   position: absolute;
@@ -1335,11 +1345,12 @@ a:hover {
   border-color: #2196f3;
 }
 
-.drop-down__wrapper {
+.drop-down {
   position: relative;
 }
-.drop-down__wrapper .drop-down {
-  box-shadow: 0 1px 5px rgba(67, 78, 106, 0.6);
+
+.drop-down .drop-down_menu {
+  box-shadow: 0 1px 3px rgba(67, 78, 106, 0.35);
   padding: 10px 0px;
   width: 100%;
   position: absolute;
@@ -1347,35 +1358,32 @@ a:hover {
   z-index: 10;
   background-color: #ffffff;
 }
-.drop-down__wrapper .drop-down .drop-down__list {
+.drop-down .drop-down_menu .drop-down__list {
   max-height: 240px;
   overflow-y: auto;
 }
-.drop-down__wrapper .drop-down .drop-down__list::-webkit-scrollbar {
+.drop-down .drop-down_menu .drop-down__list::-webkit-scrollbar {
   width: 0;
 }
-.drop-down__wrapper .drop-down .drop-down__list .item {
+.drop-down .drop-down_menu .drop-down__list .item {
   transition: 100ms;
   padding: 15px;
   width: 100%;
 }
-.drop-down__wrapper .drop-down .drop-down__list .item i {
+.drop-down .drop-down_menu .drop-down__list .item i {
   transition: 100ms;
 }
-.drop-down__wrapper .drop-down .drop-down__list .item:hover {
+.drop-down .drop-down_menu .drop-down__list .item:hover {
   color: #2196f3;
 }
-.drop-down__wrapper .drop-down .drop-down__list .item:hover i {
+.drop-down .drop-down_menu .drop-down__list .item:hover i {
   color: #2196f3;
 }
 
-.calendar {
-  /* date selector */
-}
-.calendar .drop-down {
+.calendar .drop-down_menu.active {
   bottom: 45px;
   min-width: 300px;
-  display: none;
+  display: flex;
   flex-direction: column;
 }
 .calendar .control span {
@@ -1396,7 +1404,7 @@ a:hover {
   border-collapse: collapse;
   flex-grow: 1;
   text-align: center;
-  margin: 12px;
+  margin-left: 16px !important;
 }
 .calendar .date-picker thead tr td div {
   color: #34ace0;
@@ -1437,11 +1445,9 @@ a:hover {
   background-color: #34ace0;
   color: #ffffff;
 }
-
 .scroll-y {
   overflow-y: auto;
 }
-
 .upload-file {
   width: 100%;
 }
@@ -1467,7 +1473,6 @@ a:hover {
   color: rgba(67, 78, 106, 0.5);
   margin-bottom: 24px;
 }
-
 .alerts {
   position: absolute;
   z-index: 10000;
@@ -1475,17 +1480,14 @@ a:hover {
   top: 0;
   right: 0;
 }
-
 .alert {
   display: none;
   transition: 150ms;
   margin-bottom: 5px;
 }
-
 .alert msg {
   margin-left: 10px;
 }
-
 .alert.show {
   opacity: 0.75;
 }

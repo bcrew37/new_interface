@@ -1,5 +1,5 @@
 <modals>
-	<div class="modal fade" data-modal="uploadDoc" tabindex="-1" role="dialog" aria-hidden="true">
+	{{!-- <div class="modal fade" data-modal="uploadDoc" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog  modal-dialog-centered modal-md" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -135,7 +135,7 @@
 			</div>
 		</div>
 
-	</div>
+	</div> --}}
 
 	<div class="modal fade" data-modal="newTodo" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
@@ -159,13 +159,13 @@
 						</div>
 					</div>
 					<div class="block" data-name="performers">
-						<div class="drop-down__wrapper" data-role="performersList">
-							<button title="Натисніть щоб відкрити список" data-role="dropdownBtn"
+						<div class="drop-down" data-role="performersList">
+							<button data-event="toggle" title="Натисніть щоб відкрити список" data-role="dropdownBtn"
 								data-toggle="performersList" data-event="performersList">
 								Виконавці
 								<i class="fa fa-plus-circle"></i>
 							</button>
-							<div class="drop-down" id="performersList">
+							<div class="drop-down_menu" id="performersList">
 								<div class="drop-down__list">
 									<button class="item performer" data-performer-id="1830913">
 										<div class="user-block">
@@ -208,89 +208,18 @@
 				</div>
 				<div class="footer">
 					<div class="block">
-						<div class="calendar drop-down__wrapper">
-							<button data-role="dropdownBtn" data-toggle="deadline" data-event="calendar">
-								Контроль:
-								<span>
-									<span data-name="date">00.00.0000</span>
-									<i class="fa fa-caret-down"></i>
-								</span>
-							</button>
-							<div class="drop-down" id="deadline">
-								<table class="date-picker" valign="center">
-									<div class="control w-100 d-flex justify-content-between align-items-center"
-										style="padding: 12px">
-										<i class="fa fa-caret-left" data-event="previous"></i>
-										<div class="d-flex">
-											<span data-role="month" class="mr-1">Квітень</span>
-											<span data-role="year" class="ml-1">2020</span>
-										</div>
-										<i class="fa fa-caret-right" data-event="next"></i>
-									</div>
-									<thead>
-										<tr>
-											<td class="week-day">
-												<div>Пн</div>
-											</td>
-											<td class="week-day">
-												<div>Вт</div>
-											</td>
-											<td class="week-day">
-												<div>Ср</div>
-											</td>
-											<td class="week-day">
-												<div>Чт</div>
-											</td>
-											<td class="week-day">
-												<div>Пт</div>
-											</td>
-											<td class="week-day">
-												<div>Сб</div>
-											</td>
-											<td class="week-day">
-												<div>Нд</div>
-											</td>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>
-												<div class="date-item active">1</div>
-											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
+
 					</div>
 					<div class="block">
-						<div class="calendar drop-down__wrapper">
-							<button data-event="pickerToggle" data-toggle="deadline">
+						<div data-role="calendar-deadline" class="calendar drop-down">
+							<button data-event="toggle">
 								Дедлайн:
 								<span>
 									<span data-name="selectedDate">00.00.0000</span>
 									<i class="fa fa-caret-down"></i>
 								</span>
 							</button>
-							<div class="drop-down" id="deadline">
+							<div class="drop-down_menu">
 								<table class="date-picker" valign="center">
 									<div class="control w-100 d-flex justify-content-between align-items-center"
 										style="padding: 12px">
@@ -331,24 +260,6 @@
 											<td>
 												<div class="date-item active">1</div>
 											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
-											<td>
-												<div class="date-item">1</div>
-											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -363,7 +274,7 @@
 			</div>
 		</div>
 	</div>
-
+	{{!-- 
 	<div class="modal fade" data-modal="todoInfo" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
 			<div class="modal-content">
@@ -753,5 +664,5 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, ducimus.</tex
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 </modals>

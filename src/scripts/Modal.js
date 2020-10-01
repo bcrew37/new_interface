@@ -5,13 +5,13 @@
             this.modals = {}
             this.Http = Factory.getClass("Http")
             this.Alert = Factory.getClass("Alert")
-            this.Http = Factory.getClass("Http")
 
             this.init("newTodo", document.querySelector('[data-modal="newTodo"]'), data => {
                 const modal = this.modals["newTodo"].node
                 let files = modal.querySelector('[data-role="files"]'),
                     submit = modal.querySelector('[data-event="submit"]')
 
+                // files
                 files.innerHTML = ""
                 data.forEach(node => {
                     let file = node.closest("tr"),
@@ -29,6 +29,9 @@
                     </div>`)
                 })
 
+                // date picker
+
+                // submit
                 submit.onclick = () => {
                     let performers = modal.querySelector('[data-role="performers"]'),
                         description = modal.querySelector('[data-role="description"]').innerHTML.trim(),

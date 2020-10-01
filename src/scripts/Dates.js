@@ -52,9 +52,17 @@
             if (m < 10) m = '0' + (m);
             return d + '.' + m + '.' + y;
         }
+
+        parseDMY(str) {
+            let d = parseInt(str.substring(0, 2)),
+                m = parseInt(str.substring(3, 5)) - 1,
+                y = parseInt(str.substring(6, 10))
+
+            return [d, m, y]
+        }
     }
 
-    Factory.setSingletone("Date", Dates)
+    Factory.setSingletone("Dates", Dates)
 
 })(window.Factory);
 
