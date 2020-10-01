@@ -7,7 +7,7 @@
                 on: (target) => this.select(target),
                 off: (target) => this.unselect(target)
             })
-            this.Selector.init('.body .table-row input[type="checkbox"]')
+            this.Selector.init('.body .table-row input[type="checkbox"]').innerHtml
 
             this.Modal = Factory.getClass("Modal")
             this.init("#newTodo", () => this.Modal.render("newTodo", this.Selector.selected))
