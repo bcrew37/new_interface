@@ -83,10 +83,6 @@ a:hover {
   opacity: 0;
   transition: opacity 200ms;
 }
-.drop-down_menu.active {
-  display: block;
-  opacity: 1;
-}
 
 .copy {
   color: rgba(67, 78, 106, 0.35);
@@ -1347,9 +1343,11 @@ a:hover {
 
 .drop-down {
   position: relative;
+  transition: opacity 200ms;
 }
 
 .drop-down .drop-down_menu {
+  opacity: 0;
   box-shadow: 0 1px 3px rgba(67, 78, 106, 0.35);
   padding: 10px 0px;
   width: 100%;
@@ -1357,6 +1355,7 @@ a:hover {
   display: none;
   z-index: 10;
   background-color: #ffffff;
+  transition: opacity 200ms;
 }
 .drop-down .drop-down_menu .drop-down__list {
   max-height: 240px;
@@ -1381,10 +1380,17 @@ a:hover {
 }
 
 .calendar .drop-down_menu.active {
+  opacity: 1;
   bottom: 45px;
   min-width: 300px;
   display: flex;
   flex-direction: column;
+  transition: opacity 200ms;
+}
+.calendar .drop-down_menu {
+  opacity: 0;
+  bottom: 45px !important;
+  position: absolute !important;
 }
 .calendar .control span {
   color: rgba(67, 78, 106, 0.75);
@@ -1403,6 +1409,7 @@ a:hover {
 .calendar .date-picker {
   border-collapse: collapse;
   flex-grow: 1;
+  width: 100%;
   text-align: center;
   margin-left: 16px !important;
 }
@@ -1489,5 +1496,5 @@ a:hover {
   margin-left: 10px;
 }
 .alert.show {
-  opacity: 0.75;
+  opacity: 0.95;
 }

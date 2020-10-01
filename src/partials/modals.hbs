@@ -208,7 +208,60 @@
 				</div>
 				<div class="footer">
 					<div class="block">
-
+						<div data-role="calendar-control" class="calendar drop-down">
+							<button data-event="toggle">
+								Контроль:
+								<span>
+									<span data-name="selectedDate">00.00.0000</span>
+									<i class="fa fa-caret-down"></i>
+								</span>
+							</button>
+							<div class="drop-down_menu">
+								<table class="date-picker" valign="center">
+									<div class="control w-100 d-flex justify-content-between align-items-center"
+										style="padding: 12px">
+										<i class="fa fa-caret-left" data-event="previous"></i>
+										<div class="d-flex">
+											<span data-name="pickerMonth" class="mr-1">Квітень</span>
+											<span data-name="pickerYear" class="ml-1">2020</span>
+										</div>
+										<i class="fa fa-caret-right" data-event="next"></i>
+									</div>
+									<thead>
+										<tr>
+											<td class="week-day">
+												<div>Пн</div>
+											</td>
+											<td class="week-day">
+												<div>Вт</div>
+											</td>
+											<td class="week-day">
+												<div>Ср</div>
+											</td>
+											<td class="week-day">
+												<div>Чт</div>
+											</td>
+											<td class="week-day">
+												<div>Пт</div>
+											</td>
+											<td class="week-day">
+												<div>Сб</div>
+											</td>
+											<td class="week-day">
+												<div>Нд</div>
+											</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<div class="date-item active">1</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
 					</div>
 					<div class="block">
 						<div data-role="calendar-deadline" class="calendar drop-down">
