@@ -9,12 +9,21 @@ app.set("views", __dirname + "/src/partials");
 app.use("", express.static(__dirname + "/src"));
 
 // Urls + Render
-app.use("/", (req, res) => {
-    res.render("index", {
-        scripts: []
+app.get("/", (req, res) => {
+    res.render("index")
+})
+app.get("/boards", (req, res) => {
+    res.render("index")
+})
+app.get("/files", (req, res) => {
+    res.render("index")
+})
+app.use("/test", (req, res) => {
+    res.send({
+        json: "true"
     })
 })
 
-app.listen(8080, () => {
+app.listen(3000, () => {
     console.log("Server has been started...");
 });

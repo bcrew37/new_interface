@@ -6,7 +6,9 @@
 </head>
 
 <body>
-    <div class="modals"> {{> modals}} </div>
+    {{> alerts}}
+    {{> modals}}
+
     <span class="copy">
         <span class="m-3"> Beta 1.2.0 </span>
         &copy; &nbsp; 37 Web Production
@@ -20,22 +22,7 @@
         </div>
     </div>
 
-    <div id="templates">
-        <template data-content="files">
-            {{> files}}
-            <script src="./scripts/FilesHandler.js"></script>
-        </template>
-        <template data-content="boards">
-            {{> boards}}
-        </template>
-        <template data-content="charts">
-            {{> files}}
-        </template>
-        <template data-content="clPanel">
-            {{> files}}
-        </template>
-    </div>
-
+    {{> templates}}
     {{> scripts}}
 </body>
 

@@ -7,10 +7,10 @@
             this.Content = Factory.getClass("Content")
 
             this.Content.init({
-                "/charts": document.querySelector('#templates [data-content="charts"]'),
-                "/files": document.querySelector('#templates [data-content="files"]'),
-                "/boards": document.querySelector('#templates [data-content="boards"]'),
-                "/clPanel": document.querySelector('#templates [data-content="clPanel"]'),
+                "/charts": document.querySelector('templates [data-content="charts"]'),
+                "/files": document.querySelector('templates [data-content="files"]'),
+                "/boards": document.querySelector('templates [data-content="boards"]'),
+                "/clPanel": document.querySelector('templates [data-content="clPanel"]'),
             })
 
             this.Navbar.elements["files"].sub(

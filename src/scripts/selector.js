@@ -4,15 +4,21 @@
 
         constructor(obj) {
             this.selected = []
-            // Obj: selector, on, off, length
+            // Obj: on, off, length
 
             this.obj = obj
+        }
+
+        init(selector) {
+            this.obj.selector = selector
             document.querySelectorAll(`${this.obj.selector}`)
-                .forEach(node => node.addEventListener("click",
-                    (e) => {
-                        let target = e.target.closest(this.obj.selector);
-                        (!target.classList.contains("active")) ? this.on(target) : this.off(target)
-                    }))
+                .forEach(node => {
+                    node.addEventListener("click",
+                        (e) => {
+                            let target = e.target.closest(this.obj.selector);
+                            (!target.classList.contains("active")) ? this.on(target) : this.off(target)
+                        })
+                })
         }
 
         clear(callback) {

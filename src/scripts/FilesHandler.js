@@ -4,15 +4,13 @@
 
         constructor() {
             this.Selector = Factory.getClass("Selector", {
-                selector: '.body .table-row input[type="checkbox"]',
                 on: (target) => this.select(target),
-                off: (target) => this.unselect(target),
+                off: (target) => this.unselect(target)
             })
+            this.Selector.init('.body .table-row input[type="checkbox"]')
 
-            this.init("#newTodo", (e) => $('[data-modal="todoInfo"]').modal("show"))
-            this.init("#existTodo", (e) => $('[data-modal="existTodo"]').modal("show"))
-            this.init("#shareDoc", (e) => $('[data-modal="shareDoc"]').modal("show"))
-            this.init("#uploadDoc", (e) => $('[data-modal="uploadDoc"]').modal("show"))
+            this.Modal = Factory.getClass("Modal")
+            this.init("#newTodo", () => this.Modal.render("newTodo", this.Selector.selected))
         }
 
         select(target) {
@@ -26,7 +24,7 @@
         }
 
         init(selector, callback) {
-            document.querySelector(`${selector}`).addEventListener("click", (e) => callback(e))
+            document.querySelector(`${selector}`).addEventListener("click", () => callback())
         }
 
     }
