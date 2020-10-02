@@ -4,18 +4,7 @@
         constructor() {
             this.Date = new Date()
             this.months = [
-                "Січень",
-                "Лютий",
-                "Березень",
-                "Квітень",
-                "Травень",
-                "Червень",
-                "Липень",
-                "Серпень",
-                "Вересень",
-                "Жовтень",
-                "Листопад",
-                "Грудень",
+                "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень",
             ]
         }
 
@@ -40,25 +29,19 @@
         }
 
         mIndex(m = this.month()) {
-            let i = this.months.indexOf(m)
-            if (i !== -1) { return i } else return undefined
+            let i = this.months.indexOf(m); if (i !== -1) { return i } else return undefined
         }
 
-        DMY(d = this.date(), m = this.mIndex(), y = this.year(),) {
-            d = parseInt(d)
+        DMY(d = this.date(), m = this.mIndex(), y = this.year()) {
+            d = parseInt(d);
             m = parseInt(m) + 1
             y = parseInt(y)
-            if (d < 10) d = '0' + d;
-            if (m < 10) m = '0' + (m);
-            return d + '.' + m + '.' + y;
+
+            if (d < 10) d = '0' + d; if (m < 10) m = '0' + m; return d + '.' + m + '.' + y
         }
 
         parseDMY(str) {
-            let d = parseInt(str.substring(0, 2)),
-                m = parseInt(str.substring(3, 5)) - 1,
-                y = parseInt(str.substring(6, 10))
-
-            return [d, m, y]
+            let d = parseInt(str.substring(0, 2)), m = parseInt(str.substring(3, 5)) - 1, y = parseInt(str.substring(6, 10)); return [d, m, y]
         }
     }
 

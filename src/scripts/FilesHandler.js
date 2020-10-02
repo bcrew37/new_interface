@@ -5,9 +5,9 @@
         constructor() {
             this.Selector = Factory.getClass("Selector", {
                 on: (target) => this.select(target),
-                off: (target) => this.unselect(target)
+                off: (target) => this.unselect(target),
+                selector: document.querySelectorAll('.body .table-row input[type="checkbox"]')
             })
-            this.Selector.init('.body .table-row input[type="checkbox"]')
 
             this.Modal = Factory.getClass("Modal")
             this.init("#newTodo", () => this.Modal.render("newTodo", this.Selector.selected))

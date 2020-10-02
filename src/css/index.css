@@ -944,7 +944,7 @@ a:hover {
   display: flex;
   flex-direction: column;
 }
-.modal .block-wrapper [data-name="performers"] [data-event="performersList"] {
+.modal .block-wrapper [data-name="performers"] [data-event="toggle"] {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -953,7 +953,7 @@ a:hover {
   color: rgba(67, 78, 106, 0.85);
   height: 30px;
 }
-.modal .block-wrapper [data-name="performers"] [data-event="performersList"] i {
+.modal .block-wrapper [data-name="performers"] [data-event="toggle"] i {
   color: #2196f3;
 }
 .modal .block-wrapper [data-name="performers"] .performer {
@@ -1407,11 +1407,12 @@ a:hover {
   color: #2196f3;
 }
 .calendar .date-picker {
-  border-collapse: collapse;
+  border-collapse: separate;
   flex-grow: 1;
   width: 100%;
   text-align: center;
-  margin-left: 16px !important;
+  vertical-align: center;
+  border-spacing: 10px;
 }
 .calendar .date-picker thead tr td div {
   color: #34ace0;
@@ -1420,10 +1421,12 @@ a:hover {
   width: 25px;
   height: 25px;
 }
-.calendar .date-picker tr td:not(.week-day) div:hover {
+
+.calendar .date-picker tr td:not(.week-day):not(.empty) div:hover {
   background-color: #34ace0;
   color: #def2fa;
 }
+
 .calendar td {
   padding: 5px;
   text-align: center;
@@ -1448,7 +1451,7 @@ a:hover {
 .calendar .week-end .date-item {
   color: #ff5d6b;
 }
-.calendar .date-item.active {
+.calendar td.active .date-item {
   background-color: #34ace0;
   color: #ffffff;
 }

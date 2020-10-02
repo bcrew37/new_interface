@@ -4,26 +4,20 @@
 
         constructor(obj) {
             this.selected = []
-            // Obj: on, off, length
 
+            // Obj: on, off, selector, length
             this.obj = obj
-        }
-
-        init(selector) {
-            this.obj.selector = selector
-            document.querySelectorAll(`${this.obj.selector}`)
+            this.obj.selector
                 .forEach(node => {
-                    node.addEventListener("click",
-                        (e) => {
-                            let target = e.target.closest(this.obj.selector);
-                            (!target.classList.contains("active")) ? this.on(target) : this.off(target)
-                        })
+                    node.addEventListener("click", (e) => {
+                        let target = $(e.target).parent(this.obj.selector); (!target.hasClass("active")) ? this.on(target[0]) : this.off(target[0])
+                    })
                 })
         }
 
         clear(callback) {
             this.selected = []
-            document.querySelectorAll(`${this.obj.selector}`)
+            this.obj.selector
                 .forEach(node => {
                     if (node.classList.contains("active")) node.classList.remove("active")
                     callback(node)
