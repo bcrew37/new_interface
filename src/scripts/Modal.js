@@ -7,11 +7,10 @@
             this.Alert = Factory.getClass("Alert")
 
             this.init("newTodo", document.querySelector('[data-modal="newTodo"]'), d => {
-                {   // Validation
-                    if (d.length == 0) return this.Alert.render("warning", "Оберіть файли...")
-                    if (d.length > 1) return this.Alert.render("danger", "Не більше 1 файлу!...")
-                }
-
+                if (d.length == 0) return this.Alert.render("warning", "Оберіть файли...")
+                if (d.length > 1) return this.Alert.render("danger", "Не більше 1 файлу!...")
+                return "executed"
+            }, d => {
                 const modal = this.modals["newTodo"].node
                 const files = modal.querySelector('[data-role="files"]'),
                     submit = modal.querySelector('[data-event="submit"]')
@@ -51,7 +50,7 @@
                     }, data => this.Alert.render("success", "Задачу створено."), $(modal).modal("hide"))
                 }
 
-            });
+            })
 
 
         }
@@ -60,10 +59,12 @@
             this.modals[name].render(data)
         }
 
-        init(name, node, render) {
+        init(name, node, conditions, render) {
             this.modals[name] = {
                 render: (data) => {
-                    $(node).modal("show"); render(data)
+                    if (conditions(data) == "executed") {
+                        $(node).modal("show"); render(data)
+                    }
                 }, node
             }
         }

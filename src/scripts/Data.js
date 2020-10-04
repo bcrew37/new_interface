@@ -1,11 +1,14 @@
 (function (Factory) {
 
     class Data {
-        constructor() { }
+        constructor() {
+
+        }
 
         get() {
 
         }
+
         set() {
 
         }
