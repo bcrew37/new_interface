@@ -2,7 +2,6 @@
 @import "../fonts/fonts-manager.css";
 @import "../icons/font-icons/css/all.css";
 @import "../libs/bootstrap-4.5.2/dist/css/bootstrap.css";
-@import "./modals.css";
 
 body {
   font-family: "Roboto regular", "Heltevica regular", "Opensans regular",

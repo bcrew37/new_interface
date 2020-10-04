@@ -10,7 +10,8 @@
             })
 
             this.Modal = Factory.getClass("Modal")
-            this.init("#newTodo", () => this.Modal.render("newTodo", this.Selector.selected))
+            const d = this.Selector.selected
+            this.init("#newTodo", () => this.Modal.render("newTodo", d))
         }
 
         select(target) {
