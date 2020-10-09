@@ -27,7 +27,7 @@
 							<div class="spinner-border mr-4" role="status"
 								style="color:#34ace0; font-size:10px; width:20px; height:20px;">
 							</div>
-							<a href="#">Sending data...</a>
+							<a href="">Sending data...</a>
 						</div>
 						<span class="status-text"></span>
 					</div>
@@ -64,7 +64,7 @@
 							<div class="spinner-border mr-4" role="status"
 								style="color:#34ace0; font-size:10px; width:20px; height:20px;">
 							</div>
-							<a href="#">Sending data...</a>
+							<a href="">Sending data...</a>
 						</div>
 						<span class="status-text"></span>
 					</div>
@@ -79,63 +79,67 @@
 		</div>
 	</div>
 
-	<div class="modal fade" data-modal="existTodo" tabindex="-1" role="dialog" aria-hidden="true">
+	 --}}
 
+	<div class="modal fade" data-modal="existTodo" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
-				<div class="modal-header" style="padding: 12px; padding-bottom:0px">
+				<div class="header">
+					<div class="clear flex-grow-1"></div>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+						<i class="far fa-times"></i>
 					</button>
 				</div>
-				<div class="modal-body d-flex" style="padding:12px">
-					<div class="col-6" style="height: 189px; overflow-y:auto">
-
-						<div class="files-container" style="padding: 12px;"></div>
+				<div class="block-wrapper">
+					<div class="scroll-y block" data-name="files" data-role="files">
 
 					</div>
-					<div class="col-6">
-
-						<input id="comment" type="text" class="custom-input w-100" placeholder="Comment">
-
-						<div class="drop-down w-100">
-							<button class="drop-down_btn add-btn">
-								<span>+</span>
-								Select Task
-							</button>
-							<div class="drop-down_list w-100" id="todo-list">
-
+					<div class="block" data-name="todos">
+						<div class="findTodo">
+							<input type="text" data-name="findTodo" placeholder="Пошук по назві...">
+							<i data-event="findTodo" title="Натисніть для пошуку." class="far fa-search"></i>
+						</div>
+						<div class="todo-list">
+							<div class="todo">
+								<img title="Арваменко Григорій" src="./img/Picture.png" alt="">
+								<div class="body">
+									<div class="name">
+										Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, delectus.
+									</div>
+									<span class="status new"></span>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input position-static" type="checkbox" />
+								</div>
 							</div>
+							<div class="todo">
+								<img title="Арваменко Григорій" src="./img/Picture.png" alt="">
+								<div class="body">
+									<div class="name">
+										Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, delectus.
+									</div>
+									<span class="status new"></span>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input position-static" type="checkbox" />
+								</div>
+							</div>
+							<span style="display: none;" data-event="pagination">more...</span>
 						</div>
-
-						<div class="selected_Todo">
-
-						</div>
-
 					</div>
 				</div>
-				<div class="modal-footer">
+				<div class="footer">
+					<div class="block">
 
-					<div class="status mr-2">
-						<div class="status-spinner d-none">
-							<div class="spinner-border mr-4" role="status"
-								style="color:#34ace0; font-size:10px; width:20px; height:20px;">
-							</div>
-							<a href="#">Sending data...</a>
-						</div>
-						<span class="status-text"></span>
 					</div>
-
-					<div class="d-flex">
-						<button class="ml-auto custom-button" data-dismiss="modal">Close</button>
-						<button id="add-ExistingTodo_btn" class="custom-button info">Modify</button>
+					<div class="block">
+						<div class="clean"></div>
+						<button type="button" class="button active" data-event="submit">Створити</button>
 					</div>
-
 				</div>
 			</div>
 		</div>
-
-	</div> --}}
+	</div>
 
 	<div class="modal fade" data-modal="newTodo" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
@@ -148,30 +152,25 @@
 				</div>
 				<div class="block-wrapper">
 					<div class="scroll-y block" data-name="files" data-role="files">
-						<div class="file" data-file-id="211441">
-							<img class="img" src="./pdf.png" alt="" />
-							<span class="name">
-								Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quo,
-								natus.
-							</span>
-							<span class="extension"> .pdf </span>
-							<span data-event="dismiss"> <i class="fa fa-trash"></i> </span>
-						</div>
+
 					</div>
 					<div class="block" data-name="performers">
-						<div class="drop-down">
-							<button data-event="toggle">
-								Виконавці
-								<i class="fa fa-plus-circle"></i>
-							</button>
-							<div class="drop-down_menu">
-								<div class="drop-down__list" data-role="performersList">
-
-								</div>
-							</div>
+						<div class="findPerformer">
+							<input data-name="findPerformer" type="text" data-event="findTodo"
+								placeholder="Пошук виконавців...">
+							<i data-event="findPerformer" title="Натисніть для пошуку." class="far fa-search"></i>
 						</div>
 						<div data-role="performers" class="scroll-y list">
-
+							<button class="performer" data-performer-id="${p.id}">
+								<div class="user-block">
+									<img class="img" src="./img/Picture.png" alt="" />
+									<span class="name">Lorem ipsum dolor sit amet.</span>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input position-static" type="checkbox" />
+								</div>
+							</button>
+							<span style="display: none;" data-event="pagination">more...</span>
 						</div>
 					</div>
 					<div data-name="description" class="block">

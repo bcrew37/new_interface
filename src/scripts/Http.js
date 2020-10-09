@@ -38,7 +38,7 @@
 
                     if (response.ok) {
                         const result = await response.json()
-                        callback(result)
+                        if (callback) callback(result)
                     } else console.error("Not al ok...")
                 } catch (error) {
                     throw console.error("Oops! " + error)

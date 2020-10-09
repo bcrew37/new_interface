@@ -5,47 +5,24 @@
             this.modals = {}
             this.Http = Factory.getClass("Http")
             this.Alert = Factory.getClass("Alert")
+            this.Data = Factory.getClass("Data")
+            this.Http = Factory.getClass("Http")
 
             this.init("newTodo", document.querySelector('[data-modal="newTodo"]'),
                 d => {
                     if (d.length == 0) return this.Alert.render("warning", "Оберіть файли...")
-                    if (d.length > 2) return this.Alert.render("danger", "Не більше 1 файлу!...")
                     return "done"
-                }, d => {
+                },
+                d => {
                     let modal = this.modals["newTodo"].node,
                         name = modal.querySelector('[data-role="name"]'),
                         description = modal.querySelector('[data-role="description"]'),
                         files = modal.querySelector('[data-role="files"]'),
                         performers = modal.querySelector('[data-role="performers"]'),
-                        performersList = modal.querySelector('[data-role="performersList"]'),
                         deadline = Factory.getClass("Datepicker", modal.querySelector('[data-role="calendar-deadline"]')),
                         control = Factory.getClass("Datepicker", modal.querySelector('[data-role="calendar-control"]')),
                         submit = modal.querySelector('[data-event="submit"]'),
                         pList = [{ name: "Andry", imgPath: "./img/Picture.png", id: "1325110" }]
-
-                    performers.innerHTML = ""; performersList.innerHTML = ""
-                    pList.forEach(p => $(performersList).append(`
-                    <button class="performer item" data-performer-id="${p.id}">
-                        <div class="user-block">
-                            <img class="img" src="${p.imgPath}" alt="" />
-                            <span class="name">${p.name}</span>
-                        </div>
-                        <span data-event="dismiss">
-                            <i class="fa fa-trash"></i>
-                        </span>
-                        <span data-event="select">
-                            <i class="fad fa-arrow-right"></i>
-                        </span>
-                    </button>`))
-                    performersList.querySelectorAll(".performer").forEach(p => {
-                        p.addEventListener("click", () => {
-                            if (p.classList.contains("item")) {
-                                $(performers).append(p); p.classList.remove("item"); p.classList.add("select");
-                            } else {
-                                $(performersList).append(p); p.classList.remove("select"); p.classList.add("item");
-                            }
-                        })
-                    })
 
                     files.innerHTML = ""
                     d.forEach(f => {
@@ -60,7 +37,6 @@
                                 ${fileName}
                             </span>
                             <span class="extension"> ${fileExt} </span>
-                            <span data-event="dismiss"><i class="fa fa-trash"></i></span>
                         </div>`)
                     })
 
@@ -80,6 +56,44 @@
 
                 })
 
+            this.init("existTodo", document.querySelector('[data-modal="existTodo"]'),
+                d => {
+                    if (d.length == 0) return this.Alert.render("warning", "Оберіть файли...")
+                    return "done"
+                },
+                d => {
+                    let modal = this.modals["existTodo"].node,
+                        files = modal.querySelector('[data-role="files"]'),
+                        submit = modal.querySelector('[data-event="submit"]'),
+                        todos = modal.querySelector('[data-role="todos"]')
+
+                    files.innerHTML = ""
+                    d.forEach(f => {
+                        let file = f.closest("tr"),
+                            fileName = file.querySelector(".name").innerHTML.trim(),
+                            fileExt = file.querySelector(".extension").innerHTML.trim()
+
+                        $(files).append(`
+                            <div class="file" data-file-id="${'1324'}">
+                                <img class="img" src="./img/docs-img/${fileExt.substr(1)}.png" alt="" />
+                                <span class="name">
+                                    ${fileName}
+                                </span>
+                                <span class="extension"> ${fileExt} </span>
+                            </div>`)
+                    })
+
+                    this.Data.get("Todos").then(data => {
+                        data.list.forEach(t => {
+
+                        })
+                    })
+
+                    submit.onclick = () => {
+                        this.Http.post("/test", {
+                        }, () => this.Alert.render("success", "Файли додані!"), $(modal).modal("hide"))
+                    }
+                })
         }
 
         render(name, data) {

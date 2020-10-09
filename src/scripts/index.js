@@ -8,6 +8,7 @@
 
         setPrototype(className, classConstructor) {
             this.classes.set(className, (args) => new classConstructor(args))
+            this.classes.set(`${className} -g`, () => classConstructor)
         }
 
         setSingletone(className, classConstructor) {

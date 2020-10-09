@@ -3,21 +3,22 @@
     class Observer {
 
         constructor() {
-            this.observers = []
+            this.observers = {}
         }
 
-        subscribe(f) {
-            this.observers.push(f)
+        subscribe(key, f) {
+            let observers = this.observers[key]
+            if (observers) { this.observers[key].push(f) } else this.observers[key] = [f]
         }
 
-        unsubscribe(f) {
-            this.observers = this.observers.filter(f => f !== f)
+        unsubscribe(key, rf) {
+            let observers = this.observers[key]
+            if (observers) observers = observers.filter(ef => ef !== rf)
         }
 
-        broadcast(data) {
-            this.observers.forEach(f => {
-                f(data)
-            })
+        broadcast(key, data) {
+            let observers = this.observers[key]
+            if (observers) observers.forEach(f => f(data));
         }
 
     }
