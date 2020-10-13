@@ -585,20 +585,16 @@ a:hover {
 .content-wrapper .content .body table {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0px 10px;
+  border-spacing: 0px 5px;
 }
 .content-wrapper .content .body table tr {
   transition: all 100ms;
 }
 .content-wrapper .content .body table tr.active {
-  box-shadow: 0px 0px 2px rgba(67, 78, 106, 0.2);
-  background: rgba(67, 78, 106, 5%);
+  background: rgba(139, 195, 64, 5%);
 }
 .content-wrapper .content .body table tr:hover {
-  box-shadow: 0px 0px 2px rgba(67, 78, 106, 0.2);
-}
-.content-wrapper .content .body table tr.active {
-  box-shadow: 0px 0px 2px rgba(67, 78, 106, 0.2);
+  background: rgba(139, 195, 64, 10%);
 }
 .content-wrapper .content .body table td {
   color: rgba(67, 78, 106, 0.8);
@@ -950,6 +946,7 @@ a:hover {
 .modal .block-wrapper [data-name="performers"] {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .modal .block-wrapper [data-name="performers"] .findPerformer {
@@ -995,13 +992,15 @@ a:hover {
   height: 15px;
   width: 15px;
   margin-bottom: 8px;
+  margin-left: 20px;
 }
 
-.modal .block-wrapper [data-name="performers"] [data-event="pagination"] {
+.modal .block-wrapper [data-event="pagination"] {
   display: flex;
   width: 100%;
   justify-content: center;
   color: #2196f3;
+  margin-top: 25px;
   cursor: pointer;
 }
 
@@ -1012,8 +1011,10 @@ a:hover {
   flex-wrap: nowrap;
   justify-content: space-between;
   width: 100%;
+  flex-grow: 1;
   color: rgba(67, 78, 106, 0.85);
   font-size: 14px;
+  overflow: hidden;
 }
 .modal .block-wrapper [data-name="performers"] .performer .img {
   width: 30px;
@@ -1022,6 +1023,11 @@ a:hover {
   object-position: center;
   margin-right: 20px;
   border-radius: 50%;
+}
+.modal .block-wrapper [data-name="performers"] .performer .name {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .modal .block-wrapper [data-name="performers"] .performer .user-block {
   flex-grow: 1;

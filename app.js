@@ -88,7 +88,6 @@ app.use("/test", (req, res) => {
         },
     ])
 })
-
 app.use("/notifications", (req, res) => {
 
     res.send({
@@ -123,7 +122,6 @@ app.use("/notifications", (req, res) => {
         ]
     })
 })
-
 app.use("/todos", (req, res) => {
     res.send({
         page: 1,
@@ -149,7 +147,76 @@ app.use("/todos", (req, res) => {
         ]
     })
 })
+app.use("/pList", (req, res) => {
+    res.send([
+        {
+            imgPath: "./img/avatars/Picture.png",
+            name: "Сергей брин",
+            id: "1"
+        },
+        {
+            imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
+            name: "Лари Пейдж",
+            id: "2"
+        },
+        {
+            imgPath: "./img/avatars/pexels-ralph-rabago-3214734.jpg",
+            name: "Сергей Пейдж",
+            id: "3;askd;l"
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Карло Магистрале",
+            id: "4"
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Карло Магистрале",
+            id: "5"
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Карло Магистрале",
+            id: "6"
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Карло Магистрале",
+            id: "7"
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Карло Магистрале",
+            id: "8"
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Карло Магистрале",
+            id: "9"
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Карло Магистрале",
+            id: "10"
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Карло Магистрале",
+            id: "11"
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Карло Магистрале",
+            id: "12"
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Карло Магистрале",
+            id: "13"
+        },
 
+    ])
+})
 
 app.listen(3000, () => {
     console.log("Server has been started...");

@@ -18,7 +18,7 @@
         getClass = (className, ...args) => {
             let constructor = this.classes.get(className)
             if (typeof constructor == "function") {
-                return constructor(...args)
+                return constructor(args)
             } else return constructor || console.error(`Oops! not possible to read class: ${className}`)
         }
 

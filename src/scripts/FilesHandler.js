@@ -7,21 +7,21 @@
             this.Selector = Factory.getClass("Selector", { on: target => this._select(target), off: target => this._unselect(target) })
 
             this.init("#newTodo", () => this.Modal.render("newTodo", this.Selector.selected))
+            this.init("#existTodo", () => this.Modal.render("existTodo", this.Selector.selected))
+
             this.Data = Factory.getClass("Data")
             this.Data.get("Files").then(data => this.render(data))
 
             Factory.getClass("Notifications").render(document.querySelector(".tool-bar .notifications"))
-
-            this.init("#existTodo", () => this.Modal.render("existTodo", this.Selector.selected))
         }
 
         _select(target) {
-            target.checked = true
+            target.closest('.table-row').querySelector('input[type="checkbox"]').checked = true
             target.closest(".table-row").classList.add("active")
         }
 
         _unselect(target) {
-            target.checked = false
+            target.closest('.table-row').querySelector('input[type="checkbox"]').checked = false
             target.closest(".table-row").classList.remove("active")
         }
 
@@ -58,7 +58,8 @@
                     </td>
                 </tr>`
             ))
-            this.Selector.init(document.querySelectorAll('.body .table-row input[type="checkbox"]'))
+
+            this.Selector.init(document.querySelectorAll('.body .table-row'))
         }
 
     }

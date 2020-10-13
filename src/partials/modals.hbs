@@ -155,22 +155,15 @@
 
 					</div>
 					<div class="block" data-name="performers">
-						<div class="findPerformer">
-							<input data-name="findPerformer" type="text" data-event="findTodo"
+						<form class="findPerformer">
+							<input data-name="field" type="text" data-event="findTodo"
 								placeholder="Пошук виконавців...">
-							<i data-event="findPerformer" title="Натисніть для пошуку." class="far fa-search"></i>
-						</div>
-						<div data-role="performers" class="scroll-y list">
-							<button class="performer" data-performer-id="${p.id}">
-								<div class="user-block">
-									<img class="img" src="./img/Picture.png" alt="" />
-									<span class="name">Lorem ipsum dolor sit amet.</span>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input position-static" type="checkbox" />
-								</div>
+							<button type="submit">
+								<i data-event="find" title="Натисніть для пошуку." class="far fa-search"></i>
 							</button>
-							<span style="display: none;" data-event="pagination">more...</span>
+						</form>
+						<div data-role="performers" class="scroll-y list">
+
 						</div>
 					</div>
 					<div data-name="description" class="block">
@@ -302,7 +295,7 @@
 			</div>
 		</div>
 	</div>
-	{{!-- 
+	{{!--  
 	<div class="modal fade" data-modal="todoInfo" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-xl" role="document">
 			<div class="modal-content">

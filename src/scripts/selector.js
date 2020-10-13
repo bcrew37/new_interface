@@ -2,7 +2,7 @@
 
     class Selector {
 
-        constructor(obj = {}) {
+        constructor([obj]) {
             this.selected = []
 
             // Obj: on, off, selector, length
@@ -11,7 +11,7 @@
                 this.obj.selector
                     .forEach(node => {
                         node.addEventListener("click", (e) => {
-                            let target = $(e.target).parent(this.obj.selector); (!target.hasClass("active")) ? this._on(target[0]) : this._off(target[0])
+                            let target = $(e.target).parent(this.obj.selector); (!target.hasClass("active")) ? this.on(target[0]) : this.off(target[0])
                         })
                     })
             }
@@ -21,7 +21,7 @@
             selector
                 .forEach(node => {
                     node.addEventListener("click", (e) => {
-                        let target = $(e.target).parent(selector); (!target.hasClass("active")) ? this._on(target[0]) : this._off(target[0])
+                        let target = $(e.target).parent(selector); (!target.hasClass("active")) ? this.on(target[0]) : this.off(target[0])
                     })
                 })
         }
@@ -35,14 +35,14 @@
                 })
         }
 
-        _off(target) {
+        off(target) {
             this.selected = this.selected.filter(node => node !== target)
             target.classList.remove("active")
             if (this.obj.off) this.obj.off(target)
         }
 
-        _on(target) {
-            if (this.obj.length && this.selected.length > this.obj.length - 1) this._off(this.selected[this.selected.length - 1])
+        on(target) {
+            if (this.obj.length && this.selected.length > this.obj.length - 1) this.off(this.selected[this.selected.length - 1])
             this.selected.push(target)
             target.classList.add("active")
             if (this.obj.on) this.obj.on(target)

@@ -1,7 +1,7 @@
 (function (Factory) {
 
     class Datepicker {
-        constructor(selector) {
+        constructor([selector]) {
             this.Dates = Factory.getClass("Dates")
             this.selector = selector
 
