@@ -28,7 +28,7 @@ app.use("/test", (req, res) => {
             performer: "Lorem ipsum",
             taskCount: 2,
             date: "13.12.25",
-            id: "12312512512"
+            id: "12312d512512"
         },
         {
             name: "Lorem ipsum dolor sit emmet 2",
@@ -127,22 +127,34 @@ app.use("/todos", (req, res) => {
         page: 1,
         list: [
             {
-                name: "Lorem ipsum dolor sit emmet...",
+                name: "kakashi",
                 status: "inProgress",
-                imgPath: "./img/Picture.png",
-                id: "1239812093",
+                id: "12i01-2124124",
+                manager: {
+                    firstName: "Yura",
+                    lastName: "Kizary",
+                    imgPath: "./img/avatars/pexels-ralph-rabago-3214734.jpg"
+                }
             },
             {
-                name: "Lorem ipsum dolor sit emmet...",
-                status: "onHold",
-                imgPath: "./img/pexels-christina-morillo-1181690.png",
-                id: "2312517314",
+                name: "Lorem ipsum dolor sit emmet ruro kru kra kre",
+                status: "overdue",
+                id: "231251731241102312930912412414",
+                manager: {
+                    firstName: "Leha",
+                    lastName: "Jeltiy",
+                    imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
+                }
             },
             {
-                name: "Lorem ipsum dolor sit emmet...",
-                status: "success",
-                imgPath: "./img/pexels-christina-morillo-1181690.png",
-                id: "2312517314",
+                name: "Lorem ipsum dolor sit",
+                status: "completed",
+                id: "231251714o1-0241314",
+                manager: {
+                    firstName: "Uraburatrala",
+                    lastName: "Hirasimakongoshitiro",
+                    imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
+                }
             }
         ]
     })
@@ -169,52 +181,6 @@ app.use("/pList", (req, res) => {
             name: "Карло Магистрале",
             id: "4"
         },
-        {
-            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
-            name: "Карло Магистрале",
-            id: "5"
-        },
-        {
-            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
-            name: "Карло Магистрале",
-            id: "6"
-        },
-        {
-            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
-            name: "Карло Магистрале",
-            id: "7"
-        },
-        {
-            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
-            name: "Карло Магистрале",
-            id: "8"
-        },
-        {
-            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
-            name: "Карло Магистрале",
-            id: "9"
-        },
-        {
-            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
-            name: "Карло Магистрале",
-            id: "10"
-        },
-        {
-            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
-            name: "Карло Магистрале",
-            id: "11"
-        },
-        {
-            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
-            name: "Карло Магистрале",
-            id: "12"
-        },
-        {
-            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
-            name: "Карло Магистрале",
-            id: "13"
-        },
-
     ])
 })
 

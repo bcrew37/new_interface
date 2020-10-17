@@ -20,8 +20,8 @@
         init(selector) {
             selector
                 .forEach(node => {
-                    node.addEventListener("click", (e) => {
-                        let target = $(e.target).parent(selector); (!target.hasClass("active")) ? this.on(target[0]) : this.off(target[0])
+                    node.addEventListener("click", () => {
+                        (!node.classList.contains("active")) ? this.on(node) : this.off(node)
                     })
                 })
         }

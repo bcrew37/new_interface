@@ -95,37 +95,18 @@
 
 					</div>
 					<div class="block" data-name="todos">
-						<div class="findTodo">
-							<input type="text" data-name="findTodo" placeholder="Пошук по назві...">
-							<i data-event="findTodo" title="Натисніть для пошуку." class="far fa-search"></i>
+						<form class="findTodo">
+							<input data-name="field" type="text" data-event="findTodo"
+								placeholder="Пошук виконавців...">
+							<button type="submit">
+								<i data-event="find" title="Натисніть для пошуку." class="far fa-search"></i>
+							</button>
+						</form>
+						<div data-role="todos" class="todo-list">
+
 						</div>
-						<div class="todo-list">
-							<div class="todo">
-								<img title="Арваменко Григорій" src="./img/Picture.png" alt="">
-								<div class="body">
-									<div class="name">
-										Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, delectus.
-									</div>
-									<span class="status new"></span>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input position-static" type="checkbox" />
-								</div>
-							</div>
-							<div class="todo">
-								<img title="Арваменко Григорій" src="./img/Picture.png" alt="">
-								<div class="body">
-									<div class="name">
-										Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut, delectus.
-									</div>
-									<span class="status new"></span>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input position-static" type="checkbox" />
-								</div>
-							</div>
-							<span style="display: none;" data-event="pagination">more...</span>
-						</div>
+						<button title="Натисніть, щоб побачити більше виконавців"
+							data-event="pagination">Більше...</button>
 					</div>
 				</div>
 				<div class="footer">
@@ -134,7 +115,7 @@
 					</div>
 					<div class="block">
 						<div class="clean"></div>
-						<button type="button" class="button active" data-event="submit">Створити</button>
+						<button type="button" class="button active" data-event="submit">Додати файли</button>
 					</div>
 				</div>
 			</div>
@@ -165,6 +146,8 @@
 						<div data-role="performers" class="scroll-y list">
 
 						</div>
+						<button title="Натисніть, щоб побачити більше виконавців"
+							data-event="pagination">Більше...</button>
 					</div>
 					<div data-name="description" class="block">
 						<div class="title">
@@ -295,6 +278,44 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" data-modal="uploadFiles" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<div class="header">
+					<div class="clear flex-grow-1"></div>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<i class="far fa-times"></i>
+					</button>
+				</div>
+				<div class="block-wrapper">
+					<div class="scroll-y block" data-name="files" data-role="files">
+
+					</div>
+					<div class="block" data-name="uploadForm" style="display: flex; flex-dicretion:column">
+						<div class="upload-file" style="flex-grow: 1; display:flex">
+							<input maxlength="6" id="uploadFilesForm" multiple="true" data-event="uploadFiles"
+								type="file"
+								accept=".csv, .dbf, .doc, .docx, .htm, .html, .info, .jpg, .nfo, .pdf, .png, .ppt, .pptx, .rar, .rtf, .txt, .vcf, .xls, .xlsx, .xml, .zip, .pages" />
+							<label for="uploadFilesForm" style="flex-grow: 1;">
+								<i class="fa fa-file-upload"></i>
+								<span class="text">Оберіть файли</span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="footer">
+					<div class="block">
+					</div>
+					<div class="block">
+						<div class="clean"></div>
+						<button type="button" class="button active" data-event="submit">Завантажити</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	{{!--  
 	<div class="modal fade" data-modal="todoInfo" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered modal-xl" role="document">

@@ -8,6 +8,7 @@
 
             this.init("#newTodo", () => this.Modal.render("newTodo", this.Selector.selected))
             this.init("#existTodo", () => this.Modal.render("existTodo", this.Selector.selected))
+            this.init("#uploadFiles", () => this.Modal.render("uploadFiles"))
 
             this.Data = Factory.getClass("Data")
             this.Data.get("Files").then(data => this.render(data))
@@ -17,12 +18,10 @@
 
         _select(target) {
             target.closest('.table-row').querySelector('input[type="checkbox"]').checked = true
-            target.closest(".table-row").classList.add("active")
         }
 
         _unselect(target) {
             target.closest('.table-row').querySelector('input[type="checkbox"]').checked = false
-            target.closest(".table-row").classList.remove("active")
         }
 
         init(selector, callback) {
@@ -33,10 +32,10 @@
         render(data = []) {
             this._table.innerHTML = ""
             data.forEach(f => $(this._table).append(`
-                <tr class="table-row">
+                <tr class="table-row" data-file-id="${f.id}">
                     <td>
                         <div class="td-wrapper">
-                            <img src="./img/docs-img/${f.extName.substr(1)}.png" alt="" />
+                            <img data-src="./img/docs-img/${f.extName.substr(1)}.png" alt="" />
                             <span class="name">
                                ${f.name}
                             </span>
@@ -47,7 +46,6 @@
                     </td>
                     <td data-name="date">${f.date}</td>
                     <td data-name="performer">${f.performer}</td>
-                    <td data-name="task-count"><a href="">Задачі: ${f.taskCount}</a></td>
                     <td data-name="tools">
                         <div class="td-wrapper">
                             <div class="form-check">
@@ -59,6 +57,16 @@
                 </tr>`
             ))
 
+            $(this._table).find('[data-src]').Lazy({
+                effect: 'fadeIn',
+                effectTime: 200,
+                threshold: this._table.scrollHeight,
+                visibleOnly: false,
+                onError: function (element) {
+                    console.log('error loading ' + element.data('src'));
+                },
+                autoDestroy: true
+            });
             this.Selector.init(document.querySelectorAll('.body .table-row'))
         }
 

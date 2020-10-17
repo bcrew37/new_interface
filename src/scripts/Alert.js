@@ -4,33 +4,50 @@
         constructor() {
             this.alerts = {}
 
-            this.init("warning", ".alert-warning")
-            this.init("success", ".alert-success")
-            this.init("danger", ".alert-danger")
+            this._init("warning", `
+            <div style="display: none" class="alert alert-warning alert-dismissible" role="alert">
+                <strong></strong>
+                <msg></msg>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div> `)
+            this._init("success", `
+            <div style="display: none" class="alert alert-success alert-dismissible" role="alert">
+                <strong>Успішно! </strong>
+                <msg></msg>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            `)
+            this._init("danger", `
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <strong></strong>
+                <msg></msg>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            `)
         }
 
         render(alertClass, msg) {
-            this.clear()
-            setTimeout(() => {
-                let alert = this.alerts[alertClass]
-                alert.style.display = "block"
-                alert.classList.add("show")
-                alert.querySelector("msg").innerHTML = msg
-            }, 150)
-        }
-
-        init(alertClass, selector) {
-            let alert = document.querySelector(`alerts ${selector}`)
-            this.alerts[alertClass] = alert
-            alert.querySelector(".close").addEventListener("click", () => this.clear())
-        }
-
-        clear() {
-            let alert = document.querySelector("alerts .show")
-            if (alert) {
-                alert.classList.remove("show")
-                setTimeout(() => alert.style.display = "none", 150)
+            let alert = this.alerts[alertClass]
+            $("alerts").prepend(alert); alert = document.querySelector("alerts .alert")
+            let interval = setTimeout(() => this._close(alert), 5000)
+            alert.querySelector(".close").onclick = () => {
+                this._close(alert); clearTimeout(interval)
             }
+            alert.querySelector("msg").innerHTML = msg; $(alert).slideDown(100)
+        }
+
+        _init(alertClass, template) {
+            this.alerts[alertClass] = template
+        }
+
+        _close(alert) {
+            $(alert).slideUp(100, () => $(alert).remove())
         }
     }
 

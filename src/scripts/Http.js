@@ -25,7 +25,7 @@
             })()
         }
 
-        post(url, body, callback) {
+        post(url, body, callback, options = {}) {
             (async () => {
                 try {
                     const response = await fetch(url, {
@@ -33,7 +33,8 @@
                         headers: {
                             "Content-Type": "application/json;charset=utf-8"
                         },
-                        body: JSON.stringify(body)
+                        body: JSON.stringify(body),
+                        ...options
                     })
 
                     if (response.ok) {
