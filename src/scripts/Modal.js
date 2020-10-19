@@ -7,6 +7,8 @@
             this.Alert = Factory.getClass("Alert")
             this.Data = Factory.getClass("Data")
             this.Split = Factory.getClass("Split")
+            this.Loader = Factory.getClass("Loader")
+            this.Regexp = Factory.getClass("Regexp")
 
             this.init("newTodo", document.querySelector('[data-modal="newTodo"]'), d => {
                 if (d.length == 0) return this.Alert.render("warning", "Оберіть файли...")
@@ -115,6 +117,8 @@
                         performers.push(key); pList.get(key).checked = false; pList.delete(key)
                     }
 
+                    $(modal).modal("hide"); this.Loader.show("infinity")
+
                     this.Http.post("/test", {
                         name: name.value.trim(),
                         description: description.innerHTML.trim(),
@@ -122,7 +126,10 @@
                         documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId),
                         control: control.getDate(), deadline: deadline.getDate()
                     }, () => {
-                        this.Alert.render("success", "Задачу створено.")
+
+                        this.Loader.hide(); setTimeout(() => {
+                            this.Alert.render("success", "Задачу створено.")
+                        }, 400)
                         console.log({
                             name: name.value.trim(),
                             description: description.innerHTML.trim(),
@@ -260,18 +267,19 @@
 
                     let todos = []; for (let key of tList.keys()) {
                         todos.push(key); tList.get(key).checked = false; tList.delete(key)
-                    }
+                    }; $(modal).modal("hide"); this.Loader.show("infinity")
 
                     this.Http.post("/test", {
                         todos: todos,
                         documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId)
                     }, () => {
-                        this.Alert.render("success", "Файли додано.")
+                        this.Loader.hide(); setTimeout(() => {
+                            this.Alert.render("success", "Файли додано.")
+                        }, 400)
                         console.log({
                             todos: todos,
                             documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId)
                         })
-                        $(modal).modal("hide");
                     })
                 }
             })
@@ -288,7 +296,6 @@
                 files.innerHTML = ""
                 const Alert = this.Alert
                 form.onchange = function () {
-                    console.log("input")
                     if (this.files.length > 6 || this.files.length > 6 - fList().length) return Alert.render("danger",
                         `${6 - fList().length ? `не більше ніж: ${6 - fList().length} файлів` : `Максимальна кількість файлів!`}`);
 
@@ -326,13 +333,76 @@
 
                 // Confirm
                 submit.onclick = () => {
-                    if (data.length == 0 || data.length > 6) return this.Alert.render("warning", "Оберіть файли")
+                    if (data.size == 0 || data.size > 6) return this.Alert.render("warning", "Оберіть файли")
                     let formData = new FormData()
                     data.forEach(f => formData.append("files", f))
+                    $(modal).modal("hide"); this.Loader.show("infinity")
 
                     this.Http.post("/test", formData, () => {
-                        this.Alert.render("success", "Файли  завантажено.")
-                        $(modal).modal("hide");
+                        this.Loader.hide(); setTimeout(() => {
+                            this.Alert.render("success", "Файли завантажено.")
+                        }, 400)
+                    }, {
+                        headers: {
+                            "Content-Type": false,
+                            "cache": false,
+                            "processData": false,
+                        }
+                    })
+                }
+            })
+
+            this.init("shareFiles", document.querySelector('[data-modal="shareFiles"]'), d => {
+                if (d.length == 0) return this.Alert.render("warning", "Оберіть файли...")
+                if (d.length > 6) return this.Alert.render("warning", "Не більше 6 файлів")
+                return "done"
+            }, d => {
+                let modal = this.modals["shareFiles"].node,
+                    files = modal.querySelector('[data-role="files"]'),
+                    submit = modal.querySelector('[data-event="submit"]'),
+                    msg = modal.querySelector('[data-name="message"]'),
+                    email = modal.querySelector('[data-name="email"]')
+
+                files.innerHTML = ""
+                d.forEach(f => {
+                    let file = f.closest("tr"),
+                        fileName = file.querySelector(".name").innerHTML.trim(),
+                        fileExt = file.querySelector(".extension").innerHTML.trim(),
+                        fileId = file.dataset.fileId
+
+                    $(files).append(`
+                            <div class="file" data-file-id="${fileId}">
+                                <img class="img" data-src="./img/docs-img/${fileExt.substr(1)}.png" alt="" />
+                                <span class="name">
+                                    ${fileName}
+                                </span>
+                                <span class="extension"> ${fileExt} </span>
+                            </div>`)
+                }); $(files).find('[data-src]').Lazy({
+                    effect: 'fadeIn',
+                    autoDestroy: true,
+                    effectTime: 200,
+                    threshold: files.scrollHeight,
+                    visibleOnly: false,
+                    onError: function (element) {
+                        console.log('error loading ' + element.data('src'));
+                    }
+                })
+
+                // Confirm
+                submit.onclick = () => {
+                    if (email.value.trim().length == 0) return this.Alert.render("warning", "Введіть електронну адресу")
+                    if (!this.Regexp.email.test(email.value.trim())) return this.Alert.render("warning", "Невірний формат електронної адреси")
+
+                    $(modal).modal("hide"); this.Loader.show("infinity")
+
+                    this.Http.post("/test", {
+                        documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId), msg: msg.innerHTML.trim(), email: email.value.trim()
+                    }, () => {
+                        this.Loader.hide(); setTimeout(() => {
+                            this.Alert.render("success", "Файли відправлено.")
+                            console.log({ documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId), msg: msg.innerHTML.trim(), email: email.value.trim() })
+                        }, 400)
                     }, {
                         headers: {
                             "Content-Type": false,

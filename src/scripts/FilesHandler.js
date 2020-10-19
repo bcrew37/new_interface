@@ -5,9 +5,12 @@
         constructor() {
             this.Modal = Factory.getClass("Modal")
             this.Selector = Factory.getClass("Selector", { on: target => this._select(target), off: target => this._unselect(target) })
+            this.FilesManager = Factory.getClass("FilesManager")
 
             this.init("#newTodo", () => this.Modal.render("newTodo", this.Selector.selected))
             this.init("#existTodo", () => this.Modal.render("existTodo", this.Selector.selected))
+            this.init("#shareFiles", () => this.Modal.render("shareFiles", this.Selector.selected))
+            this.init("#downloadFiles", () => this.FilesManager.download(this.Selector.selected))
             this.init("#uploadFiles", () => this.Modal.render("uploadFiles"))
 
             this.Data = Factory.getClass("Data")

@@ -388,9 +388,9 @@ a:hover {
   .notifications
   .notifications-wrapper
   .name {
-  color: rgba(67, 78, 106, 0.55);
-  font-family: "Roboto medium";
-  font-size: 14px;
+  font-family: "Roboto regular";
+  color: rgba(67, 78, 106, 1);
+  font-size: 13px;
 }
 .content-wrapper
   .content
@@ -1237,6 +1237,66 @@ a:hover {
   .performer:not(:last-child) {
   margin-bottom: 25px;
 }
+
+
+.modal .block-wrapper .share-fields {
+  display: flex;  
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+} 
+
+.modal .block-wrapper .share-fields__email {
+  color: rgba(67, 78, 106, 0.85);
+  font-size: 14px;
+  margin-bottom: 25px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.modal .block-wrapper .share-fields__email input {
+  border-bottom: 1px solid rgba(67, 78, 106, 0.35);
+  color: rgba(67, 78, 106, 0.75);
+  margin-right: 30px;
+  flex-grow: 1;
+  padding-bottom: 5px;
+}
+.modal .block-wrapper .share-fields__email input::-webkit-input-placeholder {
+  color: rgba(67, 78, 106, 0.75);
+}
+
+.modal .block-wrapper .share-fields__message {
+  color: rgba(67, 78, 106, 0.75);
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.modal .block-wrapper .share-fields__message textarea {
+  color: rgba(67, 78, 106, 0.75);
+  width: 100%;
+  flex-grow: 1;
+  border-bottom: 1px solid rgba(67, 78, 106, 0.35);
+  padding-bottom: 5px;
+  margin-top: 10px;
+}
+
+
+.modal
+  .block-wrapper
+  [data-name="performers"]
+  .findPerformer
+  input::-webkit-input-placeholder {
+  color: rgba(67, 78, 106, 0.75);
+}
+
+.modal .block-wrapper [data-name="performers"] .findPerformer i {
+  font-size: 18px;
+}
+
 .modal .block-wrapper [data-name="description"] {
   display: flex;
   flex-direction: column;
@@ -1688,3 +1748,93 @@ a:hover {
 .alert msg {
   margin-left: 10px;
 }
+/* Progress Bar */
+progress-bars {
+  position: absolute;
+  z-index: 9999;
+  width: 100%;
+  height: auto;
+}
+.progress {
+  position: relative;
+  height: 2px;
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  border-radius: 2px;
+  background-clip: padding-box;
+  overflow: hidden; }
+  .progress .determinate {
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(244, 67, 54, 0.75);
+    transition: width .3s linear;
+    display: none; }
+  .progress .indeterminate {
+    display: none;
+    background-color: rgba(244, 67, 54, 0.75);}
+    .progress .indeterminate:before {
+      content: '';
+      position: absolute;
+      background-color: inherit;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      will-change: left, right;
+      -webkit-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+              animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite; }
+    .progress .indeterminate:after {
+      content: '';
+      position: absolute;
+      background-color: inherit;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      will-change: left, right;
+      -webkit-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+              animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+      -webkit-animation-delay: 1.15s;
+              animation-delay: 1.15s; }
+
+@-webkit-keyframes indeterminate {
+  0% {
+    left: -35%;
+    right: 100%; }
+  60% {
+    left: 100%;
+    right: -90%; }
+  100% {
+    left: 100%;
+    right: -90%; } }
+@keyframes indeterminate {
+  0% {
+    left: -35%;
+    right: 100%; }
+  60% {
+    left: 100%;
+    right: -90%; }
+  100% {
+    left: 100%;
+    right: -90%; } }
+@-webkit-keyframes indeterminate-short {
+  0% {
+    left: -200%;
+    right: 100%; }
+  60% {
+    left: 107%;
+    right: -8%; }
+  100% {
+    left: 107%;
+    right: -8%; } }
+@keyframes indeterminate-short {
+  0% {
+    left: -200%;
+    right: 100%; }
+  60% {
+    left: 107%;
+    right: -8%; }
+  100% {
+    left: 107%;
+    right: -8%; } }

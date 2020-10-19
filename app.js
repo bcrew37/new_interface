@@ -89,19 +89,18 @@ app.use("/test", (req, res) => {
     ])
 })
 app.use("/notifications", (req, res) => {
-
     res.send({
         numOfNew: 4,
         list: [
             {
                 performer: "Lorem ipsum dolor sit emmet",
-                imgPath: "./img/Picture.png",
+                imgPath: "./img/avatars/Picture.png",
                 title: "Lorem ipsum dolor sit amet Lorem, ipsum.",
                 date: "13.12.2019",
             },
             {
                 performer: "Lorem ipsum dolor sit emmet",
-                imgPath: "./img/Picture.png",
+                imgPath: "./img/avatars/Picture.png",
                 title: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum dolor.`,
                 date: "13.12.2019",
                 task: {
@@ -111,7 +110,17 @@ app.use("/notifications", (req, res) => {
             },
             {
                 performer: "Lorem ipsum dolor sit emmet",
-                imgPath: "./img/Picture.png",
+                imgPath: "./img/avatars/Picture.png",
+                title: "Lorem ipsum dolor sit amet Lorem, ipsum.",
+                date: "13.12.2019",
+                task: {
+                    name: "Lorem ipsum",
+                    id: "124125125"
+                }
+            },
+            {
+                performer: "Lorem ipsum dolor sit emmet",
+                imgPath: "./img/avatars/Picture.png",
                 title: "Lorem ipsum dolor sit amet Lorem, ipsum.",
                 date: "13.12.2019",
                 task: {
