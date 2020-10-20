@@ -82,7 +82,7 @@
 
                 // Files    
                 files.innerHTML = ""
-                d.forEach(f => {
+                if (d) d.forEach(f => {
                     let file = f.closest("tr"),
                         fileName = file.querySelector(".name").innerHTML.trim(),
                         fileExt = file.querySelector(".extension").innerHTML.trim(),
@@ -212,7 +212,6 @@
 
                     $(todos).find('[data-toggle="tooltip"]').tooltip()
                 }; this.Data.get("Todos").then(result => {
-                    result = result.list
                     let data = this.Split.split(result, 10); renderTodos(data[0])
                     let findForm = Factory.getClass("Finder", modal.querySelector(".findTodo"), result, data[0]);
                     findForm.subscribe((result) => {
@@ -421,7 +420,11 @@
         init(name, node, conditions, render) {
             this.modals[name] = {
                 render: (data) => {
-                    if (conditions(data) == "done") $(node).modal("show"); setTimeout(() => render(data), 200)
+                    if (!data) {
+                        $(node).modal("show"); setTimeout(() => render(), 200);
+                    } else if (conditions(data) == "done") {
+                        $(node).modal("show"); setTimeout(() => render(data), 200);
+                    }
                 }, node
             }
         }

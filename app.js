@@ -132,41 +132,105 @@ app.use("/notifications", (req, res) => {
     })
 })
 app.use("/todos", (req, res) => {
-    res.send({
-        page: 1,
-        list: [
-            {
-                name: "kakashi",
-                status: "inProgress",
-                id: "12i01-2124124",
-                manager: {
-                    firstName: "Yura",
-                    lastName: "Kizary",
+    res.send([
+        {
+            name: "Get started with madework.io",
+            status: "inProgress",
+            id: "12i01-1231232124124",
+            manager: {
+                firstName: "Archer",
+                lastName: "Monpasie",
+                imgPath: "./img/avatars/pexels-ralph-rabago-3214734.jpg"
+            },
+            controlDate: "12.05.2020",
+            deadlineDate: "21.06.2020",
+            performers: [
+                {
+                    firstName: "Jacson",
+                    lastName: "Military",
+                    imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
+                },
+                {
+                    firstName: "Jorj",
+                    lastName: "Bush",
+                    imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                },
+            ]
+        },
+        {
+            name: "Lorem ipsum dolor sit emmet ruro kru kra kre",
+            status: "overdue",
+            id: "adasdasd-1239123-asdm,asd",
+            manager: {
+                firstName: "Leha",
+                lastName: "Jeltiy",
+                imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
+            },
+            controlDate: "12.05.2020",
+            deadlineDate: "21.06.2020",
+            performers: [
+                {
+                    firstName: "Jacson",
+                    lastName: "Military",
+                    imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
+                },
+                {
+                    firstName: "Jorj",
+                    lastName: "Bush",
+                    imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                },
+            ]
+        },
+        {
+            name: "Lorem ipsum dolor sit",
+            status: "completed",
+            id: "231251714o1-0241314",
+            manager: {
+                firstName: "Uraburatrala",
+                lastName: "Hirasimakongoshitiro",
+                imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
+            },
+            controlDate: "12.05.2020",
+            deadlineDate: "21.06.2020",
+            performers: [
+                {
+                    firstName: "Jacson",
+                    lastName: "Military",
+                    imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
+                },
+                {
+                    firstName: "Jorj",
+                    lastName: "Bush",
+                    imgPath: "./img/avatars/Picture.png"
+                },
+                {
+                    firstName: "Jorj",
+                    lastName: "Bush",
                     imgPath: "./img/avatars/pexels-ralph-rabago-3214734.jpg"
-                }
-            },
-            {
-                name: "Lorem ipsum dolor sit emmet ruro kru kra kre",
-                status: "overdue",
-                id: "231251731241102312930912412414",
-                manager: {
-                    firstName: "Leha",
-                    lastName: "Jeltiy",
-                    imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
-                }
-            },
-            {
-                name: "Lorem ipsum dolor sit",
-                status: "completed",
-                id: "231251714o1-0241314",
-                manager: {
-                    firstName: "Uraburatrala",
-                    lastName: "Hirasimakongoshitiro",
-                    imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
-                }
-            }
-        ]
-    })
+                },
+                {
+                    firstName: "Jorj",
+                    lastName: "Bush",
+                    imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                },
+                {
+                    firstName: "Jorj",
+                    lastName: "Bush",
+                    imgPath: "./img/services/pexels-guilherme-almeida-1858175.jpg"
+                },
+                {
+                    firstName: "Jorj",
+                    lastName: "Bush",
+                    imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                },
+                {
+                    firstName: "Jorj",
+                    lastName: "Bush",
+                    imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                },
+            ]
+        }
+    ])
 })
 app.use("/pList", (req, res) => {
     res.send([

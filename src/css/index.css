@@ -635,24 +635,100 @@ a:hover {
   i:hover {
   color: rgba(244, 67, 54, 0.7);
 }
+.content-wrapper
+  .content
+  .body
+  table td img[data-name="manager"] {
+    border-radius: 100%;
+  }
+
+.content-wrapper
+  .content
+  .body
+  table td [data-name="performers"] {
+    display: flex;
+    align-items: center;
+    color: rgba(67, 78, 106, 0.8);
+    font-size: 15px;
+    font-family: "Roboto regular";
+  }
+
+
+.content-wrapper
+.content
+.body
+table td [data-name="performers"] .performer:not(:first-child) {
+  margin-left: -5px;
+}
+
+.content-wrapper
+.content
+.body
+table td [data-name="performers"] .performer  {
+  transition: margin 200ms;
+}
+
+.content-wrapper
+.content
+.body
+table td [data-name="performers"] .performer img  {
+  border-radius: 100%;
+}
+
+.content-wrapper
+.content
+.body
+table td [data-name="performers"] .performer:hover {
+  margin-top: -10px;
+}
+
 .content-wrapper .content .body table td img {
   width: 25px;
-  height: 27px;
-  margin-right: 20px;
+  height: 25px;
   margin-bottom: 8px;
   object-fit: cover;
   object-position: center;
 }
+
+.content-wrapper .content .body table .td-wrapper img {
+  margin-right: 20px;
+}
+
 .content-wrapper .content .body table td .form-check-input {
   margin-right: 40px;
   height: 16px;
   width: 16px;
 }
+
+.content-wrapper .content .body table td .calendar .drop-down_menu.active {
+  background-color: #ffffff !important;
+}
+
+.content-wrapper .content .body table td .calendar {
+  background-color: #ffffff !important;
+}
+
+.content-wrapper .content .body table td .calendar .drop-down_menu {
+  top: 60px;
+}
+.content-wrapper .content .body table td .calendar  [data-event="toggle"] {
+  color: rgba(67, 78, 106, 0.8);
+  font-size: 15px;
+  font-family: "Roboto regular";
+}
+.content-wrapper .content .body table td .calendar  [data-event="toggle"] i {
+  margin-left: 10px;
+  color: rgba(67, 78, 106, 0.75);
+}
+
 @media screen and (max-width: 1150px) {
   .content-wrapper .content .body table [data-name="performer"] {
     display: none;
   }
   .content-wrapper .content .body table [data-name="task-count"] {
+    display: none;
+  }
+  .content-wrapper .content .body table .status-name {
     display: none;
   }
   .content-wrapper .content .body table .td-wrapper {
@@ -1627,6 +1703,10 @@ a:hover {
   color: #2196f3;
 }
 
+.calendar {
+  background-color: #ffffff !important;
+}
+
 .calendar .drop-down_menu.active {
   opacity: 1;
   bottom: 45px;
@@ -1634,12 +1714,24 @@ a:hover {
   display: flex;
   flex-direction: column;
   transition: opacity 200ms;
+  background-color: #ffffff;
+  background-color: #ffffff !important;
 }
 .calendar .drop-down_menu {
   opacity: 0;
   bottom: 45px !important;
   position: absolute !important;
+  background-color: #ffffff;
 }
+
+.drop-down_menu {
+  background-color: #ffffff !important;
+}
+
+.calendar .control {
+  background-color: #ffffff;
+}
+
 .calendar .control span {
   color: rgba(67, 78, 106, 0.75);
   font-size: 15px;
@@ -1661,7 +1753,9 @@ a:hover {
   text-align: center;
   vertical-align: center;
   border-spacing: 10px;
+  background-color: #ffffff;
 }
+
 .calendar .date-picker thead tr td div {
   color: #34ace0;
   font-family: "Roboto regular";
