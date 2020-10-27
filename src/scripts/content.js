@@ -1,14 +1,15 @@
 (function (Factory) {
-
     class Content {
 
         constructor() {
             this.templates = {}
             this.content = document.getElementById("root")
+            this.Loader = Factory.getClass("Loader")
         }
 
         render(url) {
             this.content.style.opacity = 0
+            this.Loader.show("infinity")
             let template = this.templates[url].content.cloneNode(true)
             setTimeout(() => {
                 this.content.innerHTML = ""

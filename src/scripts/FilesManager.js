@@ -2,7 +2,8 @@
 
     class FilesManager {
         download(data) {
-            let download = window.open("/test", "download"); download.close()
+            console.log(data)
+            let download = window.open("/test", "Download"); download.close()
         }
     }
 

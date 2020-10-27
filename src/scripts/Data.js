@@ -9,7 +9,7 @@
 
             this.init({
                 "/test": "Files",
-                "/notifications": "Notifications",
+                "/notifications?list=1": "Notifications",
                 "/todos": "Todos",
                 "/pList": "Performers"
             })

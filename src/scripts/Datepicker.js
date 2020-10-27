@@ -12,7 +12,7 @@
             this.control.querySelector('[data-event="previous"]').onclick = () => this.toggleControl("previous")
             this.control.querySelector('[data-event="next"]').onclick = () => this.toggleControl("next")
 
-            let [d, m, y] = dmy ? this.Dates.parseDMY(dmy) : undefined
+            let [d, m, y] = dmy ? this.Dates.parseDMY(dmy) : [undefined, undefined, undefined]
 
             this.cMonth = this.control.querySelector('[data-name="pickerMonth"]'); this.cMonth.innerHTML = this.Dates.month()
             this.cYear = this.control.querySelector('[data-name="pickerYear"]'); this.cYear.innerHTML = this.Dates.year()
@@ -43,7 +43,7 @@
                 y = this.cYear.innerHTML
 
             this.sDate.innerHTML = this.Dates.DMY(d, m, y)
-            if (this.on) this.on()
+            if (this.on) this.on(target)
         }
 
         render(d = this.Dates.date(), m = this.Dates.mIndex(), y = this.Dates.year()) {
@@ -70,6 +70,11 @@
 
         getDate() {
             return this.sDate.innerHTML
+        }
+
+        set(dmy) {
+            let [d, m, y] = this.Dates.parseDMY(dmy)
+            this.render(d, m, y)
         }
 
     }

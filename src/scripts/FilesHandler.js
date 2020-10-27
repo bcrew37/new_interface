@@ -1,4 +1,5 @@
 (function (Factory) {
+    const Loader = Factory.getClass("Loader");
 
     class FilesHandler {
 
@@ -68,7 +69,10 @@
                 onError: function (element) {
                     console.log('error loading ' + element.data('src'));
                 },
-                autoDestroy: true
+                autoDestroy: true,
+                onFinishedAll: () => {
+                    Loader.hide()
+                }
             });
             this.Selector.init(document.querySelectorAll('.body .table-row'))
         }

@@ -12,10 +12,12 @@
             $(loader).fadeIn(100)
         }
 
-        hide() {
+        hide(callback) {
             let loader = document.querySelector("progress-bars .active")
             if (loader) {
-                loader.classList.remove("active"); $(loader).fadeOut(100)
+                loader.classList.remove("active"); $(loader).fadeOut(100, () => {
+                    if (callback) callback()
+                })
             }
         }
 

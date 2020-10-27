@@ -587,15 +587,9 @@ a:hover {
   border-collapse: separate;
   border-spacing: 0px 5px;
 }
-.content-wrapper .content .body table tr {
+.content-wrapper .content .body table tr:not(.todo) {
   transition: all 100ms;
   cursor: pointer;
-}
-.content-wrapper .content .body table tr.active {
-  background: rgba(33, 150, 243, 3%);
-}
-.content-wrapper .content .body table tr:hover {
-  background: rgba(33, 150, 243, 5%);
 }
 .content-wrapper .content .body table td {
   color: rgba(67, 78, 106, 0.8);
@@ -603,7 +597,7 @@ a:hover {
   padding: 15px;
   vertical-align: middle;
 }
-.content-wrapper .content .body table td:last-child {
+.content-wrapper .content .body table tbody td:last-child {
   text-align: right;
 }
 .content-wrapper .content .body table td:not(:last-child) {
@@ -616,6 +610,12 @@ a:hover {
   width: 420px;
   height: auto;
 }
+
+.content-wrapper .content .body table tr.todo td .name {
+  cursor: pointer;
+  color: rgba(67, 78, 106, 0.8);
+}
+
 .content-wrapper .content .body table td[data-name="tools"] .td-wrapper {
   display: flex;
   align-items: center;
@@ -635,50 +635,50 @@ a:hover {
   i:hover {
   color: rgba(244, 67, 54, 0.7);
 }
-.content-wrapper
-  .content
-  .body
-  table td img[data-name="manager"] {
-    border-radius: 100%;
-  }
+.content-wrapper .content .body table td img[data-name="manager"] {
+  border-radius: 100%;
+}
 
-.content-wrapper
-  .content
-  .body
-  table td [data-name="performers"] {
-    display: flex;
-    align-items: center;
-    color: rgba(67, 78, 106, 0.8);
-    font-size: 15px;
-    font-family: "Roboto regular";
-  }
-
-
-.content-wrapper
-.content
-.body
-table td [data-name="performers"] .performer:not(:first-child) {
-  margin-left: -5px;
+.content-wrapper .content .body table td [data-name="performers"] {
+  display: flex;
+  align-items: center;
+  color: rgba(67, 78, 106, 0.8);
+  font-size: 15px;
+  font-family: "Roboto regular";
 }
 
 .content-wrapper
-.content
-.body
-table td [data-name="performers"] .performer  {
+  .content
+  .body
+  table
+  td
+  [data-name="performers"]
+  .performer:not(:first-child) {
+  margin-left: -5px;
+}
+
+.content-wrapper .content .body table td [data-name="performers"] .performer {
   transition: margin 200ms;
 }
 
 .content-wrapper
-.content
-.body
-table td [data-name="performers"] .performer img  {
+  .content
+  .body
+  table
+  td
+  [data-name="performers"]
+  .performer
+  img {
   border-radius: 100%;
 }
 
 .content-wrapper
-.content
-.body
-table td [data-name="performers"] .performer:hover {
+  .content
+  .body
+  table
+  td
+  [data-name="performers"]
+  .performer:hover {
   margin-top: -10px;
 }
 
@@ -710,13 +710,15 @@ table td [data-name="performers"] .performer:hover {
 
 .content-wrapper .content .body table td .calendar .drop-down_menu {
   top: 60px;
+  min-width: 250px;
+  max-width: 300px;
 }
-.content-wrapper .content .body table td .calendar  [data-event="toggle"] {
+.content-wrapper .content .body table td .calendar [data-event="toggle"] {
   color: rgba(67, 78, 106, 0.8);
   font-size: 15px;
   font-family: "Roboto regular";
 }
-.content-wrapper .content .body table td .calendar  [data-event="toggle"] i {
+.content-wrapper .content .body table td .calendar [data-event="toggle"] i {
   margin-left: 10px;
   color: rgba(67, 78, 106, 0.75);
 }
@@ -734,6 +736,11 @@ table td [data-name="performers"] .performer:hover {
   .content-wrapper .content .body table .td-wrapper {
     max-width: 300px;
   }
+}
+.content-wrapper .content .body table thead td {
+  text-align: left;
+  color: rgba(126, 134, 161, 60%);
+  padding-top: 0px;
 }
 @media screen and (max-width: 676px) {
   .content-wrapper .content .body table .td-wrapper {
@@ -884,6 +891,9 @@ table td [data-name="performers"] .performer:hover {
 
 .modal .modal-content {
   padding: 20px;
+  overflow: hidden;
+  max-height: auto;
+  transition: max-height 300ms;
 }
 .modal button {
   border: none;
@@ -952,15 +962,7 @@ table td [data-name="performers"] .performer:hover {
   position: relative;
   height: 30px;
 }
-.modal .block-wrapper .block .title::after {
-  content: "";
-  display: block;
-  width: 100%;
-  position: absolute;
-  top: 40px;
-  height: 1px;
-  background-color: rgba(67, 78, 106, 0.35);
-}
+
 .modal .block-wrapper [data-name="files"] {
   padding-right: 5px;
 }
@@ -1076,7 +1078,6 @@ table td [data-name="performers"] .performer:hover {
 .modal .block-wrapper [data-event="pagination"] {
   display: flex;
   width: 100%;
-  flex-grow: 1;
   justify-content: center;
   color: #2196f3;
   margin-top: 25px;
@@ -1314,13 +1315,12 @@ table td [data-name="performers"] .performer:hover {
   margin-bottom: 25px;
 }
 
-
 .modal .block-wrapper .share-fields {
-  display: flex;  
+  display: flex;
   flex-direction: column;
   flex-grow: 1;
   height: 100%;
-} 
+}
 
 .modal .block-wrapper .share-fields__email {
   color: rgba(67, 78, 106, 0.85);
@@ -1359,7 +1359,6 @@ table td [data-name="performers"] .performer:hover {
   padding-bottom: 5px;
   margin-top: 10px;
 }
-
 
 .modal
   .block-wrapper
@@ -1479,10 +1478,25 @@ table td [data-name="performers"] .performer:hover {
   [data-name="comments"]
   .comments-wrapper
   .comment
+  .dismiss
+  i {
+  font-size: 14px;
+  color: rgba(67, 78, 106, 0.5);
+}
+.modal
+  .block-wrapper
+  [data-name="comments"]
+  .comments-wrapper
+  .comment
   .body
   .name {
   color: rgba(67, 78, 106, 0.85);
   font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5px;
 }
 .modal
   .block-wrapper
@@ -1504,6 +1518,10 @@ table td [data-name="performers"] .performer:hover {
   .meta {
   color: #2196f3;
   font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 .modal .block-wrapper [data-name="report"] {
   overflow-y: auto;
@@ -1518,6 +1536,15 @@ table td [data-name="performers"] .performer:hover {
 }
 .modal .block-wrapper [data-name="report"] .comment input::-moz-placeholder {
   color: rgba(67, 78, 106, 0.85);
+}
+.modal
+  .block-wrapper
+  [data-name="report"]
+  .comment
+  .meta
+  [data-event="dismiss"] {
+  color: rgba(67, 78, 106, 0.5);
+  font-size: 14px;
 }
 .modal
   .block-wrapper
@@ -1611,6 +1638,13 @@ table td [data-name="performers"] .performer:hover {
   transition: 100ms;
   color: rgba(67, 78, 106, 0.85);
 }
+.modal .footer .btn {
+  padding: 5px 15px;
+  border-radius: 5px;
+  width: 60px;
+  text-align: center;
+  color: #fff;
+}
 .modal .footer .button:hover {
   background-color: #2196f3;
   color: #fff;
@@ -1677,7 +1711,7 @@ table td [data-name="performers"] .performer:hover {
   width: 100%;
   position: absolute;
   display: none;
-  z-index: 10;
+  z-index: 1000;
   background-color: #ffffff;
   transition: opacity 200ms;
 }
@@ -1730,12 +1764,15 @@ table td [data-name="performers"] .performer:hover {
 
 .calendar .control {
   background-color: #ffffff;
+  width: 100%;
 }
 
 .calendar .control span {
   color: rgba(67, 78, 106, 0.75);
   font-size: 15px;
   font-family: "Roboto regular";
+  margin: 0px 5px;
+  width: 100%;
 }
 .calendar .control i {
   font-size: 22px;
@@ -1851,84 +1888,112 @@ progress-bars {
 }
 .progress {
   position: relative;
-  height: 2px;
+  height: 3px;
   display: block;
   width: 100%;
   background-color: transparent;
   border-radius: 2px;
   background-clip: padding-box;
-  overflow: hidden; }
-  .progress .determinate {
-    position: absolute;
-    background-color: inherit;
-    top: 0;
-    bottom: 0;
-    background-color: rgba(244, 67, 54, 0.75);
-    transition: width .3s linear;
-    display: none; }
-  .progress .indeterminate {
-    display: none;
-    background-color: rgba(244, 67, 54, 0.75);}
-    .progress .indeterminate:before {
-      content: '';
-      position: absolute;
-      background-color: inherit;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      will-change: left, right;
-      -webkit-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-              animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite; }
-    .progress .indeterminate:after {
-      content: '';
-      position: absolute;
-      background-color: inherit;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      will-change: left, right;
-      -webkit-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-              animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-      -webkit-animation-delay: 1.15s;
-              animation-delay: 1.15s; }
+  overflow: hidden;
+}
+.progress .determinate {
+  position: absolute;
+  background-color: inherit;
+  top: 0;
+  bottom: 0;
+  background-color: rgba(244, 67, 54, 0.75);
+  transition: width 0.3s linear;
+  display: none;
+}
+.progress .indeterminate {
+  display: none;
+  background-color: rgba(244, 67, 54, 0.75);
+}
+.progress .indeterminate:before {
+  content: "";
+  position: absolute;
+  background-color: inherit;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  will-change: left, right;
+  -webkit-animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395)
+    infinite;
+  animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+}
+.progress .indeterminate:after {
+  content: "";
+  position: absolute;
+  background-color: inherit;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  will-change: left, right;
+  -webkit-animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1)
+    infinite;
+  animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1)
+    infinite;
+  -webkit-animation-delay: 1.15s;
+  animation-delay: 1.15s;
+}
 
 @-webkit-keyframes indeterminate {
   0% {
     left: -35%;
-    right: 100%; }
+    right: 100%;
+  }
   60% {
     left: 100%;
-    right: -90%; }
+    right: -90%;
+  }
   100% {
     left: 100%;
-    right: -90%; } }
+    right: -90%;
+  }
+}
 @keyframes indeterminate {
   0% {
     left: -35%;
-    right: 100%; }
+    right: 100%;
+  }
   60% {
     left: 100%;
-    right: -90%; }
+    right: -90%;
+  }
   100% {
     left: 100%;
-    right: -90%; } }
+    right: -90%;
+  }
+}
 @-webkit-keyframes indeterminate-short {
   0% {
     left: -200%;
-    right: 100%; }
+    right: 100%;
+  }
   60% {
     left: 107%;
-    right: -8%; }
+    right: -8%;
+  }
   100% {
     left: 107%;
-    right: -8%; } }
+    right: -8%;
+  }
+}
 @keyframes indeterminate-short {
   0% {
     left: -200%;
-    right: 100%; }
+    right: 100%;
+  }
   60% {
     left: 107%;
-    right: -8%; }
+    right: -8%;
+  }
   100% {
     left: 107%;
-    right: -8%; } }
+    right: -8%;
+  }
+}
+
+textarea {
+  background: transparent !important;
+}
