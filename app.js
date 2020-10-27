@@ -18,6 +18,9 @@ app.get("/boards", (req, res) => {
 app.get("/files", (req, res) => {
     res.render("index")
 })
+app.get("/clPanel", (req, res) => {
+    res.render("index")
+})
 
 // Get + Post
 app.use("/test", (req, res) => {

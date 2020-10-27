@@ -58,9 +58,14 @@
                 let val = obj[key]
                 this.paths[val] = key
                 this.keys.set(val, new Promise((resolve, reject) => {
-                    this.Http.get(key, data => {
-                        resolve(data)
-                    })
+                    let data = sessionStorage.getItem(val)
+                    if (data) {
+                        resolve(JSON.parse(data))
+                    } else {
+                        this.Http.get(key, data => {
+                            sessionStorage.setItem(val, JSON.stringify(data)); resolve(data)
+                        })
+                    }
                 }))
             }
         }

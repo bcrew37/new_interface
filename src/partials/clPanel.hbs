@@ -1,0 +1,82 @@
+<div class="tool-bar">
+    <div class="notifications">
+        <i data-role="button" data-event="toggle" class="fa fa-bell"></i>
+        <div class="notifications-wrapper">
+            <div class="title">
+                Оповіщення
+            </div>
+            <div class="notifications-list">
+            </div>
+        </div>
+    </div>
+    <div class="body">
+        <div>
+            <button id="newTodo" class="item">
+                Нова задача
+                <i class="fas fa-plus-circle"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="body">
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    Назва
+                </td>
+                <td>
+                    Дата контролю
+                </td>
+                <td>
+                    Дата дедлайну
+                </td>
+                <td>
+                    Статус
+                </td>
+                <td>
+                    Виконавці
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+<div class="footer">
+    <div class="filter-group">
+        <div class="sort dropdown" id="sortByDepartment">
+            <button role="button" id="sort-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Дошка: <span id="selected-option">Усі</span>
+                <i class="fas fa-caret-down"></i>
+            </button>
+
+            <div class="dropdown-menu" aria-labelledby="sort-options">
+                <button class="dropdown-item" href="#">Action</button>
+                <button class="dropdown-item" href="#">Action</button>
+                <button class="dropdown-item" href="#">Action</button>
+                <button class="dropdown-item" href="#">Action</button>
+                <button class="dropdown-item" href="#">Action</button>
+                <button class="dropdown-item" href="#">Action</button>
+                <button class="dropdown-item" href="#">Action</button>
+                <button class="dropdown-item" href="#">Action</button>
+                <button class="dropdown-item" href="#">Action</button>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" href="#">Усі</button>
+            </div>
+        </div>
+        <button class="filter-toggle">
+            Фильтр <i class="fas fa-sort"></i>
+        </button>
+    </div>
+    <div class="pagination">
+        <span role="button" class="page-num active">1</span>
+        <span role="button" class="page-num">2</span>
+        <span role="button" class="page-num">3</span>
+        <span role="button" class="page-num last-page">...31</span>
+        <button class="page-num next-page">
+            <i class="fal fa-chevron-right"></i>
+        </button>
+    </div>
+</div>

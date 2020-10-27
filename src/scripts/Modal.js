@@ -457,6 +457,7 @@
 
                 comments.innerHTML = ""
                 description.value = ""
+                name.value = ""
                 reportForm.value = ""
                 uploadFiles.innerHTML = ""
                 rFiles.innerHTML = ""
@@ -496,18 +497,24 @@
                                     btn = e.target.closest('[data-event="dismiss"]')
 
                                 btn.setAttribute("disabled", "true")
-
-                                this.Loader.show("infinity")
-                                this.Http.post("/try", { todoId: d.dataset.todoId, fileId }, res => {
-                                    this.Loader.hide(); setTimeout(() => {
-                                        if (res.success) {
-                                            file.slideUp(100, () => file.remove())
-                                            this.Alert.render("success", "Файл прибрано.")
-                                        } else {
-                                            this.Alert.render("danger", "Сталася помилка.")
-                                            btn.removeAttribute("disabled")
-                                        }
-                                    }, 400)
+                                this.Alert.render("confirm", "Коментар буде видално. Ви впевнені?", {
+                                    confirm: () => {
+                                        this.Loader.show("infinity")
+                                        this.Http.post("/try", { todoId: d.dataset.todoId, fileId }, res => {
+                                            this.Loader.hide(() => {
+                                                if (res.success) {
+                                                    file.slideUp(100, () => file.remove())
+                                                    this.Alert.render("success", "Файл прибрано.")
+                                                } else {
+                                                    this.Alert.render("danger", "Сталася помилка.")
+                                                    btn.removeAttribute("disabled")
+                                                }
+                                            })
+                                        })
+                                    },
+                                    unConfirm: () => {
+                                        btn.removeAttribute("disabled")
+                                    }
                                 })
                             }
 
@@ -529,27 +536,47 @@
                             if (clear) performers.innerHTML = ""
                             data.forEach(p => {
                                 $(performers).append(`
-                                                <div class="performer" data-performer-id="${p.id}">
-                                                    <div class="user-block">
-                                                        <img class="img" data-src="${p.imgPath}" alt="" />
-                                                        <span class="name">${p.name}</span>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input position-static" type="checkbox" ${p.checked == true ? "checked" : ``}/>
-                                                    </div>
-                                                </div>`)
+                                    <div class="performer" data-performer-id="${p.id}">
+                                        <div class="user-block">
+                                            <img class="img" data-src="${p.imgPath}" alt="" />
+                                            <span class="name">${p.name}</span>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input position-static" type="checkbox" ${p.checked == true ? "checked" : ``}/>
+                                        </div>
+                                    </div>`)
                                 performers.querySelector(`[data-performer-id="${p.id}"] .form-check-input`).onclick = e => {
                                     let pId = e.target.closest(".performer").dataset.performerId
                                     if (e.target.checked == true) {
                                         e.target.checked = false; e.target.setAttribute("disabled", "true")
-                                        this.Alert.render("confirm", "Виконавця буде додано до задачі. Ви впевнені?", () => {
-                                            pList.set(pId, p); pList.get(pId).checked = true; e.target.checked = true; e.target.removeAttribute("disabled")
-                                        }, () => e.target.removeAttribute("disabled"))
+                                        this.Alert.render("confirm", "Виконавця буде додано до задачі. Ви впевнені?", {
+                                            confirm: () => {
+                                                this.Loader.show("infinity")
+                                                this.Http.post("/try", { pId }, res => {
+                                                    if (res.success) {
+                                                        pList.set(pId, p); pList.get(pId).checked = true; e.target.checked = true
+                                                        this.Alert.render("success", "Виконавця додано.")
+                                                    } else this.Alert.render("danger", `Сталася помилка: ${res.msg.substr(0, 32)}...`)
+                                                    this.Loader.hide(); e.target.removeAttribute("disabled")
+                                                })
+                                            },
+                                            unConfirm: () => e.target.removeAttribute("disabled")
+                                        })
                                     } else {
                                         e.target.checked = true; e.target.setAttribute("disabled", "true")
-                                        this.Alert.render("confirm", "Виконавця буде вилучено з задачі. Ви впевнені?", () => {
-                                            pList.get(pId).checked = false; pList.delete(pId); e.target.checked = false; e.target.removeAttribute("disabled")
-                                        }, () => e.target.removeAttribute("disabled"))
+                                        this.Alert.render("confirm", "Виконавця буде вилучено з задачі. Ви впевнені?", {
+                                            confirm: () => {
+                                                this.Loader.show("infinity")
+                                                this.Http.post("/try", { pId }, res => {
+                                                    if (res.success) {
+                                                        pList.get(pId).checked = false; pList.delete(pId); e.target.checked = false;
+                                                        this.Alert.render("success", "Виконавця вилучено.")
+                                                    } else this.Alert.render("danger", `Сталася помилка: ${res.msg.substr(0, 32)}...`)
+                                                    this.Loader.hide(); e.target.removeAttribute("disabled")
+                                                })
+                                            },
+                                            unConfirm: () => e.target.removeAttribute("disabled")
+                                        })
                                     }
 
                                 }
@@ -566,7 +593,7 @@
                         }
 
                         let pageNum = 0
-                        this.Data.get("Performers").then(data => {
+                        this.Data.update("Performers").then(data => {
 
                             data.forEach(p => pList.set(p.id, p))
                             t.performers.forEach(p => pList.get(p.id).checked = true)
@@ -639,18 +666,24 @@
                                     btn = e.target.closest('[data-event="dismiss"]')
 
                                 btn.setAttribute("disabled", "true")
-
-                                this.Loader.show("infinity")
-                                this.Http.post("/try", { todoId: d.dataset.todoId, commentId }, res => {
-                                    this.Loader.hide(); setTimeout(() => {
-                                        if (res.success) {
-                                            $(comment).slideUp(100, () => comment.remove())
-                                            this.Alert.render("success", "Коментар видалено.")
-                                        } else {
-                                            this.Alert.render("danger", "Сталася помилка.")
-                                            btn.removeAttribute("disabled")
-                                        }
-                                    }, 400)
+                                this.Alert.render("confirm", "Коментар буде видално. Ви впевнені?", {
+                                    confirm: () => {
+                                        this.Loader.show("infinity")
+                                        this.Http.post("/try", { todoId: d.dataset.todoId, commentId }, res => {
+                                            this.Loader.hide(); setTimeout(() => {
+                                                if (res.success) {
+                                                    $(comment).slideUp(100, () => comment.remove())
+                                                    this.Alert.render("success", "Коментар видалено.")
+                                                } else {
+                                                    this.Alert.render("danger", "Сталася помилка.")
+                                                    btn.removeAttribute("disabled")
+                                                }
+                                            }, 400)
+                                        })
+                                    },
+                                    unConfirm: () => {
+                                        btn.removeAttribute("disabled")
+                                    }
                                 })
                             }
 
@@ -688,19 +721,26 @@
                                     btn = e.target.closest('[data-event="dismiss"]')
 
                                 btn.setAttribute("disabled", "true")
-
-                                this.Loader.show("infinity")
-                                this.Http.post("/try", { todoId: d.dataset.todoId, fileId }, res => {
-                                    this.Loader.hide(); setTimeout(() => {
-                                        if (res.success) {
-                                            file.slideUp(100, () => file.remove())
-                                            this.Alert.render("success", "Файл прибрано.")
-                                        } else {
-                                            this.Alert.render("danger", "Сталася помилка.")
-                                            btn.removeAttribute("disabled")
-                                        }
-                                    }, 400)
+                                this.Alert.render("confirm", "Коментар буде видално. Ви впевнені?", {
+                                    confirm: () => {
+                                        this.Loader.show("infinity")
+                                        this.Http.post("/try", { todoId: d.dataset.todoId, fileId }, res => {
+                                            this.Loader.hide(() => {
+                                                if (res.success) {
+                                                    file.slideUp(100, () => file.remove())
+                                                    this.Alert.render("success", "Файл прибрано.")
+                                                } else {
+                                                    this.Alert.render("danger", "Сталася помилка.")
+                                                    btn.removeAttribute("disabled")
+                                                }
+                                            })
+                                        })
+                                    },
+                                    unConfirm: () => {
+                                        btn.removeAttribute("disabled")
+                                    }
                                 })
+
                             }
 
                         }); $(rFiles).find('[data-src]').Lazy({
@@ -897,13 +937,6 @@
                 }
 
             }); $('[data-modal="todoInfo"]').on("hidden.bs.modal", () => $(todoInfoCarousel).carousel(0))
-
-            this.init("confirm", document.querySelector('[data-modal="todoInfo"]'), () => {
-                return "done"
-            }, msg => {
-                console.log(msg)
-            })
-
         }
 
         render(name, data) {

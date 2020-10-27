@@ -21,6 +21,10 @@
                 () => this.push({ title: "Дошки", url: "/boards" }),
             )
 
+            this.Navbar.elements["clPanel"].sub(
+                () => this.push({ title: "Панель управління", url: "/clPanel" }),
+            )
+
             if (history.state == null) {
                 this.set({ title: "Дошки", url: "/boards" })
             } else this.set(history.state)

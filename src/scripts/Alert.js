@@ -44,18 +44,18 @@
             `)
         }
 
-        render(alertClass, msg, callback, then) {
+        render(alertClass, msg, obj = {}) {
             let alert = this.alerts[alertClass]
             $("alerts").prepend(alert); alert = document.querySelector("alerts .alert")
-            let interval = setTimeout(() => this._close(alert, then), 7000)
+            let interval = setTimeout(() => this._close(alert, obj), 7000)
             alert.querySelector(".close").onclick = () => {
-                this._close(alert, then); clearTimeout(interval)
+                this._close(alert, obj); clearTimeout(interval)
             }
             alert.querySelector("msg").innerHTML = msg; $(alert).slideDown(100)
-            if (callback) {
+            if (obj.confirm) {
                 let button = alert.querySelector("button")
                 if (button) button.onclick = () => {
-                    callback(); this._close(alert, then)
+                    obj.confirm(); alert.classList.add("confirm"); this._close(alert, obj)
                 }
             }
         }
@@ -64,9 +64,9 @@
             this.alerts[alertClass] = template
         }
 
-        _close(alert, then) {
+        _close(alert, obj) {
+            if (obj.unConfirm && !alert.classList.contains("confirm")) obj.unConfirm()
             $(alert).slideUp(100, () => $(alert).remove())
-            if (then) then()
         }
     }
 
