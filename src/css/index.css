@@ -182,7 +182,7 @@ a:hover {
 }
 
 .nav-rail {
-  background-color: #2f374b;
+  background-color: #293147;
   position: fixed;
   z-index: 2;
   width: 50px;
@@ -659,6 +659,17 @@ a:hover {
 
 .content-wrapper .content .body table td [data-name="performers"] .performer {
   transition: margin 200ms;
+}
+
+.content-wrapper
+  .content
+  .body
+  table
+  td
+  [data-name="performers"]
+  .performer
+  img {
+  border-radius: 100%;
 }
 
 .content-wrapper
@@ -1996,4 +2007,23 @@ progress-bars {
 
 textarea {
   background: transparent !important;
+}
+
+/* Control panel */
+
+.departments tr:first-child td {
+  padding-top: 0px !important;
+}
+
+.departments .department__name td {
+  color: rgba(67, 78, 106, 50%) !important;
+}
+
+.departments .department__user td {
+  color: #7e86a1 !important;
+  font-family: "Opensans regular";
+}
+
+.departments .department__user img {
+  border-radius: 100%;
 }

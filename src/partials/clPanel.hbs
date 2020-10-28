@@ -9,38 +9,46 @@
             </div>
         </div>
     </div>
-    <div class="body">
-        <div>
-            <button id="newTodo" class="item">
-                Нова задача
-                <i class="fas fa-plus-circle"></i>
-            </button>
-        </div>
+    <div class="body create-department">
+        <input placeholder="Назва Відділу" class="item create-department__input" />
+        <button>Створити <i class="fa fa-plus-circle"></i></button>
     </div>
 </div>
 <div class="body">
     <table>
-        <thead>
-            <tr>
+        <tbody class="departments">
+            <tr class="department__name">
+                <td>Головний відділ</td>
+                <td></td>
+            </tr>
+            <tr class="department__user">
                 <td>
-                    Назва
+                    <div class="td-wrapper">
+                        <img src="./img/avatars/Picture.png" alt="">
+                        Lorem ipsum dolor sit.
+                    </div>
+                </td>
+                <td>Lorem.ipsum.2020@gmail.com</td>
+                <td>
+                    25.01.2020
                 </td>
                 <td>
-                    Дата контролю
+                    Головний менеджер
                 </td>
                 <td>
-                    Дата дедлайну
+                    <div data-role="calendar-control" class="calendar drop-down">
+                        <button data-event="toggle">
+                            Головний відділ
+                        </button>
+                        <div class="drop-down_menu">
+                            <div class="drop-down_item">Dep</div>
+                        </div>
+                    </div>
                 </td>
                 <td>
-                    Статус
-                </td>
-                <td>
-                    Виконавці
+                    <i class="far fa-ellipsis-v"></i>
                 </td>
             </tr>
-        </thead>
-        <tbody>
-
         </tbody>
     </table>
 </div>
