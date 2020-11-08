@@ -33,7 +33,6 @@
 
                 if (btn) {
                     btn.addEventListener("click", (e) => {
-
                         if (!n.classList.contains("active")) {
                             if (options.single) {
                                 let active = selector.querySelector(".active"); if (active) this.close(active);

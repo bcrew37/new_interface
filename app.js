@@ -21,6 +21,18 @@ app.get("/files", (req, res) => {
 app.get("/clPanel", (req, res) => {
     res.render("index")
 })
+app.get("/main", (req, res) => {
+    res.render("main")
+})
+app.get("/signup", (req, res) => {
+    res.render("signup")
+})
+app.get("/confirm", (req, res) => {
+    res.render("confirm")
+})
+app.get("/econfig", (req, res) => {
+    res.render("index")
+})
 
 // Get + Post
 app.use("/test", (req, res) => {
@@ -77,14 +89,6 @@ app.use("/test", (req, res) => {
             name: "Lorem ipsum dolor sit emmet 3",
             extName: ".html",
             performer: "Lorem ipsum",
-            taskCount: 2,
-            date: "13.12.25",
-            id: "12312511241242512"
-        },
-        {
-            name: "Lorem ipsum dolor sit emmet 3",
-            extName: ".jpg",
-            performer: "",
             taskCount: 2,
             date: "13.12.25",
             id: "12312511241242512"
@@ -373,37 +377,80 @@ app.use("/pList", (req, res) => {
         {
             imgPath: "./img/avatars/pexels-ralph-rabago-3214734.jpg",
             name: "Сергей Пейдж",
-            id: "3;askd;l"
+            id: "3;askd;l",
+            department: {
+                name: "main",
+                id: 2
+            },
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
         },
         {
             imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
             name: "Лари Пейдж",
-            id: "2"
+            id: "2",
+            department: {
+                name: "main",
+                id: 2
+            },
+            email: "buninmisha1809@gmail.com",
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
         },
         {
             imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
             name: "Лари Пейдж",
-            id: "8"
+            id: "8",
+            department: {
+                name: "main",
+                id: 2
+            },
+            email: "buninmisha1809@gmail.com",
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
         },
         {
             imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
             name: "Лари Пейдж",
-            id: "9"
+            id: "9",
+            department: {
+                name: "Alex",
+                id: 4
+            },
+            email: "buninmisha1809@gmail.com",
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
         },
         {
             imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
             name: "Лари Пейдж",
-            id: "10"
+            id: "10",
+            department: {
+                name: "main",
+                id: 2
+            },
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
         },
         {
             imgPath: "./img/avatars/Picture.png",
             name: "Сергей брин",
-            id: "1"
+            id: "1",
+            department: {
+                name: "main",
+                id: 2
+            },
+            email: "buninmisha1809@gmail.com",
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
         },
         {
             imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
             name: "Карло Магистрале",
-            id: "4"
+            id: "4",
+            email: "buninmisha1809@gmail.com",
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
         },
     ])
 })
@@ -418,8 +465,71 @@ app.use("/myinfo", (req, res) => {
         name: "John Liberty Jostery",
         email: "Joster1998@gmail.com",
         imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
-        role: ["manager"]
+        role: ["gmanager"],
+        success: true
     })
+})
+app.use("/departments", (req, res) => {
+    res.send([
+        {
+            name: "Joseph",
+            id: 1
+        },
+        {
+            name: "main",
+            id: 2
+        },
+        {
+            name: "SEO",
+            id: 3
+        },
+        {
+            name: "Alex",
+            id: 4
+        },
+        {
+            name: "Denny",
+            id: 5
+        },
+    ])
+})
+app.use("/enterprises", (req, res) => {
+    res.send([{
+        name: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, laudantium? 1",
+        id: 1,
+        performers: 10,
+        tariff: "free",
+        space: {
+            used: "1.2Gb",
+            max: "10"
+        },
+        date: "12.10.2020"
+    },
+    {
+        name: "Enterprise 2",
+        id: 2,
+        performers: 15,
+        tariff: "standart",
+        space: {
+            used: "16.2Gb",
+            max: "50"
+        },
+        date: "12.10.2020",
+        active: true
+    },
+    {
+        name: "Enterprise 3",
+        id: 3,
+        performers: 2,
+        tariff: "unlimited",
+        space: {
+            used: "10Gb",
+            max: "100"
+        },
+        date: "12.10.2020"
+    }
+
+    ])
 })
 
 app.listen(3000, () => {

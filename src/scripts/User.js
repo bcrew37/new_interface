@@ -8,10 +8,10 @@
         }
 
         get(callback) {
-            let user = this.Cookie.get("User");
+            let user = JSON.parse(sessionStorage.getItem("User"))
             if (!user) {
                 this.Http.get("/myinfo", data => {
-                    this.Cookie.set("User", JSON.stringify(data), { "max-age": 1800 }); callback(data)
+                    sessionStorage.setItem("User", JSON.stringify(data)); callback(data)
                 })
             } else callback(user)
         }

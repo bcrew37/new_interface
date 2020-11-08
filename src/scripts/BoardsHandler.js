@@ -5,10 +5,17 @@
 
         constructor() {
             this.Modal = Factory.getClass("Modal")
-            this.init("#newTodo", () => this.Modal.render("newTodo"))
+
             this.Data = Factory.getClass("Data")
-            this.Data.get("Todos").then(data => this.render(data))
+            this.Loader = Factory.getClass("Loader")
+            this.Http = Factory.getClass("Http")
             this.Dropdown = Factory.getClass("Dropdown")
+            this.Alert = Factory.getClass("Alert")
+
+            this.init("#newTodo", () => this.Modal.render("newTodo"))
+            this.Data.get("Todos").then(data => this.render(data))
+
+            Factory.getClass("Pagination").init(".pagination", "/todos", "BoardsHandler")
             Factory.getClass("Notifications").render(document.querySelector(".tool-bar .notifications"))
         }
 
@@ -23,7 +30,7 @@
             data.forEach(t => {
                 let performers = ''; for (let i = 0; i < t.performers.length; i++) {
                     let p = t.performers[i];
-                    if (i < 5) performers += `<div data-placement="auto" data-toggle="tooltip" title="${p.firstName} ${p.lastName}" class="performer"><img data-src="${p.imgPath}"/></div>`
+                    if (i < 5) performers += `<div data-placement="auto" data-toggle="tooltip" title="${p.name}" class="performer"><img data-src="${p.imgPath}"/></div>`
                     if (i == t.performers.length - 1 && i > 5) performers += `<span class="ml-3">${t.performers.length - 5} + </span>`
                 }; let status; switch (t.status) {
                     case "inProgress":
@@ -45,7 +52,7 @@
                 <tr class="table-row todo" data-todo-id="${t.id}">
                     <td>
                         <div class="td-wrapper">
-                            <img data-placement="auto" data-toggle="tooltip" title="${t.manager.firstName} ${t.manager.lastName}" data-name="manager" data-src="${t.manager.imgPath}" alt="" />
+                            <img data-placement="auto" data-toggle="tooltip" title="${t.manager.name}" data-name="manager" data-src="${t.manager.imgPath}" alt="" />
                             <button title="натисніть для більш детальної інформації" class="name">
                                ${t.name}
                             </button>
@@ -56,7 +63,6 @@
                             <button data-event="toggle">
                                 <span>
                                     <span data-name="selectedDate">00.00.0000</span>
-                                    <i class="fa fa-caret-down"></i>
                                 </span>
                             </button>
                             <div class="drop-down_menu">
@@ -111,7 +117,6 @@
                             <button data-event="toggle">
                                 <span>
                                     <span data-name="selectedDate">00.00.0000</span>
-                                    <i class="fa fa-caret-down"></i>
                                 </span>
                             </button>
                             <div class="drop-down_menu">
@@ -162,7 +167,7 @@
                         </div>
                     </td>
                     <td data-name="status">
-                        <div className="status"></div>
+                        <div class="status ${t.status}"></div>
                         <span class="status-name">${status}</span>
                     </td>
                     <td>
@@ -172,12 +177,48 @@
                     </td>
                 </tr>`)
                 let deadline = Factory.getClass("Datepicker", this._table.querySelector(`[data-todo-id="${t.id}"] .deadline .calendar`), t.deadlineDate, target => {
-                    console.log(deadline.getDate())
-                    deadline.set(t.deadlineDate)
+                    this.Alert.render("confirm", "Дату дедлайну буде змінено. Ви впевнені?", {
+                        confirm: () => {
+                            this.Loader.show("infinity")
+                            this.Http.post("/try", { date: deadline.getDate() }, res => {
+                                this.Loader.hide(() => {
+                                    console.log({ date: deadline.getDate() })
+                                    if (res.success) {
+                                        this.Alert.render("success", "Дату змінено.")
+                                    } else {
+                                        this.Alert.render("danger", "Сталася помилка.")
+                                        deadline.set(t.deadlineDate)
+                                    }
+                                })
+                            })
+                        },
+                        unConfirm: () => {
+                            deadline.set(t.deadlineDate)
+                        }
+
+                    })
                 })
                 let control = Factory.getClass("Datepicker", this._table.querySelector(`[data-todo-id="${t.id}"] .control .calendar`), t.controlDate, target => {
-                    console.log(control.getDate())
-                    control.set(t.controlDate)
+                    this.Alert.render("confirm", "Дату дедлайну буде змінено. Ви впевнені?", {
+                        confirm: () => {
+                            this.Loader.show("infinity")
+                            this.Http.post("/try", { date: control.getDate() }, res => {
+                                this.Loader.hide(() => {
+                                    console.log({ date: control.getDate() })
+                                    if (res.success) {
+                                        this.Alert.render("success", "Дату змінено.")
+                                    } else {
+                                        this.Alert.render("danger", "Сталася помилка.")
+                                        control.set(t.controlDate)
+                                    }
+                                })
+                            })
+                        },
+                        unConfirm: () => {
+                            control.set(t.controlDate)
+                        }
+
+                    })
                 })
                 this._table.querySelector(`[data-todo-id="${t.id}"] .td-wrapper .name`).onclick = e => {
                     this.Modal.render("todoInfo", e.target.closest(".todo"))

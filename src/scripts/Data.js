@@ -4,69 +4,38 @@
         constructor() {
             this.Http = Factory.getClass("Http")
             this.Alert = Factory.getClass("Alert")
+            this.Cookie = Factory.getClass("Cookie")
+
             this.keys = new Map([])
-            this.paths = {}
 
             this.init({
                 "/test": "Files",
                 "/notifications?list=1": "Notifications",
                 "/todos": "Todos",
-                "/pList": "Performers"
+                "/pList": "Performers",
+                "/departments": "Departments",
+                "/enterprises": "Enterprises"
             })
         }
 
-        // _setCookie(name, value, options = {}) {
-        //     options = {
-        //         path: '/',
-        //         ...options
-        //     };
-
-        //     if (options.expires instanceof Date) {
-        //         options.expires = options.expires.toUTCString();
-        //     }
-
-        //     let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
-
-        //     for (let optionKey in options) {
-        //         updatedCookie += "; " + optionKey;
-        //         let optionValue = options[optionKey];
-        //         if (optionValue !== true) {
-        //             updatedCookie += "=" + optionValue;
-        //         }
-        //     }
-
-        //     document.cookie = updatedCookie;
-        // }
-
-        // _getCookie(name) {
-        //     let matches = document.cookie.match(new RegExp(
-        //         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-        //     ));
-        //     return matches ? decodeURIComponent(matches[1]) : undefined;
-        // }
-
-        // _getData(url, key, resolve) {
-        //     return this.Http.get(url, data => {
-        //         resolve(data)
-        //         this._setCookie(key, url, { "max-age": 1800 })
-        //         sessionStorage.setItem(key, JSON.stringify(data))
-        //     })
-        // }
-
         init(obj) {
-            for (let key in obj) {
-                let val = obj[key]
-                this.paths[val] = key
-                this.keys.set(val, new Promise((resolve, reject) => {
-                    let data = sessionStorage.getItem(val)
-                    if (data) {
+            for (let path in obj) {
+                let key = obj[path],
+                    cookie = this.Cookie.get(key)
+
+                this.keys.set(key, new Promise((resolve, reject) => {
+                    let data = sessionStorage.getItem(key)
+                    if (data && cookie) {
                         resolve(JSON.parse(data))
                     } else {
-                        this.Http.get(key, data => {
-                            sessionStorage.setItem(val, JSON.stringify(data)); resolve(data)
+                        this.Http.get(path, data => {
+                            this.Cookie.set(key, path, { "max-age": 600 })
+                            sessionStorage.setItem(key, JSON.stringify(data))
+                            resolve(data)
                         })
                     }
                 }))
+
             }
         }
 
@@ -75,8 +44,13 @@
         }
 
         update(key) {
+            let path = this.Cookie.get(key)
             return new Promise((resolve, reject) => {
-                this.Http.get(this.paths[key], data => resolve(data))
+                this.Http.get(path, data => {
+                    this.Cookie.set(key, path, { "max-age": 900 })
+                    sessionStorage.setItem(key, JSON.stringify(data))
+                    resolve(data)
+                })
             })
         }
 

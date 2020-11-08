@@ -2,8 +2,8 @@
     <div class="wrapper">
         <div>
             <div class="profile">
-                <div role="button" title="Завантажити фото" data-event="profileImg" class="picture">
-                    <img src="./img/avatars/Picture.png" alt="" />
+                <div role="button" data-event="profileImg" class="picture">
+                    <img alt="" />
                 </div>
                 <div class="initial">M</div>
             </div>
@@ -21,12 +21,62 @@
         <div class="divider"></div>
         <div class="nav-items nav-bottom">
             <i title="Панель управління" data-event="clPanel" class="nav-item fa fa-wrench"></i>
-            <i title="Налаштування" data-event="settings" class="nav-item fas fa-cog"></i>
+            <div class="drop-down">
+                <button data-event="toggle">
+                    <i title="Налаштування" data-event="settings" class="nav-item fas fa-cog"></i>
+                </button>
+                <div class="drop-down_menu">
+                    <div class="drop-down__list">
+                        <div value="delete" class="item">
+                            Кабинет пользователя
+                            <i class="far fa-user ml-3"></i>
+                        </div>
+                        <div value="delete" class="item" data-event="enterpriseCongfig">
+                            Кабинет предприятия
+                            <i class="far fa-users ml-3"></i>
+                        </div>
+                        <div value="delee" class="item">
+                            Выйти
+                            <i class="far fa-sign-out-alt ml-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="nav-rail mobile">
+    <div class="nav-items">
+        <div class="drop-down">
+            <button data-event="toggle">
+                <i title="Налаштування" data-event="settings" class="nav-item fas fa-cog"></i>
+            </button>
+            <div class="drop-down_menu">
+                <div class="drop-down__list">
+                    <div value="delete" class="item">
+                        Кабинет пользователя
+                        <i class="far fa-user ml-3"></i>
+                    </div>
+                    <div value="delete" class="item" data-event="">
+                        Кабинет предприятия
+                        <i class="far fa-users ml-3"></i>
+                    </div>
+                    <div value="delee" class="item">
+                        Выйти
+                        <i class="far fa-sign-out-alt ml-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <i class="nav-item fa fa-wrench" data-event="clPanel"></i>
+        <i class="nav-item"></i>
+    </div>
+    <div class="profile">
+        <div role="button" class="picture" data-event="profileImg">
+            <img src="" alt="" />
+        </div>
+    </div>
     <div class="nav-items">
         <svg class="nav-item" data-event="boards" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
             <path id="Icon_material-dashboard" data-name="Icon material-dashboard"
@@ -35,15 +85,5 @@
         </svg>
         <i class="nav-item fa fa-folder" data-event="files"></i>
         <i class="nav-item fa fa-chart-bar" data-event="charts"></i>
-    </div>
-    <div class="profile">
-        <div role="button" class="picture" data-event="profileImg">
-            <img src="./img/avatars/Picture.png" alt="" />
-        </div>
-    </div>
-    <div class="nav-items">
-        <i class="nav-item"></i>
-        <i class="nav-item fa fa-wrench" data-event="clPanel"></i>
-        <i class="nav-item fas fa-cog" data-event="settings"></i>
     </div>
 </div>

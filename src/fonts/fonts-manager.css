@@ -29,6 +29,11 @@
 }
 
 @font-face {
+  font-family: "Opensans semibold";
+  src: url("./Opensans/OpenSans-SemiBold.ttf");
+}
+
+@font-face {
   font-family: "Opensans light";
   src: url("./Opensans/OpenSans-Light.ttf");
 }

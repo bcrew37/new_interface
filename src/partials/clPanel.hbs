@@ -10,81 +10,14 @@
         </div>
     </div>
     <div class="body create-department">
-        <input placeholder="Назва Відділу" class="item create-department__input" />
-        <button>Створити <i class="fa fa-plus-circle"></i></button>
+        <input maxlength="64" placeholder="Назва Відділу" class="create-department__input" />
+        <button class="create-department__button">Створити <i class="fa fa-plus-circle"></i></button>
     </div>
 </div>
 <div class="body">
     <table>
         <tbody class="departments">
-            <tr class="department__name">
-                <td>Головний відділ</td>
-                <td></td>
-            </tr>
-            <tr class="department__user">
-                <td>
-                    <div class="td-wrapper">
-                        <img src="./img/avatars/Picture.png" alt="">
-                        Lorem ipsum dolor sit.
-                    </div>
-                </td>
-                <td>Lorem.ipsum.2020@gmail.com</td>
-                <td>
-                    25.01.2020
-                </td>
-                <td>
-                    Головний менеджер
-                </td>
-                <td>
-                    <div data-role="calendar-control" class="calendar drop-down">
-                        <button data-event="toggle">
-                            Головний відділ
-                        </button>
-                        <div class="drop-down_menu">
-                            <div class="drop-down_item">Dep</div>
-                        </div>
-                    </div>
-                </td>
-                <td>
-                    <i class="far fa-ellipsis-v"></i>
-                </td>
-            </tr>
+
         </tbody>
     </table>
-</div>
-<div class="footer">
-    <div class="filter-group">
-        <div class="sort dropdown" id="sortByDepartment">
-            <button role="button" id="sort-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Дошка: <span id="selected-option">Усі</span>
-                <i class="fas fa-caret-down"></i>
-            </button>
-
-            <div class="dropdown-menu" aria-labelledby="sort-options">
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <div class="dropdown-divider"></div>
-                <button class="dropdown-item" href="#">Усі</button>
-            </div>
-        </div>
-        <button class="filter-toggle">
-            Фильтр <i class="fas fa-sort"></i>
-        </button>
-    </div>
-    <div class="pagination">
-        <span role="button" class="page-num active">1</span>
-        <span role="button" class="page-num">2</span>
-        <span role="button" class="page-num">3</span>
-        <span role="button" class="page-num last-page">...31</span>
-        <button class="page-num next-page">
-            <i class="fal fa-chevron-right"></i>
-        </button>
-    </div>
 </div>

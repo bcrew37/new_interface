@@ -46,37 +46,23 @@
 </div>
 <div class="footer">
     <div class="filter-group">
-        <div class="sort dropdown" id="sortByDepartment">
-            <button role="button" id="sort-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Департамент: <span id="selected-option">Усі</span>
-                <i class="fas fa-caret-down"></i>
-            </button>
-
-            <div class="dropdown-menu" aria-labelledby="sort-options">
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <div class="dropdown-divider"></div>
-                <button class="dropdown-item" href="#">Усі</button>
-            </div>
-        </div>
-        <button class="filter-toggle">
+        <button id="filter" class="filter-toggle">
             Фильтр <i class="fas fa-sort"></i>
         </button>
     </div>
     <div class="pagination">
-        <span role="button" class="page-num active">1</span>
-        <span role="button" class="page-num">2</span>
-        <span role="button" class="page-num">3</span>
-        <span role="button" class="page-num last-page">...31</span>
-        <button class="page-num next-page">
-            <i class="fal fa-chevron-right"></i>
+        <button class="control page-num first-page">
+            <i class="fad fa-chevron-double-left"></i>
+        </button>
+        <button class="control page-num previous-page">
+            <i class="far fa-chevron-left"></i>
+        </button>
+        <span class="page-num current-page">1</span>
+        <button class="control page-num next-page">
+            <i class="far fa-chevron-right"></i>
+        </button>
+        <button class="control page-num last-page">
+            <i class="fad fa-chevron-double-right"></i>
         </button>
     </div>
 </div>

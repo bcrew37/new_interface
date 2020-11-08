@@ -12,6 +12,7 @@
                 'clPanel': document.querySelectorAll('[data-event="clPanel"]'),
                 "boards": document.querySelectorAll('[data-event="boards"]'),
                 "profileImg": document.querySelectorAll('[data-event="profileImg"]'),
+                "econfig": document.querySelectorAll('[data-event="enterpriseCongfig"]'),
             })
 
             this.elements["profileImg"].sub(() => {

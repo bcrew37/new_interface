@@ -1,7 +1,7 @@
 (function (Factory) {
 
     class Regexp {
-        email = /\S+@\S+\.\S+/
+        email = /\S+@\S+/
     }
 
     Factory.setSingletone("Regexp", Regexp)

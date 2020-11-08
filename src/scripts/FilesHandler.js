@@ -13,9 +13,11 @@
             this.init("#shareFiles", () => this.Modal.render("shareFiles", this.Selector.selected))
             this.init("#downloadFiles", () => this.FilesManager.download(this.Selector.selected))
             this.init("#uploadFiles", () => this.Modal.render("uploadFiles"))
+            this.init("#filter", () => this.Modal.render("filesFilter"))
 
             this.Data = Factory.getClass("Data")
             this.Data.get("Files").then(data => this.render(data))
+            Factory.getClass("Pagination").init(".pagination", "/test", "FilesHandler")
 
             Factory.getClass("Notifications").render(document.querySelector(".tool-bar .notifications"))
         }

@@ -1,4 +1,4 @@
-(function (window) {
+(function () {
 
     class Factory {
 
@@ -25,5 +25,6 @@
     }
 
     window.Factory = new Factory()
-})(window)
+})();
+
 

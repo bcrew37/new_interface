@@ -52,7 +52,7 @@
 				</div>
 				<div class="block" data-name="todos">
 					<form class="findTodo">
-						<input data-name="field" type="text" data-event="findTodo" placeholder="Пошук виконавців...">
+						<input data-name="field" type="text" data-event="findTodo" placeholder="Пошук задачі...">
 						<button type="submit">
 							<i data-event="find" title="Натисніть для пошуку." class="far fa-search"></i>
 						</button>
@@ -388,8 +388,10 @@
 								Звіт
 							</button>
 						</div>
+					</div>
+					<div class="block d-flex">
 						<div class="control-buttons" style="display: none;">
-							<button title="Завершити" style="background: #1bc943" class="btn ml-2 event-complete"
+							<button title="Завершити" style="background: #1bc943" class="btn event-complete"
 								type="button">
 								<i class="fa fa-check"></i>
 							</button>
@@ -401,10 +403,35 @@
 								class="btn ml-2 event-onhold" type="button">
 								<i class="fas fa-alarm-clock"></i>
 							</button>
+							<button title="До нових" style="background: #2196f3" class="btn ml-2 event-new"
+								type="button">
+								<i class="fas fa-plus-circle"></i>
+							</button>
 						</div>
+						<button title="До виконання" style="background: #ff9800;" class="btn ml-2 event-inProgress"
+							type="button">
+							<i class="far fa-hourglass-half"></i>
+						</button>
 					</div>
 					<div class="block">
-
+						<div class="control-buttons" style="display: none;">
+							<button title="Завершити" style="background: #1bc943" class="btn event-complete"
+								type="button">
+								<i class="fa fa-check"></i>
+							</button>
+							<button title="Переробити" style="background: #f44336" class="btn ml-2 event-overdue"
+								type="button">
+								<i class="fa fa-times"></i>
+							</button>
+							<button title="Відкласти" style="background: rgba(67, 78, 106, 50%)"
+								class="btn ml-2 event-onhold" type="button">
+								<i class="fas fa-alarm-clock"></i>
+							</button>
+							<button title="До нових" style="background: #2196f3" class="btn ml-2 event-onhold"
+								type="button">
+								<i class="fas fa-alarm-clock"></i>
+							</button>
+						</div>
 					</div>
 					<div class="block">
 						<div class="clean"></div>
@@ -424,23 +451,91 @@
 	</div>
 </div>
 
-<div class="modal" data-modal="confirm" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
+<div class="modal fade" data-modal="tariffs" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Modal title</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Modal body text goes here.</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+			<div style="margin: 20px 0" class="block-wrapper">
+				<div class="prices__list-item">
+					<div class="prices__list-item__headline">Стандартний</div>
+					<p class="prices__list-item__short-desc">
+						Минимум для начала работы
+					</p>
+					<p class="prices__list-item__option">10 Співробітників</p>
+					<p class="prices__list-item__option">5 Гб Сховище</p>
+					<p class="prices__list-item__option">3 Відділи</p>
+					<p class="prices__list-item__option">64 задачі</p>
+					<p class="prices__list-item__price">200 грн/міс</p>
+					<div class="prices__list-item__price">
+						<p class="prices__list-item__price-discount">
+							<span class="prices__list-item__price-discount__wod">
+								2400 грн/рік
+							</span>
+
+							<span class="prices__list-item__price-discount__dp">
+								( -20% )
+							</span>
+						</p>
+
+						<p class="prices__list-item__price-wd">1920 грн/рік</p>
+					</div>
+					<button id="standartTariff" class="prices__list-item__button">Придбати</button>
+				</div>
+
+				<div class="prices__list-item">
+					<div class="prices__list-item__headline">Безмежний</div>
+					<p class="prices__list-item__short-desc">
+						Минимум для начала работы
+					</p>
+					<p class="prices__list-item__option">10 Співробітників</p>
+					<p class="prices__list-item__option">5 Гб Сховище</p>
+					<p class="prices__list-item__option">3 Відділи</p>
+					<p class="prices__list-item__option">64 задачі</p>
+					<p class="prices__list-item__price">200 грн/міс</p>
+					<div class="prices__list-item__price">
+						<p class="prices__list-item__price-discount">
+							<span class="prices__list-item__price-discount__wod">
+								2400 грн/рік
+							</span>
+
+							<span class="prices__list-item__price-discount__dp">
+								( -20% )
+							</span>
+						</p>
+
+						<p class="prices__list-item__price-wd">1920 грн/рік</p>
+					</div>
+					<button id="unlimitedTariff" class="prices__list-item__button">Придбати</button>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" data-modal="filesFilter" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="header">
+				<button style="margin-left:auto" type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<i class="far fa-times"></i>
+				</button>
+			</div>
+			<div class="block-wrapper">
+				<input class="filter__name" type="text" data-role="name" placeholder="Назва..." maxlength="232" />
+			</div>
+			<div class="footer">
+				<div class="block">
+
+				</div>
+				<div class="block">
+
+				</div>
+				<div class="block">
+					<div class="clean"></div>
+					<button type="button" class="button active" data-event="submit">Пошук</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 </modals>

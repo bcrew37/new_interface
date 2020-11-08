@@ -364,6 +364,21 @@
                 }
             })
 
+            this.init("tariffs", document.querySelector('[data-modal="tariffs"]'), () => {
+                return "done"
+            }, id => {
+                let modal = this.modals["tariffs"].node,
+                    standart = modal.querySelector("#standartTariff"),
+                    unlimited = modal.querySelector("#unlimitedTariff")
+
+                function changeTariff(tariff) {
+                    console.log("work")
+                }
+
+                standart.onclick = () => changeTariff("standart")
+                unlimited.onclick = () => changeTariff("unlimited")
+            })
+
             this.init("shareFiles", document.querySelector('[data-modal="shareFiles"]'), d => {
                 if (d.length == 0) return this.Alert.render("warning", "Оберіть файли...")
                 if (d.length > 6) return this.Alert.render("warning", "Не більше 6 файлів")
@@ -446,6 +461,8 @@
                     completeBtn = controlBtns.querySelector(".event-complete"),
                     overdueBtn = controlBtns.querySelector(".event-overdue"),
                     onholdBtn = controlBtns.querySelector(".event-onhold"),
+                    tonewBtn = controlBtns.querySelector(".event-new"),
+                    inProgressBtn = modal.querySelector(".event-inProgress"),
                     changeBtn = modal.querySelector(".apply-changes"),
                     uploadBtn = modal.querySelector(".upload-files"),
                     downloadFiles = modal.querySelector('[data-event="downloadFiles"]'),
@@ -466,6 +483,7 @@
                 pagBtn.style.display = "flex"
                 changeBtn.style.display = "none"
                 controlBtns.style.display = "none"
+                inProgressBtn.style.display = "none"
                 description.setAttribute("disabled", "true")
                 name.setAttribute("readonly", "true")
 
@@ -486,7 +504,7 @@
                                         ${fileName}
                                     </span>
                                     <span class="extension"> ${fileExt} </span>
-                                    <button data-event="dismiss">
+                                    <button style="display:none"  data-event="dismiss">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>`)
@@ -593,7 +611,7 @@
                         }
 
                         let pageNum = 0
-                        this.Data.update("Performers").then(data => {
+                        this.Data.get("Performers").then(data => {
 
                             data.forEach(p => pList.set(p.id, p))
                             t.performers.forEach(p => pList.get(p.id).checked = true)
@@ -646,7 +664,7 @@
                                     <div class="body">
                                         <div class="name">
                                         ${c.author.name}
-                                        <button data-event="dismiss" class="dismiss">
+                                        <button style="display:none"  data-event="dismiss" class="dismiss">
                                         <i class="fa fa-trash"></i>
                                         </button>
                                         </div>
@@ -711,7 +729,7 @@
                                     </span>
                                     <span class="extension"> ${fileExt} </span>
                                     <button data-event="dismiss">
-                                        <i class="fas fa-trash"></i>
+                                        <i style="display:none"  class="fas fa-trash"></i>
                                     </button>
                                 </div>`)
 
@@ -758,16 +776,16 @@
                     {   // User rights
                         this.User.get(user => {
                             if (user.role[0] == "manager" || user.role[0] == "gmanager" || user.role[0] == "admin") {
-                                if (t.reportFiles.length > 0) {
-                                    controlBtns.style.display = "flex"
-                                };
+                                controlBtns.style.display = "flex"
+                                modal.querySelectorAll('[data-event="dismiss"]').forEach(b => b.style.display = "block")
                                 description.removeAttribute("disabled")
                                 name.removeAttribute("readonly")
                             }
+                            inProgressBtn.style.display = "block"
                         })
                     }
 
-                    {   // Download files
+                    {   // Download filess
                         downloadFiles.onclick = () =>
                             this.FilesManager.download(Array.from(files.querySelectorAll(".file"))
                                 .map(f => f.dataset.fileId))
@@ -809,18 +827,19 @@
                         }
 
                         changeBtn.onclick = () => {
-                            $(modal).modal("hide"); this.Loader.show("infinity")
+                            this.Loader.show("infinity")
                             let data = { todoId: d.dataset.todoId }
                             if (description.value.trim() !== t.description) { data.description = description.value }
                             if (name.value.trim() !== t.name) { data.name = name.value }
                             console.log(data)
+                            $(modal).modal("hide");
 
                             this.Http.post("/try", data, res => {
                                 this.Loader.hide(); setTimeout(() => {
                                     if (res.success) {
                                         this.Alert.render("success", "Зміни застосовано.")
                                     } else {
-                                        this.Alert.render("danger", `Сталася помилка ${res.msg}.`)
+                                        this.Alert.render("danger", `Сталася помилка ${res.msg.substr(0, 32)}.`)
                                     }
                                 }, 400)
                             })
@@ -921,22 +940,45 @@
                     const changeStatus = (status) => {
                         $(modal).modal("hide"); this.Loader.show("infinity")
                         this.Http.post("/try", { todoId: d.dataset.todoId, status }, res => {
-                            this.Loader.hide(); setTimeout(() => {
+                            this.Loader.hide(() => {
                                 if (res.success) {
                                     this.Alert.render("success", "Статус змінено.")
+                                    this.BoardsHandler = Factory.getClass("BoardsHandler")
+                                    this.Data.update("Todos").then(data => this.BoardsHandler.render(data))
                                 } else {
                                     this.Alert.render("danger", "Сталася помилка.")
                                 }
-                            }, 400)
+                            })
                         })
                     }
 
                     completeBtn.onclick = () => changeStatus("complete")
                     overdueBtn.onclick = () => changeStatus("overdue")
                     onholdBtn.onclick = () => changeStatus("onhold")
+                    tonewBtn.onclick = () => changeStatus("new")
+                    inProgressBtn.onclick = () => changeStatus("inProgress")
                 }
 
-            }); $('[data-modal="todoInfo"]').on("hidden.bs.modal", () => $(todoInfoCarousel).carousel(0))
+            }); $('[data-modal="todoInfo"]').on("hidden.bs.modal", () => {
+                $(todoInfoCarousel).carousel(0)
+                this.Data.get("Performers").then(data => {
+                    data.forEach(p => {
+                        setTimeout(() => {
+                            if (p.checked) p.checked = false
+                        }, 0)
+                    })
+                })
+            })
+
+            this.init("filesFilter", document.querySelector('[data-modal="filesFilter"]'), () => {
+                return "done"
+            }, () => {
+                let modal = this.modals["filesFilter"].node
+                // Confirm
+                submit.onclick = () => {
+
+                }
+            })
         }
 
         render(name, data) {

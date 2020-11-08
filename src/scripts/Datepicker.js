@@ -73,8 +73,7 @@
         }
 
         set(dmy) {
-            let [d, m, y] = this.Dates.parseDMY(dmy)
-            this.render(d, m, y)
+            this.sDate.innerHTML = dmy
         }
 
     }
