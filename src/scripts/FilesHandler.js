@@ -7,6 +7,8 @@
             this.Modal = Factory.getClass("Modal")
             this.Selector = Factory.getClass("Selector", { on: target => this._select(target), off: target => this._unselect(target) })
             this.FilesManager = Factory.getClass("FilesManager")
+            this._table = document.querySelector(".body tbody")
+            this.Http = Factory.getClass("Http")
 
             this.init("#newTodo", () => this.Modal.render("newTodo", this.Selector.selected))
             this.init("#existTodo", () => this.Modal.render("existTodo", this.Selector.selected))
@@ -20,6 +22,24 @@
             Factory.getClass("Pagination").init(".pagination", "/test", "FilesHandler")
 
             Factory.getClass("Notifications").render(document.querySelector(".tool-bar .notifications"))
+            this._table.closest(".body").querySelector("thead #sortByData i").onclick = e => {
+                let btn = e.target
+                if (btn.classList.contains("fa-caret-down")) {
+                    this.Http.get("/test", data => {
+                        btn.classList.remove("fa-caret-down")
+                        btn.classList.add("fa-caret-up")
+                        this.render(data)
+                        Factory.getClass("Pagination").init(".pagination", "/test", "FilesHandler")
+                    })
+                } else {
+                    this.Http.get("/test", data => {
+                        btn.classList.remove("fa-caret-up")
+                        btn.classList.add("fa-caret-down")
+                        this.render(data)
+                        Factory.getClass("Pagination").init(".pagination", "/test", "FilesHandler")
+                    })
+                }
+            }
         }
 
         _select(target) {
@@ -34,7 +54,6 @@
             document.querySelector(`${selector}`).addEventListener("click", () => callback())
         }
 
-        _table = document.querySelector(".body tbody")
         render(data = []) {
             this._table.innerHTML = ""
             data.forEach(f => $(this._table).append(`

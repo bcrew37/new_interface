@@ -13,6 +13,7 @@
                 "boards": document.querySelectorAll('[data-event="boards"]'),
                 "profileImg": document.querySelectorAll('[data-event="profileImg"]'),
                 "econfig": document.querySelectorAll('[data-event="enterpriseCongfig"]'),
+                "uconfig": document.querySelectorAll('[data-event="userConfig"]'),
             })
 
             this.elements["profileImg"].sub(() => {

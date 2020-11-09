@@ -32,7 +32,34 @@
                     Дата дедлайну
                 </td>
                 <td>
-                    Статус
+                    <div class="drop-down">
+                        <button data-event="toggle">
+                            Статус
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <div class="drop-down_menu">
+                            <div id="boardFilterByStatus" class="drop-down__list">
+                                <div value="all" class="item">
+                                    Усі
+                                </div>
+                                <div value="new" class="item">
+                                    Нові
+                                </div>
+                                <div value="inProgress" class="item">
+                                    В процесі
+                                </div>
+                                <div value="ovedue" class="item">
+                                    Дедлайн простротечнно
+                                </div>
+                                <div value="completed" class="item">
+                                    Завершені
+                                </div>
+                                <div value="onhold" class="item">
+                                    Відкладені
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </td>
                 <td>
                     Виконавці
@@ -52,23 +79,11 @@
                 <i class="fas fa-caret-down"></i>
             </button>
 
-            <div class="dropdown-menu" aria-labelledby="sort-options">
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
-                <button class="dropdown-item" href="#">Action</button>
+            <div id="departmentsList" class="dropdown-menu" aria-labelledby="sort-options">
                 <div class="dropdown-divider"></div>
-                <button class="dropdown-item" href="#">Усі</button>
+                <button data-event="alldeps" class="dropdown-item" href="#">Усі</button>
             </div>
         </div>
-        <button class="filter-toggle">
-            Фильтр <i class="fas fa-sort"></i>
-        </button>
     </div>
     <div class="pagination">
         <button class="control page-num first-page">

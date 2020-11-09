@@ -11,7 +11,8 @@
                 "/files": document.querySelector('templates [data-content="files"]'),
                 "/boards": document.querySelector('templates [data-content="boards"]'),
                 "/clPanel": document.querySelector('templates [data-content="clPanel"]'),
-                "/econfig": document.querySelector('templates [data-content="econfig"]')
+                "/econfig": document.querySelector('templates [data-content="econfig"]'),
+                "/uconfig": document.querySelector('templates [data-content="uconfig"]'),
             })
 
             this.Navbar.elements["files"].sub(
@@ -28,6 +29,10 @@
 
             this.Navbar.elements["econfig"].sub(
                 () => this.push({ title: "Кабінет підприємства", url: "/econfig" }),
+            )
+
+            this.Navbar.elements["uconfig"].sub(
+                () => this.push({ title: "Кабінет користувача", url: "/uconfig" }),
             )
 
             if (history.state == null) {

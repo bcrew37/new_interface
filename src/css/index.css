@@ -768,18 +768,22 @@ a:hover {
   width: 16px;
 }
 
-.content-wrapper .content .body table td .calendar .drop-down_menu.active {
+/* .content-wrapper .content .body table td .calendar .drop-down_menu.active {
   background-color: #ffffff !important;
 }
 
 .content-wrapper .content .body table td .calendar {
   background-color: #ffffff !important;
-}
+  position: absolute;
+  z-index: 1000;
+} */
 
 .content-wrapper .content .body table td .calendar .drop-down_menu {
   top: 60px;
   min-width: 250px;
   max-width: 300px;
+  position: absolute;
+  z-index: 1000;
 }
 .content-wrapper .content .body table td .calendar [data-event="toggle"] {
   color: rgba(67, 78, 106, 0.8);
@@ -809,6 +813,13 @@ a:hover {
   text-align: left;
   color: rgba(126, 134, 161, 60%);
   padding-top: 0px;
+}
+.content-wrapper .content .body table [data-event="toggle"] {
+  color: rgba(126, 134, 161, 60%);
+}
+.content-wrapper .content .body table [data-event="toggle"] i {
+  margin-left: 15px;
+  vertical-align: middle;
 }
 @media screen and (max-width: 676px) {
   .content-wrapper .content .body table .td-wrapper {
@@ -872,13 +883,6 @@ a:hover {
   color: #7e86a1;
 }
 
-.filter__name {
-  width: 100%;
-  color: rgba(67, 78, 106, 0.75);
-  padding-bottom: 5px;
-  border-bottom: 1px solid rgba(67, 78, 106, 0.5);
-}
-
 .filter__name:focus {
   border-bottom: 1px solid rgba(67, 78, 106, 0.5);
 }
@@ -938,7 +942,6 @@ a:hover {
 
 .modal .modal-content {
   padding: 20px;
-  overflow: hidden;
   max-height: auto;
   transition: max-height 300ms;
 }
@@ -1717,6 +1720,7 @@ a:hover {
   padding: 0;
   margin: 0;
 }
+
 .modal .footer .calendar button {
   color: rgba(67, 78, 106, 0.5);
   width: 100%;
@@ -1792,25 +1796,34 @@ a:hover {
   background-color: #ffffff !important;
 }
 
-.calendar .drop-down_menu.active {
+.calendar .drop-down_menu {
   opacity: 1;
   bottom: 45px;
-  min-width: 300px;
   display: flex;
   flex-direction: column;
   transition: opacity 200ms;
   background-color: #ffffff;
   background-color: #ffffff !important;
+  min-width: 320px;
+  overflow: visible;
 }
 .calendar .drop-down_menu {
   opacity: 0;
   bottom: 45px !important;
   position: absolute !important;
   background-color: #ffffff;
+  min-width: 320px;
+  overflow: visible;
+}
+
+[data-modal="filesFilter"] .calendar .drop-down_menu  {
+  left: -50px;
 }
 
 .drop-down_menu {
   background-color: #ffffff !important;
+  min-width: 250px;
+  border-radius: 12px;
 }
 
 .calendar .control {
@@ -2193,7 +2206,7 @@ textarea {
   margin: 20px 0;
 }
 
-.prices__list-item__option {
+.prices__list-item__option { 
   color: rgba(67, 78, 106, 75%);
   font-family: "Opensans semibold";
   margin: 20px 0;
@@ -2255,4 +2268,58 @@ textarea {
 .prices__list-item.trial .prices__list-item__button:hover {
   color: #ffff;
   background: rgba(139, 195, 74, 75%);
+}
+
+[data-modal="filesFilter"] .filter__name {
+  width: 100%;
+  color: rgba(67, 78, 106, 0.75);
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(67, 78, 106, 0.5);
+}
+
+
+[data-modal="addNewEmployes"] .add-employes {
+  display: block;
+}
+[data-modal="addNewEmployes"] .add-employes__input-wrapper {
+  display: flex;
+  align-items: center;
+}
+[data-modal="addNewEmployes"] .add-employes__input-wrapper i {
+  transition: 150ms;
+  color: rgba(67, 78, 106, 0.5);
+}
+[data-modal="addNewEmployes"] .add-employes__input-wrapper i:hover {
+  color: #2196f3;
+}
+[data-modal="addNewEmployes"] .add-employes__input {
+  flex-grow: 1;
+  color: rgba(67, 78, 106, 0.75);
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(67, 78, 106, 0.5);
+  margin-right: 30px;
+}
+[data-modal="addNewEmployes"] .add-employes__list {
+  margin: 20px 0px;
+  max-height: 264px;
+  overflow-y: auto;
+}
+[data-modal="addNewEmployes"] .add-employes__item {
+  display: flex;
+  margin-top: 30px;
+}
+[data-modal="addNewEmployes"] .add-employes__item-name {
+  flex-grow: 1;
+  margin-right: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(67, 78, 106, 0.75);
+}
+[data-modal="addNewEmployes"] .add-employes__item-remove {
+  color: rgba(67, 78, 106, 0.5);
+  transition: 150ms;
+}
+[data-modal="addNewEmployes"] .add-employes__item-remove:hover {
+  color: #2196f3;
 }

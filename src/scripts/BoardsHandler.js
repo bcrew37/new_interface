@@ -11,20 +11,49 @@
             this.Http = Factory.getClass("Http")
             this.Dropdown = Factory.getClass("Dropdown")
             this.Alert = Factory.getClass("Alert")
+            this._table = document.querySelector(".body tbody")
 
             this.init("#newTodo", () => this.Modal.render("newTodo"))
             this.Data.get("Todos").then(data => this.render(data))
 
             Factory.getClass("Pagination").init(".pagination", "/todos", "BoardsHandler")
             Factory.getClass("Notifications").render(document.querySelector(".tool-bar .notifications"))
+
+            this.Data.get("Departments").then(data => {
+                let list = document.querySelector("#departmentsList")
+                data.forEach(d => {
+                    $(list).prepend(`
+                        <button class="dropdown-item" href="#">${d.name}</button>
+                    `); list.querySelector(".dropdown-item").onclick = () => {
+                        this.Loader.show("infinity")
+                        list.closest(".dropdown").querySelector("#selected-option").innerHTML = d.name
+                        this.Http.get(`/todos/${d.id}`, data => this.render(data))
+                    }
+                })
+                list.querySelector('[data-event="alldeps"]').onclick = () => {
+                    this.Loader.show("infinity")
+                    list.closest(".dropdown").querySelector("#selected-option").innerHTML = "Усі"
+                    this.Data.get("Todos").then(data => this.render(data))
+                }
+            })
+
+            const filterByStatus = (status = '') => {
+                this.Http.get(`/todos/${status}`, data => this.render(data))
+            }
+
+            let statusFilter = this._table.closest(".body").querySelector("thead #boardFilterByStatus")
+            statusFilter.querySelector('[value="new"]').onclick = () => filterByStatus("new")
+            statusFilter.querySelector('[value="inProgress"]').onclick = () => filterByStatus("inProgress")
+            statusFilter.querySelector('[value="ovedue"]').onclick = () => filterByStatus("overdue")
+            statusFilter.querySelector('[value="completed"]').onclick = () => filterByStatus("completed")
+            statusFilter.querySelector('[value="onhold"]').onclick = () => filterByStatus("onhold")
+            statusFilter.querySelector('[value="all"]').onclick = () => filterByStatus()
         }
 
         init(selector, callback) {
             document.querySelector(`${selector}`).addEventListener("click", () => callback())
         }
 
-        _table = document.querySelector(
-            ".body tbody")
         render(data = []) {
             this._table.innerHTML = ""
             data.forEach(t => {
@@ -44,6 +73,9 @@
                         break;
                     case "completed":
                         status = "Завершено"
+                        break;
+                    case "onhold":
+                        status = "Відкладено"
                         break;
                     default:
                         status = "Не відомий статус"
@@ -65,7 +97,7 @@
                                     <span data-name="selectedDate">00.00.0000</span>
                                 </span>
                             </button>
-                            <div class="drop-down_menu">
+                            <div style="display:none" class="drop-down_menu">
                                 <div class="control w-100 d-flex justify-content-between align-items-center"
                                     style="padding: 12px">
                                     <i class="fa fa-caret-left" data-event="previous"></i>
@@ -119,7 +151,7 @@
                                     <span data-name="selectedDate">00.00.0000</span>
                                 </span>
                             </button>
-                            <div class="drop-down_menu">
+                            <div style="display:none" class="drop-down_menu">
                                 <div class="control w-100 d-flex justify-content-between align-items-center"
                                     style="padding: 12px">
                                     <i class="fa fa-caret-left" data-event="previous"></i>
@@ -199,7 +231,7 @@
                     })
                 })
                 let control = Factory.getClass("Datepicker", this._table.querySelector(`[data-todo-id="${t.id}"] .control .calendar`), t.controlDate, target => {
-                    this.Alert.render("confirm", "Дату дедлайну буде змінено. Ви впевнені?", {
+                    this.Alert.render("confirm", "Дату контролю буде змінено. Ви впевнені?", {
                         confirm: () => {
                             this.Loader.show("infinity")
                             this.Http.post("/try", { date: control.getDate() }, res => {
@@ -237,7 +269,7 @@
                     Loader.hide()
                 }
             });
-            this.Dropdown.init(this._table, { single: true })
+            this.Dropdown.init(this._table.closest(".body"), { single: true })
             $(this._table).find('[data-toggle="tooltip"]').tooltip()
         }
 

@@ -10,6 +10,7 @@
             this.Loader = Factory.getClass("Loader")
             this.Regexp = Factory.getClass("Regexp")
             this.User = Factory.getClass("User")
+            this.Dropdown = Factory.getClass("Dropdown")
             this.FilesManager = Factory.getClass("FilesManager")
 
             this.init("newTodo", document.querySelector('[data-modal="newTodo"]'), d => {
@@ -973,12 +974,77 @@
             this.init("filesFilter", document.querySelector('[data-modal="filesFilter"]'), () => {
                 return "done"
             }, () => {
-                let modal = this.modals["filesFilter"].node
+                let modal = this.modals["filesFilter"].node,
+                    df = Factory.getClass("Datepicker", modal.querySelector('[data-role="calendar-from"]')),
+                    dt = Factory.getClass("Datepicker", modal.querySelector('[data-role="calendar-to"]')),
+                    name = modal.querySelector(".filter__name"),
+                    submit = modal.querySelector('[data-event="submit"]')
+
+                this.Dropdown.init(modal, { single: true })
+                const FilesHandler = Factory.getClass("FilesHandler")
+
                 // Confirm
                 submit.onclick = () => {
-
+                    this.Loader.show("infinity")
+                    this.Http.get(`/test/${name.value.length > 0 ? `name=${name.value}&` : ``}datefrom=${df.getDate()}&dateto=${dt.getDate()}`, data => {
+                        FilesHandler.render(data); $(modal).modal("hide")
+                    })
                 }
             })
+
+            this.init("addNewEmployes", document.querySelector('[data-modal="addNewEmployes"]'), () => {
+                return "done"
+            }, () => {
+                let modal = this.modals["addNewEmployes"].node,
+                    submit = modal.querySelector('[data-event="submit"]'),
+                    form = modal.querySelector(".add-employes__input-wrapper"),
+                    input = modal.querySelector(".add-employes__input"),
+                    list = modal.querySelector(".add-employes__list")
+
+                list.innerHTML = ""
+
+                form.onsubmit = e => {
+                    e.preventDefault()
+                    if (input.value.length == 0) return
+                    if (!this.Regexp.email.test(input.value)) {
+                        input.value = "";
+                        return this.Alert.render("warning", "Не вірний формат пошти")
+                    }
+                    $(list).prepend(`
+                    <div class="add-employes__item">
+						<div class="add-employes__item-name">${input.value}</div>
+						<button class="add-employes__item-remove">
+							<i class="fa fa-trash"></i>
+						</button>
+					</div>
+                    `)
+                    list.querySelector(".add-employes__item-remove").onclick = e => {
+                        let employee = e.target.closest(".add-employes__item")
+                        $(employee).slideUp(150, () => $(employee).remove())
+                    }
+                    input.value = ""
+                }
+
+                // Confirm
+                submit.onclick = () => {
+                    if (list.querySelectorAll(".add-employes__item").length == 0) return this.Alert.render("warning", "Додайте адреси.")
+                    this.Loader.show("infinity")
+                    this.Http.post("/try", {
+                        employes: Array.from(list.querySelectorAll(".add-employes__item")).map(e => e.querySelector(".add-employes__item-name").innerText.trim())
+                    }, res => {
+                        this.Loader.hide(() => {
+                            console.log({ employes: Array.from(list.querySelectorAll(".add-employes__item")).map(e => e.querySelector(".add-employes__item-name").innerText.trim()) })
+                            if (res.success) {
+                                this.Alert.render("success", "Запрошення відправлено.")
+                            } else {
+                                this.Alert.render("danger", `Сталася помилка ${res.msg.substr(0, 32)}...`)
+                            }
+                            $(modal).modal("hide")
+                        })
+                    })
+                }
+            })
+
         }
 
         render(name, data) {

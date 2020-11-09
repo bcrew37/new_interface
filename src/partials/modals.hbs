@@ -512,7 +512,7 @@
 </div>
 
 <div class="modal fade" data-modal="filesFilter" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-dialog modal-dialog-centered modal-md" role="document">
 		<div class="modal-content">
 			<div class="header">
 				<button style="margin-left:auto" type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -520,18 +520,156 @@
 				</button>
 			</div>
 			<div class="block-wrapper">
-				<input class="filter__name" type="text" data-role="name" placeholder="Назва..." maxlength="232" />
+				<input type="text" class="filter__name" placeholder="Повна назва... (необов'язково)">
+			</div>
+			<div class="footer">
+				<div class="block">
+					<div data-role="calendar-from" class="calendar drop-down">
+						<button data-event="toggle">
+							Від:
+							<span>
+								<span data-name="selectedDate">00.00.0000</span>
+								<i class="fa fa-caret-down"></i>
+							</span>
+						</button>
+						<div class="drop-down_menu">
+							<table class="date-picker" valign="center">
+								<thead>
+									<tr>
+										<td class="week-day">
+											<div>Пн</div>
+										</td>
+										<td class="week-day">
+											<div>Вт</div>
+										</td>
+										<td class="week-day">
+											<div>Ср</div>
+										</td>
+										<td class="week-day">
+											<div>Чт</div>
+										</td>
+										<td class="week-day">
+											<div>Пт</div>
+										</td>
+										<td class="week-day">
+											<div>Сб</div>
+										</td>
+										<td class="week-day">
+											<div>Нд</div>
+										</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<div class="date-item active">1</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="control w-100 d-flex justify-content-between align-items-center"
+								style="padding: 12px">
+								<i class="fa fa-caret-left" data-event="previous"></i>
+								<div class="d-flex">
+									<span data-name="pickerMonth" class="mr-1">Квітень</span>
+									<span data-name="pickerYear" class="ml-1">2020</span>
+								</div>
+								<i class="fa fa-caret-right" data-event="next"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="block">
+					<div data-role="calendar-to" class="calendar drop-down">
+						<button data-event="toggle">
+							До:
+							<span>
+								<span data-name="selectedDate">00.00.0000</span>
+								<i class="fa fa-caret-down"></i>
+							</span>
+						</button>
+						<div class="drop-down_menu">
+							<table class="date-picker" valign="center">
+								<thead>
+									<tr>
+										<td class="week-day">
+											<div>Пн</div>
+										</td>
+										<td class="week-day">
+											<div>Вт</div>
+										</td>
+										<td class="week-day">
+											<div>Ср</div>
+										</td>
+										<td class="week-day">
+											<div>Чт</div>
+										</td>
+										<td class="week-day">
+											<div>Пт</div>
+										</td>
+										<td class="week-day">
+											<div>Сб</div>
+										</td>
+										<td class="week-day">
+											<div>Нд</div>
+										</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<div class="date-item active">1</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="control w-100 d-flex justify-content-between align-items-center"
+								style="padding: 12px">
+								<i class="fa fa-caret-left" data-event="previous"></i>
+								<div class="d-flex">
+									<span data-name="pickerMonth" class="mr-1">Квітень</span>
+									<span data-name="pickerYear" class="ml-1">2020</span>
+								</div>
+								<i class="fa fa-caret-right" data-event="next"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="block">
+					<div class="clean"></div>
+					<button type="button" class="button" style="color:#ffff" data-event="submit">Пошук</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" data-modal="addNewEmployes" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="header">
+				<button style="margin-left:auto" type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<i class="far fa-times"></i>
+				</button>
+			</div>
+			<div class="block-wrapper add-employes">
+				<form class="add-employes__input-wrapper">
+					<input class="add-employes__input" type="text" placeholder="E-mail">
+					<button type="submit">
+						<i class="fa fa-plus-circle"></i>
+					</button>
+				</form>
+				<div class="add-employes__list">
+
+				</div>
 			</div>
 			<div class="footer">
 				<div class="block">
 
 				</div>
 				<div class="block">
-
-				</div>
-				<div class="block">
 					<div class="clean"></div>
-					<button type="button" class="button active" data-event="submit">Пошук</button>
+					<button type="button" class="button" style="color:#ffff" data-event="submit">Запросити</button>
 				</div>
 			</div>
 		</div>

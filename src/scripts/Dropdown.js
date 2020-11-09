@@ -6,13 +6,12 @@
             document.querySelectorAll(".drop-down").forEach(n => {
                 let btn = n.querySelector('[data-event="toggle"]')
                 if (btn) {
-                    btn.addEventListener("click", (e) => (!n.classList.contains("active")) ? this.open(n) : this.close(n))
+                    btn.onclick = e => (!n.classList.contains("active")) ? this.open(n) : this.close(n)
                 }
                 window.addEventListener("click", e => {
                     if (e.target.closest(".drop-down")) { return } else this.close(n)
                 })
             })
-
         }
 
         open(n) {
@@ -32,14 +31,13 @@
                 let btn = n.querySelector('[data-event="toggle"]')
 
                 if (btn) {
-                    btn.addEventListener("click", (e) => {
+                    btn.onclick = e => {
                         if (!n.classList.contains("active")) {
                             if (options.single) {
                                 let active = selector.querySelector(".active"); if (active) this.close(active);
                             }; this.open(n)
                         } else this.close(n)
-
-                    })
+                    }
                 }
 
                 window.addEventListener("click", e => {

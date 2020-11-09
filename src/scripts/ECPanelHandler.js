@@ -57,6 +57,7 @@
                        <div style="width:250px; right:25px;" class="drop-down_menu">
                            <div class="drop-down__list">
                                 ${!e.active ? '<button data-event="toActive" class="item">Обрати як активне <i class="fal fa-toggle-on"></i></button>' : ``}
+                                <button data-event="addNewEmployes" class="item">Додати співробітників<i class="far fa-users"></i></button>
                                 <button data-event="changeTariff" class="item">Змінити тариф <i class="far fa-shopping-cart"></i></button>
                                 <button data-event="delete" class="item">Видалити <i class="far fa-trash"></i></button>
                            </div>
@@ -93,9 +94,11 @@
                         })
                     })
                 }
-
                 row.querySelector('[data-event="changeTariff"]').onclick = () => {
                     this.Modal.render("tariffs", e.id)
+                }
+                row.querySelector('[data-event="addNewEmployes"]').onclick = () => {
+                    this.Modal.render("addNewEmployes", e.id)
                 }
             })
 

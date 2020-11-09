@@ -142,7 +142,7 @@ app.use("/todos", (req, res) => {
     res.send([
         {
             name: "Get started with madework.io",
-            status: "inProgress",
+            status: "onhold",
             id: "12i01-1231232124124",
             manager: {
                 name: "lorem ipsum dolor",
@@ -246,6 +246,130 @@ app.use("/todos", (req, res) => {
             name: "Lorem ipsum dolor sit",
             status: "completed",
             id: "231251714o1-0241314",
+            manager: {
+                name: "lorem ipsum dolor",
+                imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
+            },
+            controlDate: "12.05.2020",
+            deadlineDate: "21.06.2020",
+            performers: [
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/Picture.png"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/pexels-ralph-rabago-3214734.jpg"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/services/pexels-guilherme-almeida-1858175.jpg"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                },
+            ],
+            files: [
+                {
+                    name: "Lorem ipsum dolor sit emmet 3",
+                    extName: ".docx",
+                    performer: "Lorem ipsum",
+                    taskCount: 2,
+                    date: "13.12.25",
+                    id: "12312511241242512"
+                }
+            ],
+            comments: [
+                {
+                    author: {
+                        firstName: "Lorem",
+                        lastName: "Ipsum",
+                        imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                    },
+                    name: "lorem ipsum dolor sit emmet",
+                    date: "13.02.2020"
+                }
+            ]
+        },
+        {
+            name: "Lorem ipsum dolor sit",
+            status: "new",
+            id: "asdasd-0241314",
+            manager: {
+                name: "lorem ipsum dolor",
+                imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
+            },
+            controlDate: "12.05.2020",
+            deadlineDate: "21.06.2020",
+            performers: [
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/Picture.png"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/pexels-ralph-rabago-3214734.jpg"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/services/pexels-guilherme-almeida-1858175.jpg"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                },
+                {
+                    name: "lorem ipsum dolor",
+                    imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                },
+            ],
+            files: [
+                {
+                    name: "Lorem ipsum dolor sit emmet 3",
+                    extName: ".docx",
+                    performer: "Lorem ipsum",
+                    taskCount: 2,
+                    date: "13.12.25",
+                    id: "12312511241242512"
+                }
+            ],
+            comments: [
+                {
+                    author: {
+                        firstName: "Lorem",
+                        lastName: "Ipsum",
+                        imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg"
+                    },
+                    name: "lorem ipsum dolor sit emmet",
+                    date: "13.02.2020"
+                }
+            ]
+        },
+        {
+            name: "Lorem ipsum dolor sit",
+            status: "inProgress",
+            id: "231251714o1-02asdasd41314",
             manager: {
                 name: "lorem ipsum dolor",
                 imgPath: "./img/avatars/pexels-frank-k-1820656.jpg"
