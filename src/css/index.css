@@ -2323,3 +2323,108 @@ textarea {
 [data-modal="addNewEmployes"] .add-employes__item-remove:hover {
   color: #2196f3;
 }
+
+.user-config {
+  flex-wrap: wrap;
+  color: rgb(46, 54, 75);
+}
+
+.user-config__img-block {
+  min-width: 250px;
+  max-width: 250px;
+  margin-right: 80px;
+}
+
+.user-config__img-block__img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  margin-right: 15px;
+}
+
+.user-config__imag-block__name-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.user-config__user-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-config__img-block__upload-field {
+  margin: 20px 0;
+}
+
+.user-config__img-block__upload-btn {
+  background-color:  #f44336;
+  width: 100%;
+  padding: 10px;
+  color:#fff;
+  border: 1px solid #f44336 !important;
+  transition: 150ms;
+}
+
+.user-config__img-block__upload-btn:hover {
+  background-color:  transparent;
+  color: #f44336;
+}
+
+.user-config__info {
+  margin-right: 80px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.user-config__item  + .user-config__item  {
+  margin-top: 20px;
+}
+
+.user-config__item-value {
+  color: rgba(67, 78, 106, 0.75);
+  margin-left: 20px;
+}
+
+.user-config__change-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-config__change-info__input {
+  min-width: 250px;
+  color: rgba(67, 78, 106, 0.75);
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(67, 78, 106, 0.5);
+}
+
+.user-config__change-info__input:focus {
+  border-bottom: 1px solid rgba(67, 78, 106, 0.5);
+}
+
+.user-config__change-info__input::-webkit-input-placeholder {
+  color: rgba(67, 78, 106, 0.75);
+}
+
+.user-config__change-info__input:nth-child(2) {
+  margin-top: 40px;
+}
+
+.user-config__change-info__btn {
+  background-color:  #f44336;
+  width: 100%;
+  padding: 10px;
+  color:#fff;
+  border: 1px solid #f44336 !important;
+  transition: 150ms;
+  margin-top: auto;
+}
+
+.user-config__change-info__btn:hover {
+  background-color:  transparent;
+  color: #f44336;
+}

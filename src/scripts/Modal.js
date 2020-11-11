@@ -28,6 +28,8 @@
                     submit = modal.querySelector('[data-event="submit"]'),
                     pList = new Map(), pageNum = 0, pagBtn = modal.querySelector('[data-event="pagination"]')
 
+                description.value = ""
+
                 // Performers
                 pagBtn.style.display = "flex"
                 const renderPerformers = (data, clear = true) => {
@@ -112,7 +114,7 @@
 
                 // Confirm
                 submit.onclick = () => {
-                    if (description.innerHTML.length > 2024) return this.Alert.render("warning", "Опис не більше 2024 символів")
+                    if (description.value.length > 2024) return this.Alert.render("warning", "Опис не більше 2024 символів")
                     if (name.value.length == 0 || name.length > 232) return this.Alert.render("warning", "Укажіть назву")
                     if (pList.size == 0) return this.Alert.render("warning", "Оберіть виконвців...")
 
@@ -124,7 +126,7 @@
 
                     this.Http.post("/try", {
                         name: name.value.trim(),
-                        description: description.innerHTML.trim(),
+                        description: description.value.trim(),
                         performers: performers,
                         documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId),
                         control: control.getDate(), deadline: deadline.getDate()
@@ -138,7 +140,7 @@
                         }, 400)
                         console.log({
                             name: name.value.trim(),
-                            description: description.innerHTML.trim(),
+                            description: description.value.trim(),
                             performers: performers,
                             documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId),
                             control: control.getDate(), deadline: deadline.getDate()
@@ -391,6 +393,8 @@
                     msg = modal.querySelector('[data-name="message"]'),
                     email = modal.querySelector('[data-name="email"]')
 
+                email.value = ""; msg.value = ""
+
                 files.innerHTML = ""
                 d.forEach(f => {
                     let file = f.closest("tr"),
@@ -425,12 +429,12 @@
                     $(modal).modal("hide"); this.Loader.show("infinity")
 
                     this.Http.post("/try", {
-                        documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId), msg: msg.innerHTML.trim(), email: email.value.trim()
+                        documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId), msg: msg.value.trim(), email: email.value.trim()
                     }, res => {
                         this.Loader.hide(); setTimeout(() => {
                             if (res.success) {
                                 this.Alert.render("success", "Файли відправлено.")
-                                console.log({ documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId), msg: msg.innerHTML.trim(), email: email.value.trim() })
+                                console.log({ documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId), msg: msg.value.trim(), email: email.value.trim() })
                             } else {
                                 this.Alert.render("danger", "Сталася помилка.")
                             }

@@ -4,6 +4,7 @@
 
         constructor() {
             this.Http = Factory.getClass("Http")
+            this.Loader = Factory.getClass("Loader")
         }
 
         render(selector, path, num, maxpages, handler) {
@@ -20,6 +21,7 @@
             const changePage = n => {
                 if (n > maxpages || n < 1) return
                 num = n; cpage.innerHTML = n
+                this.Loader.show("infinity")
                 this.Http.get(`${path}/${n}`, data => { Handler.render(data) })
             }
 

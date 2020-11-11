@@ -1,0 +1,81 @@
+(function (Factory) {
+
+    class UCPanelHandler {
+        constructor() {
+            this.Data = Factory.getClass("Data")
+            this.Loader = Factory.getClass("Loader")
+            this.Lang = Factory.getClass("Lang")
+            this.Http = Factory.getClass("Http")
+            this.Alert = Factory.getClass("Alert")
+
+            let file
+            this.Data.get("User").then(user => this.render(user))
+            document.querySelector("#uploadFilesForm").onchange = function () {
+                let name = document.querySelector('#uploadFilesFormName')
+                name.innerText = this.files[0].name.substr(0, 32) + "..."
+                file = this.files[0]
+            }
+            document.querySelector("#uploadFilesFormSubmit").onclick = () => {
+                if (file) {
+                    let formdata = new FormData
+                    formdata.append("file", file)
+                    this.Loader.show("infinity")
+                    this.Http.post("/try", formdata, res => {
+                        if (res.success) {
+                            this.Data.update("User")
+                            window.location = window.location
+                        } else {
+                            this.Alert.render("danger", `Сталася помилка: ${res.msg.substr(0, 32)}`)
+                        }
+                    })
+                }
+            }
+
+            document.querySelector("#changePass").onclick = () => {
+                let pass1 = document.querySelector("#pass1"),
+                    pass2 = document.querySelector("#pass2")
+
+                if (pass1.value.trim() == "") return this.Alert.render("warning", "Напишіть старий пароль")
+                if (pass2.value.trim() == "") return this.Alert.render("warning", "Напишіть новий пароль")
+                this.Loader.show("infinity")
+
+                this.Http.post("/try", { pass1: pass1.value, pass2: pass2.value }, res => {
+                    this.Loader.hide(() => {
+                        if (res.success) {
+                            this.Alert.render("success", "Пароль змінено")
+                            pass1.value = ""
+                            pass2.value = ""
+                        } else {
+                            this.Alert.render("danger", "Сталася помилка: " + res.msg)
+                        }
+                    })
+                })
+            }
+
+        }
+
+        render(user) {
+            document.querySelector("#userName").innerHTML = user.name
+            document.querySelector("#userEmail").innerHTML = user.email
+            document.querySelector("#userDepartment").innerHTML = user.department
+            document.querySelector("#userRole").innerHTML = this.Lang.get(user.role[0])
+            document.querySelector("#userRegdate").innerHTML = user.regdate
+            document.querySelector("#userImg").setAttribute("data-src", user.imgPath)
+            $(document).find('[data-src]').Lazy({
+                effect: 'fadeIn',
+                effectTime: 200,
+                threshold: document.body.clientHeight,
+                visibleOnly: false,
+                onError: function (element) {
+                    console.log('error loading ' + element.data('src'));
+                },
+                autoDestroy: true,
+            })
+            this.Loader.hide()
+        }
+    }
+
+    Factory.setSingletone("UCPanelHandler", UCPanelHandler)
+
+})(window.Factory);
+

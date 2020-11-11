@@ -28,17 +28,20 @@
                         this.Loader.show("infinity")
                         list.closest(".dropdown").querySelector("#selected-option").innerHTML = d.name
                         this.Http.get(`/todos/${d.id}`, data => this.render(data))
+                        Factory.getClass("Pagination").init(".pagination", `/todos/${d.id}`, "BoardsHandler")
                     }
                 })
                 list.querySelector('[data-event="alldeps"]').onclick = () => {
                     this.Loader.show("infinity")
                     list.closest(".dropdown").querySelector("#selected-option").innerHTML = "Усі"
                     this.Data.get("Todos").then(data => this.render(data))
+                    Factory.getClass("Pagination").init(".pagination", "/todos", "BoardsHandler")
                 }
             })
 
             const filterByStatus = (status = '') => {
-                this.Http.get(`/todos/${status}`, data => this.render(data))
+                this.Http.get(`/todos${status == '' ? `` : '/' + status}`, data => this.render(data))
+                Factory.getClass("Pagination").init(".pagination", `/todos${status == '' ? `` : '/' + status}`, "BoardsHandler")
             }
 
             let statusFilter = this._table.closest(".body").querySelector("thead #boardFilterByStatus")

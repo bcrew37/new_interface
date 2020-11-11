@@ -13,7 +13,7 @@
             this.init("#newTodo", () => this.Modal.render("newTodo", this.Selector.selected))
             this.init("#existTodo", () => this.Modal.render("existTodo", this.Selector.selected))
             this.init("#shareFiles", () => this.Modal.render("shareFiles", this.Selector.selected))
-            this.init("#downloadFiles", () => this.FilesManager.download(this.Selector.selected))
+            this.init("#downloadFiles", () => this.FilesManager.download(this.Selector.selected.map(f => f.dataset.fileId)))
             this.init("#uploadFiles", () => this.Modal.render("uploadFiles"))
             this.init("#filter", () => this.Modal.render("filesFilter"))
 
@@ -32,7 +32,7 @@
                         Factory.getClass("Pagination").init(".pagination", "/test", "FilesHandler")
                     })
                 } else {
-                    this.Http.get("/test", data => {
+                    this.Data.get("Files").then(data => {
                         btn.classList.remove("fa-caret-up")
                         btn.classList.add("fa-caret-down")
                         this.render(data)
@@ -76,7 +76,6 @@
                             <div class="form-check">
                                 <input class="form-check-input position-static" type="checkbox" />
                             </div>
-                            <i class="fa fa-cloud-download"></i>
                         </div>
                     </td>
                 </tr>`

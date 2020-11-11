@@ -14,7 +14,8 @@
                 "/todos": "Todos",
                 "/pList": "Performers",
                 "/departments": "Departments",
-                "/enterprises": "Enterprises"
+                "/enterprises": "Enterprises",
+                "/myinfo": "User",
             })
         }
 

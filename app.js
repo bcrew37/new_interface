@@ -33,6 +33,9 @@ app.get("/confirm", (req, res) => {
 app.get("/econfig", (req, res) => {
     res.render("index")
 })
+app.get("/uconfig", (req, res) => {
+    res.render("index")
+})
 
 // Get + Post
 app.use("/test", (req, res) => {
@@ -590,7 +593,9 @@ app.use("/myinfo", (req, res) => {
         email: "Joster1998@gmail.com",
         imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
         role: ["gmanager"],
-        success: true
+        success: true,
+        regdate: "03.10.2020",
+        department: "Lorem ipsum dolor sit emmet"
     })
 })
 app.use("/departments", (req, res) => {
