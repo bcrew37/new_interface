@@ -36,6 +36,9 @@ app.get("/econfig", (req, res) => {
 app.get("/uconfig", (req, res) => {
     res.render("index")
 })
+app.get("/charts", (req, res) => {
+    res.render("index")
+})
 
 // Get + Post
 app.use("/test", (req, res) => {
@@ -113,7 +116,7 @@ app.use("/notifications", (req, res) => {
                 imgPath: "./img/avatars/Picture.png",
                 title: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum dolor.`,
                 date: "13.12.2019",
-                task: {
+                todo: {
                     name: "Lorem ipsum",
                     id: "124125125"
                 }
@@ -123,8 +126,8 @@ app.use("/notifications", (req, res) => {
                 imgPath: "./img/avatars/Picture.png",
                 title: "Lorem ipsum dolor sit amet Lorem, ipsum.",
                 date: "13.12.2019",
-                task: {
-                    name: "Lorem ipsum",
+                todo: {
+                    name: "Lorem ipsum Lorem ipsum dolor sit emmet Lorem ipsum dolor sit emmet",
                     id: "124125125"
                 }
             },
@@ -133,7 +136,7 @@ app.use("/notifications", (req, res) => {
                 imgPath: "./img/avatars/Picture.png",
                 title: "Lorem ipsum dolor sit amet Lorem, ipsum.",
                 date: "13.12.2019",
-                task: {
+                todo: {
                     name: "Lorem ipsum",
                     id: "124125125"
                 }
@@ -503,7 +506,7 @@ app.use("/pList", (req, res) => {
     res.send([
         {
             imgPath: "./img/avatars/pexels-ralph-rabago-3214734.jpg",
-            name: "Сергей Пейдж",
+            name: "Коля 1",
             id: "3;askd;l",
             department: {
                 name: "main",
@@ -513,8 +516,19 @@ app.use("/pList", (req, res) => {
             role: ["Manager"],
         },
         {
+            imgPath: "./img/avatars/pexels-ralph-rabago-3214734.jpg",
+            name: "Гриша 10",
+            id: "3;askd;l",
+            department: {
+                name: "Gosha",
+                id: 2
+            },
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
+        },
+        {
             imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
-            name: "Лари Пейдж",
+            name: "Саня 2",
             id: "2",
             department: {
                 name: "main",
@@ -526,7 +540,7 @@ app.use("/pList", (req, res) => {
         },
         {
             imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
-            name: "Лари Пейдж",
+            name: "Гари 3",
             id: "8",
             department: {
                 name: "main",
@@ -538,7 +552,7 @@ app.use("/pList", (req, res) => {
         },
         {
             imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
-            name: "Лари Пейдж",
+            name: "Люда 4",
             id: "9",
             department: {
                 name: "Alex",
@@ -550,7 +564,19 @@ app.use("/pList", (req, res) => {
         },
         {
             imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
-            name: "Лари Пейдж",
+            name: "Маша 11",
+            id: "18",
+            department: {
+                name: "Alex",
+                id: 4
+            },
+            email: "buninmisha1809@gmail.com",
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
+        },
+        {
+            imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
+            name: "Паша 5",
             id: "10",
             department: {
                 name: "main",
@@ -561,7 +587,7 @@ app.use("/pList", (req, res) => {
         },
         {
             imgPath: "./img/avatars/Picture.png",
-            name: "Сергей брин",
+            name: "Георгий 6 ",
             id: "1",
             department: {
                 name: "main",
@@ -573,8 +599,40 @@ app.use("/pList", (req, res) => {
         },
         {
             imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
-            name: "Карло Магистрале",
+            name: "Вася 7",
             id: "4",
+            email: "buninmisha1809@gmail.com",
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Вася 8",
+            id: "15",
+            email: "buninmisha1809@gmail.com",
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Вася 9",
+            id: "16",
+            email: "buninmisha1809@gmail.com",
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Вася 10",
+            id: "20",
+            email: "buninmisha1809@gmail.com",
+            registrationDate: "13.02.2020",
+            role: ["Manager"],
+        },
+        {
+            imgPath: "./img/avatars/pexels-frank-k-1820656.jpg",
+            name: "Вася 11",
+            id: "21",
             email: "buninmisha1809@gmail.com",
             registrationDate: "13.02.2020",
             role: ["Manager"],
@@ -592,7 +650,7 @@ app.use("/myinfo", (req, res) => {
         name: "John Liberty Jostery",
         email: "Joster1998@gmail.com",
         imgPath: "./img/avatars/pexels-christina-morillo-1181690.jpg",
-        role: ["gmanager"],
+        role: ["performer"],
         success: true,
         regdate: "03.10.2020",
         department: "Lorem ipsum dolor sit emmet"

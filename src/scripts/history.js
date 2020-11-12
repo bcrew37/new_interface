@@ -13,6 +13,7 @@
                 "/clPanel": document.querySelector('templates [data-content="clPanel"]'),
                 "/econfig": document.querySelector('templates [data-content="econfig"]'),
                 "/uconfig": document.querySelector('templates [data-content="uconfig"]'),
+                "/charts": document.querySelector('templates [data-content="charts"]'),
             })
 
             this.Navbar.elements["files"].sub(
@@ -33,6 +34,10 @@
 
             this.Navbar.elements["uconfig"].sub(
                 () => this.push({ title: "Кабінет користувача", url: "/uconfig" }),
+            )
+
+            this.Navbar.elements["charts"].sub(
+                () => this.push({ title: "Статистика", url: "/charts" }),
             )
 
             if (history.state == null) {

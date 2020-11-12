@@ -568,7 +568,7 @@ a:hover {
   flex-grow: 1;
   justify-content: space-between;
 }
-@media screen and (max-width: 1150px) {
+@media screen and (max-width: 1010px) {
   .content-wrapper .content .tool-bar {
     justify-content: space-between;
   }
@@ -1816,7 +1816,7 @@ a:hover {
   overflow: visible;
 }
 
-[data-modal="filesFilter"] .calendar .drop-down_menu  {
+[data-modal="filesFilter"] .calendar .drop-down_menu {
   left: -50px;
 }
 
@@ -2106,7 +2106,7 @@ textarea {
 }
 
 .departments .department__no-assigned td {
-  color: #7e86a1 !important;
+  color: rgba(67, 78, 106, 50%) !important;
   text-align: left !important;
   font-family: "Opensans regular";
 }
@@ -2206,7 +2206,7 @@ textarea {
   margin: 20px 0;
 }
 
-.prices__list-item__option { 
+.prices__list-item__option {
   color: rgba(67, 78, 106, 75%);
   font-family: "Opensans semibold";
   margin: 20px 0;
@@ -2276,7 +2276,6 @@ textarea {
   padding-bottom: 5px;
   border-bottom: 1px solid rgba(67, 78, 106, 0.5);
 }
-
 
 [data-modal="addNewEmployes"] .add-employes {
   display: block;
@@ -2360,16 +2359,16 @@ textarea {
 }
 
 .user-config__img-block__upload-btn {
-  background-color:  #f44336;
+  background-color: #f44336;
   width: 100%;
   padding: 10px;
-  color:#fff;
+  color: #fff;
   border: 1px solid #f44336 !important;
   transition: 150ms;
 }
 
 .user-config__img-block__upload-btn:hover {
-  background-color:  transparent;
+  background-color: transparent;
   color: #f44336;
 }
 
@@ -2380,7 +2379,7 @@ textarea {
   flex-direction: column;
 }
 
-.user-config__item  + .user-config__item  {
+.user-config__item + .user-config__item {
   margin-top: 20px;
 }
 
@@ -2415,16 +2414,16 @@ textarea {
 }
 
 .user-config__change-info__btn {
-  background-color:  #f44336;
+  background-color: #f44336;
   width: 100%;
   padding: 10px;
-  color:#fff;
+  color: #fff;
   border: 1px solid #f44336 !important;
   transition: 150ms;
   margin-top: auto;
 }
 
 .user-config__change-info__btn:hover {
-  background-color:  transparent;
+  background-color: transparent;
   color: #f44336;
 }

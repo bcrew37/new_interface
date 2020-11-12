@@ -1,6 +1,4 @@
 (function (Factory) {
-    const Loader = Factory.getClass("Loader");
-
     class BoardsHandler {
 
         constructor() {
@@ -268,12 +266,10 @@
                     console.log('error loading ' + element.data('src'));
                 },
                 autoDestroy: true,
-                onFinishedAll: () => {
-                    Loader.hide()
-                }
             });
             this.Dropdown.init(this._table.closest(".body"), { single: true })
             $(this._table).find('[data-toggle="tooltip"]').tooltip()
+            this.Loader.hide()
         }
 
     }

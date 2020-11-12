@@ -20,6 +20,7 @@
 
             const changePage = n => {
                 if (n > maxpages || n < 1) return
+                if (parseInt(cpage.innerText) == n) return
                 num = n; cpage.innerHTML = n
                 this.Loader.show("infinity")
                 this.Http.get(`${path}/${n}`, data => { Handler.render(data) })

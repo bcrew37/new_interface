@@ -297,10 +297,8 @@
                     console.log('error loading ' + element.data('src'));
                 },
                 autoDestroy: true,
-                onFinishedAll: () => {
-                    this.Loader.hide()
-                }
             })
+            this.Loader.hide()
         }
 
     }

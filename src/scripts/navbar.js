@@ -11,13 +11,12 @@
                 "settigns": document.querySelectorAll('[data-event="settings"]'),
                 'clPanel': document.querySelectorAll('[data-event="clPanel"]'),
                 "boards": document.querySelectorAll('[data-event="boards"]'),
-                "profileImg": document.querySelectorAll('[data-event="profileImg"]'),
                 "econfig": document.querySelectorAll('[data-event="enterpriseCongfig"]'),
                 "uconfig": document.querySelectorAll('[data-event="userConfig"]'),
             })
 
-            this.elements["profileImg"].sub(() => {
-                $(".modals #upload-docs").modal("show")
+            Factory.getClass("Data").get("User").then(user => {
+                document.querySelectorAll('[data-name="profileImg"] img').forEach(img => img.src = user.imgPath)
             })
         }
 

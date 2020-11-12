@@ -10,22 +10,44 @@
                 list = this.selector.querySelector(".notifications-list"),
                 btn = this.selector.querySelector('[data-event="toggle"]')
 
-            list.innerHtml = ""
             this.Data.get("Notifications").then(data => {
-                data.list.forEach(n => $(list).append(`
-                <div class="notification">
-                    <img src="${n.imgPath}" alt="" />
-                    <div class="body">
-                        <div class="name">
-                           ${n.performer}
+                let counter = 0
+                let splitData = Factory.getClass("Split").split(data.list, 10)
+
+                const renderNotifications = data => {
+                    data.forEach(n => {
+                        $(list).append(`
+                    <div class="notification"}>
+                        <img src="${n.imgPath}" alt="" />
+                        <div class="body">
+                            <div class="name">
+                            ${n.performer}
+                            </div>
+                            <div class="msg">
+                                ${(n.todo) ? `<a data-todo-id="${n.todo.id}" role="button" class="link">${n.todo.name.substr(0, 32)}... -</a>` : ""}
+                                "${n.title.substr(0, 256)}..."
+                            </div>
+                            <div class="meta">${n.date}</div>
                         </div>
-                        <div class="msg">
-                            ${(n.task) ? `<a role="button" class="link">${n.task.name.slice(0, 16)}... -</a>` : ""}
-                            "${n.title.slice(0, 256)}..."
-                        </div>
-                        <div class="meta">${n.date}</div>
-                    </div>
-                </div>`))
+                    </div>`)
+
+
+                        if (n.todo) {
+                            list.querySelector(".notification:last-child .link").onclick = e => {
+                                Factory.getClass("Modal").render("todoInfo", e.target)
+                            }
+                        }
+                    })
+                }
+
+                wrapper.querySelector('[data-event="more"]').onclick = () => {
+                    if (splitData[counter + 1]) {
+                        counter++; renderNotifications(splitData[counter])
+                    }
+                }
+
+                renderNotifications(splitData[0])
+
                 if (data.numOfNew) this.selector.dataset.amount = data.numOfNew
             })
 

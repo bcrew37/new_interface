@@ -9,7 +9,6 @@
             this.Split = Factory.getClass("Split")
             this.Loader = Factory.getClass("Loader")
             this.Regexp = Factory.getClass("Regexp")
-            this.User = Factory.getClass("User")
             this.Dropdown = Factory.getClass("Dropdown")
             this.FilesManager = Factory.getClass("FilesManager")
 
@@ -194,7 +193,7 @@
                                 <span data-placement="top" data-toggle="tooltip" title="${status}" class="status ${t.status}"></span>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input position-static" type="checkbox" />
+                                <input ${t.checked ? `checked` : ``} class="form-check-input position-static" type="checkbox" />
                             </div>
                         </div>`)
                         todos.querySelector(`[data-todo-id="${t.id}"] .form-check-input`).onclick = e => {
@@ -219,9 +218,35 @@
                     })
 
                     $(todos).find('[data-toggle="tooltip"]').tooltip()
-                }; this.Data.get("Todos").then(result => {
-                    let data = this.Split.split(result, 10); renderTodos(data[0])
-                    let findForm = Factory.getClass("Finder", modal.querySelector(".findTodo"), result, data[0]);
+                };
+
+                // this.Data.get("Todos").then(result => {
+                //     let data = this.Split.split(result, 10); renderTodos(data[0])
+                //     let findForm = Factory.getClass("Finder", modal.querySelector(".findTodo"), data, data[0]);
+                //     findForm.subscribe((result) => {
+                //         $(todos).animate({
+                //             scrollTop: 0
+                //         }, 100, () => renderTodos(result))
+                //         pageNum = 0; if (result == data[0]) {
+                //             pagBtn.style.display = "flex"
+                //         } else pagBtn.style.display = "none"
+                //     });
+
+                //     pagBtn.onclick = () => {
+                //         if (data.length - 1 !== pageNum) {
+                //             pageNum += 1; renderTodos(data[pageNum], false);
+                //             if (data.length - 1 == pageNum) pagBtn.style.display = "none"
+                //         } else return
+                //         $(todos).animate({
+                //             scrollTop: todos.scrollHeight
+                //         }, 100)
+                //     }
+                // })
+
+                this.Data.get("Todos").then(data => {
+                    let splitData = this.Split.split(data, 10); renderTodos(splitData[0])
+                    let findForm = Factory.getClass("Finder", modal.querySelector(".findTodo"), data, splitData[0]);
+
                     findForm.subscribe((result) => {
                         $(todos).animate({
                             scrollTop: 0
@@ -230,6 +255,7 @@
                             pagBtn.style.display = "flex"
                         } else pagBtn.style.display = "none"
                     });
+
                     pagBtn.onclick = () => {
                         if (data.length - 1 !== pageNum) {
                             pageNum += 1; renderTodos(data[pageNum], false);
@@ -239,6 +265,7 @@
                             scrollTop: todos.scrollHeight
                         }, 100)
                     }
+
                 })
 
                 // Files    
@@ -553,114 +580,6 @@
                         })
                     }
 
-                    {   // Performers
-                        const pList = new Map()
-                        const renderPerformers = (data, clear = true) => {
-                            if (clear) performers.innerHTML = ""
-                            data.forEach(p => {
-                                $(performers).append(`
-                                    <div class="performer" data-performer-id="${p.id}">
-                                        <div class="user-block">
-                                            <img class="img" data-src="${p.imgPath}" alt="" />
-                                            <span class="name">${p.name}</span>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input position-static" type="checkbox" ${p.checked == true ? "checked" : ``}/>
-                                        </div>
-                                    </div>`)
-                                performers.querySelector(`[data-performer-id="${p.id}"] .form-check-input`).onclick = e => {
-                                    let pId = e.target.closest(".performer").dataset.performerId
-                                    if (e.target.checked == true) {
-                                        e.target.checked = false; e.target.setAttribute("disabled", "true")
-                                        this.Alert.render("confirm", "Виконавця буде додано до задачі. Ви впевнені?", {
-                                            confirm: () => {
-                                                this.Loader.show("infinity")
-                                                this.Http.post("/try", { pId }, res => {
-                                                    if (res.success) {
-                                                        pList.set(pId, p); pList.get(pId).checked = true; e.target.checked = true
-                                                        this.Alert.render("success", "Виконавця додано.")
-                                                    } else this.Alert.render("danger", `Сталася помилка: ${res.msg.substr(0, 32)}...`)
-                                                    this.Loader.hide(); e.target.removeAttribute("disabled")
-                                                })
-                                            },
-                                            unConfirm: () => e.target.removeAttribute("disabled")
-                                        })
-                                    } else {
-                                        e.target.checked = true; e.target.setAttribute("disabled", "true")
-                                        this.Alert.render("confirm", "Виконавця буде вилучено з задачі. Ви впевнені?", {
-                                            confirm: () => {
-                                                this.Loader.show("infinity")
-                                                this.Http.post("/try", { pId }, res => {
-                                                    if (res.success) {
-                                                        pList.get(pId).checked = false; pList.delete(pId); e.target.checked = false;
-                                                        this.Alert.render("success", "Виконавця вилучено.")
-                                                    } else this.Alert.render("danger", `Сталася помилка: ${res.msg.substr(0, 32)}...`)
-                                                    this.Loader.hide(); e.target.removeAttribute("disabled")
-                                                })
-                                            },
-                                            unConfirm: () => e.target.removeAttribute("disabled")
-                                        })
-                                    }
-
-                                }
-                            }); $(performers).find('[data-src]').Lazy({
-                                effect: 'fadeIn',
-                                autoDestroy: true,
-                                effectTime: 200,
-                                threshold: performers.scrollHeight,
-                                visibleOnly: false,
-                                onError: function (element) {
-                                    console.log('error loading ' + element.data('src'));
-                                }
-                            })
-                        }
-
-                        let pageNum = 0
-                        this.Data.get("Performers").then(data => {
-
-                            data.forEach(p => pList.set(p.id, p))
-                            t.performers.forEach(p => pList.get(p.id).checked = true)
-
-                            data.sort((perf1, perf2) => {
-                                let p1 = perf1.checked;
-                                let p2 = perf2.checked;
-                                if (p1 !== p2) {
-                                    if (p1) {
-                                        return -1;
-                                    } else {
-                                        return 1;
-                                    }
-                                } else {
-                                    return 0;
-                                }
-                            })
-
-                            let splitData = this.Split.split(data, 4)
-                            renderPerformers(splitData[0])
-                            let findForm = Factory.getClass("Finder", modal.querySelector(".findPerformer"), data, splitData[0]);
-
-                            findForm.subscribe(result => {
-                                $(performers).animate({
-                                    scrollTop: 0
-                                }, 100, () => renderPerformers(result))
-                                pageNum = 0; if (result == splitData[0]) {
-                                    pagBtn.style.display = "flex"
-                                } else pagBtn.style.display = "none"
-                            })
-
-                            pagBtn.onclick = () => {
-                                if (splitData.size - 1 !== pageNum) {
-                                    pageNum += 1; renderPerformers(splitData[pageNum], false);
-                                    if (splitData.length - 1 == pageNum) pagBtn.style.display = "none"
-                                } else return
-                                $(performers).animate({
-                                    scrollTop: performers.scrollHeight
-                                }, 100)
-                            }
-
-                        })
-                    }
-
                     {   // Comments
                         if (t.comments) t.comments.forEach(c => {
                             $(comments).prepend(`
@@ -720,6 +639,57 @@
                                 console.log('error loading ' + element.data('src'));
                             }
                         })
+
+                        let commentsBlock = comments.closest('[data-name="comments"]'),
+                            commentInput = commentsBlock.querySelector('.add-comment [data-name="comment"'),
+                            commentBtn = commentsBlock.querySelector('.add-comment [data-event="sendComment"]')
+
+                        commentBtn.onclick = () => {
+                            if (commentInput.value.trim().length == 0) return this.Alert.render("warning", "Введіnm коментар")
+                            this.Loader.show("infinity")
+                            let comment = commentInput.value
+                            commentInput.value = ""
+                            this.Http.post("/try", { comment }, res => {
+                                this.Loader.hide(() => {
+                                    if (res.success) {
+                                        this.Data.get("User").then(u => {
+                                            $(comments).prepend(`
+                                            <div class="comment" data-comment-id="${res.msg}">
+                                                <img data-src="${u.imgPath}" alt="" />
+                                                <div class="body">
+                                                    <div class="name">
+                                                        ${u.name}
+                                                    <button style="display:none"  data-event="dismiss" class="dismiss">
+                                                    <i class="fa fa-trash"></i>
+                                                    </button>
+                                                    </div>
+                                                    <div class="text">
+                                                        ${comment}
+                                                    </div>
+                                                    <div class="meta"> 
+                                                        ${Factory.getClass("Dates").DMY()} 
+                                                    </div>
+                                                </div>
+                                            </div>`)
+
+                                            $(comments).find('[data-src]').Lazy({
+                                                effect: 'fadeIn',
+                                                autoDestroy: true,
+                                                effectTime: 200,
+                                                threshold: files.scrollHeight,
+                                                visibleOnly: false,
+                                                onError: function (element) {
+                                                    console.log('error loading ' + element.data('src'));
+                                                }
+                                            })
+                                        })
+                                    } else {
+                                        this.Alert.render("danger", `Сталася помилка: ${res.msg.substr(0, 32)}...`)
+                                    }
+                                })
+                            })
+                        }
+
                     }
 
                     {   // Files - Report
@@ -779,14 +749,145 @@
                     }
 
                     {   // User rights
-                        this.User.get(user => {
+                        this.Data.get("User").then(user => {
                             if (user.role[0] == "manager" || user.role[0] == "gmanager" || user.role[0] == "admin") {
                                 controlBtns.style.display = "flex"
                                 modal.querySelectorAll('[data-event="dismiss"]').forEach(b => b.style.display = "block")
                                 description.removeAttribute("disabled")
                                 name.removeAttribute("readonly")
+
+                                {   // Performers
+                                    const pList = new Map()
+                                    const renderPerformers = (data, clear = true) => {
+                                        if (clear) performers.innerHTML = ""
+                                        data.forEach(p => {
+                                            $(performers).append(`
+                                                <div class="performer" data-performer-id="${p.id}">
+                                                    <div class="user-block">
+                                                        <img class="img" data-src="${p.imgPath}" alt="" />
+                                                        <span class="name">${p.name}</span>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input position-static" type="checkbox" ${p.checked == true ? "checked" : ``}/>
+                                                    </div>
+                                                </div>`)
+                                            performers.querySelector(`[data-performer-id="${p.id}"] .form-check-input`).onclick = e => {
+                                                let pId = e.target.closest(".performer").dataset.performerId
+                                                if (e.target.checked == true) {
+                                                    e.target.checked = false; e.target.setAttribute("disabled", "true")
+                                                    this.Alert.render("confirm", "Виконавця буде додано до задачі. Ви впевнені?", {
+                                                        confirm: () => {
+                                                            this.Loader.show("infinity")
+                                                            this.Http.post("/try", { pId }, res => {
+                                                                if (res.success) {
+                                                                    pList.set(pId, p); pList.get(pId).checked = true; e.target.checked = true
+                                                                    this.Alert.render("success", "Виконавця додано.")
+                                                                } else this.Alert.render("danger", `Сталася помилка: ${res.msg.substr(0, 32)}...`)
+                                                                this.Loader.hide(); e.target.removeAttribute("disabled")
+                                                            })
+                                                        },
+                                                        unConfirm: () => e.target.removeAttribute("disabled")
+                                                    })
+                                                } else {
+                                                    e.target.checked = true; e.target.setAttribute("disabled", "true")
+                                                    this.Alert.render("confirm", "Виконавця буде вилучено з задачі. Ви впевнені?", {
+                                                        confirm: () => {
+                                                            this.Loader.show("infinity")
+                                                            this.Http.post("/try", { pId }, res => {
+                                                                if (res.success) {
+                                                                    pList.get(pId).checked = false; pList.delete(pId); e.target.checked = false;
+                                                                    this.Alert.render("success", "Виконавця вилучено.")
+                                                                } else this.Alert.render("danger", `Сталася помилка: ${res.msg.substr(0, 32)}...`)
+                                                                this.Loader.hide(); e.target.removeAttribute("disabled")
+                                                            })
+                                                        },
+                                                        unConfirm: () => e.target.removeAttribute("disabled")
+                                                    })
+                                                }
+
+                                            }
+                                        }); $(performers).find('[data-src]').Lazy({
+                                            effect: 'fadeIn',
+                                            autoDestroy: true,
+                                            effectTime: 200,
+                                            threshold: performers.scrollHeight,
+                                            visibleOnly: false,
+                                            onError: function (element) {
+                                                console.log('error loading ' + element.data('src'));
+                                            }
+                                        })
+                                    }
+
+                                    let pageNum = 0
+                                    this.Data.get("Performers").then(data => {
+
+                                        data.forEach(p => pList.set(p.id, p))
+                                        t.performers.forEach(p => pList.get(p.id).checked = true)
+
+                                        data.sort((perf1, perf2) => {
+                                            let p1 = perf1.checked;
+                                            let p2 = perf2.checked;
+                                            if (p1 !== p2) {
+                                                if (p1) {
+                                                    return -1;
+                                                } else {
+                                                    return 1;
+                                                }
+                                            } else {
+                                                return 0;
+                                            }
+                                        })
+
+                                        let splitData = this.Split.split(data, 10)
+                                        renderPerformers(splitData[0])
+                                        let findForm = Factory.getClass("Finder", modal.querySelector(".findPerformer"), data, splitData[0]);
+
+                                        findForm.subscribe(result => {
+                                            $(performers).animate({
+                                                scrollTop: 0
+                                            }, 100, () => renderPerformers(result))
+                                            pageNum = 0; if (result == splitData[0]) {
+                                                pagBtn.style.display = "flex"
+                                            } else pagBtn.style.display = "none"
+                                        })
+
+                                        pagBtn.onclick = () => {
+                                            if (splitData.size - 1 !== pageNum) {
+                                                pageNum += 1; renderPerformers(splitData[pageNum], false);
+                                                if (splitData.length - 1 == pageNum) pagBtn.style.display = "none"
+                                            } else return
+                                            $(performers).animate({
+                                                scrollTop: performers.scrollHeight
+                                            }, 100)
+                                        }
+
+                                    })
+                                }
+                            } else {
+                                t.performers.forEach(p => {
+                                    $(performers).append(`
+                                        <div class="performer" data-performer-id="${p.id}">
+                                            <div class="user-block">
+                                                <img class="img" data-src="${p.imgPath}" alt="" />
+                                                <span class="name">${p.name}</span>
+                                            </div>
+                                        </div>`)
+                                }); $(performers).find('[data-src]').Lazy({
+                                    effect: 'fadeIn',
+                                    autoDestroy: true,
+                                    effectTime: 200,
+                                    threshold: performers.scrollHeight,
+                                    visibleOnly: false,
+                                    onError: function (element) {
+                                        console.log('error loading ' + element.data('src'));
+                                    }
+                                })
                             }
-                            inProgressBtn.style.display = "block"
+
+                            if (t.status !== "inProgress") {
+                                inProgressBtn.style.display = "block"
+                            }
+
                         })
                     }
 
@@ -992,6 +1093,7 @@
                     this.Loader.show("infinity")
                     this.Http.get(`/test/${name.value.length > 0 ? `name=${name.value}&` : ``}datefrom=${df.getDate()}&dateto=${dt.getDate()}`, data => {
                         FilesHandler.render(data); $(modal).modal("hide")
+                        Factory.getClass("Pagination").init(".pagination", `/test/${name.value.length > 0 ? `name=${name.value}&` : ``}datefrom=${df.getDate()}&dateto=${dt.getDate()}`, "FilesHandler")
                     })
                 }
             })
