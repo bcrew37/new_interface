@@ -14,7 +14,7 @@
             this.init("#newTodo", () => this.Modal.render("newTodo"))
             this.Data.get("Todos").then(data => this.render(data))
 
-            Factory.getClass("Pagination").init(".pagination", "/todos", "BoardsHandler")
+            Factory.getClass("Pagination").init(".pagination", "/task/list", "BoardsHandler")
             Factory.getClass("Notifications").render(document.querySelector(".tool-bar .notifications"))
 
             this.Data.get("Departments").then(data => {
@@ -25,29 +25,29 @@
                     `); list.querySelector(".dropdown-item").onclick = () => {
                         this.Loader.show("infinity")
                         list.closest(".dropdown").querySelector("#selected-option").innerHTML = d.name
-                        this.Http.get(`/todos/${d.id}`, data => this.render(data))
-                        Factory.getClass("Pagination").init(".pagination", `/todos/${d.id}`, "BoardsHandler")
+                        this.Http.get(`/task/list/1?depId=${d.id}`, data => this.render(data))
+                        Factory.getClass("Pagination").init(".pagination", `/task/list?depId=${d.id}`, "BoardsHandler")
                     }
                 })
                 list.querySelector('[data-event="alldeps"]').onclick = () => {
                     this.Loader.show("infinity")
                     list.closest(".dropdown").querySelector("#selected-option").innerHTML = "Усі"
                     this.Data.get("Todos").then(data => this.render(data))
-                    Factory.getClass("Pagination").init(".pagination", "/todos", "BoardsHandler")
+                    Factory.getClass("Pagination").init(".pagination", "/task/list", "BoardsHandler")
                 }
             })
 
-            const filterByStatus = (status = '') => {
-                this.Http.get(`/todos${status == '' ? `` : '/' + status}`, data => this.render(data))
-                Factory.getClass("Pagination").init(".pagination", `/todos${status == '' ? `` : '/' + status}`, "BoardsHandler")
+            const filterByStatus = (status) => {
+                this.Http.get(`/task/list${status ? `/${status}` : ``}`, data => this.render(data))
+                Factory.getClass("Pagination").init(".pagination", `/task/list${status ? `/${status}` : ``}`, "BoardsHandler")
             }
 
             let statusFilter = this._table.closest(".body").querySelector("thead #boardFilterByStatus")
-            statusFilter.querySelector('[value="new"]').onclick = () => filterByStatus("new")
-            statusFilter.querySelector('[value="inProgress"]').onclick = () => filterByStatus("inProgress")
-            statusFilter.querySelector('[value="ovedue"]').onclick = () => filterByStatus("overdue")
-            statusFilter.querySelector('[value="completed"]').onclick = () => filterByStatus("completed")
-            statusFilter.querySelector('[value="onhold"]').onclick = () => filterByStatus("onhold")
+            statusFilter.querySelector('[value="new"]').onclick = () => filterByStatus("NEW")
+            statusFilter.querySelector('[value="inProgress"]').onclick = () => filterByStatus("INPROGRESS")
+            statusFilter.querySelector('[value="ovedue"]').onclick = () => filterByStatus("OVERDUE")
+            statusFilter.querySelector('[value="completed"]').onclick = () => filterByStatus("COMPLETED")
+            statusFilter.querySelector('[value="onhold"]').onclick = () => filterByStatus("ONHOLD")
             statusFilter.querySelector('[value="all"]').onclick = () => filterByStatus()
         }
 
@@ -58,34 +58,19 @@
         render(data = []) {
             this._table.innerHTML = ""
             data.forEach(t => {
-                let performers = ''; for (let i = 0; i < t.performers.length; i++) {
-                    let p = t.performers[i];
-                    if (i < 5) performers += `<div data-placement="auto" data-toggle="tooltip" title="${p.name}" class="performer"><img data-src="${p.imgPath}"/></div>`
-                    if (i == t.performers.length - 1 && i > 5) performers += `<span class="ml-3">${t.performers.length - 5} + </span>`
-                }; let status; switch (t.status) {
-                    case "inProgress":
-                        status = "В процесі"
-                        break;
-                    case "new":
-                        status = "Нове"
-                        break;
-                    case "overdue":
-                        status = "Дедлайн простротечнно"
-                        break;
-                    case "completed":
-                        status = "Завершено"
-                        break;
-                    case "onhold":
-                        status = "Відкладено"
-                        break;
-                    default:
-                        status = "Не відомий статус"
-                        break
-                }; $(this._table).append(`
+                let performers = ''; for (let i = 0; i < t.performerIds.length; i++) {
+                    let p = Factory.getClass("User").get(t.performerIds[i])
+
+                    if (i < 5) performerIds += `<div data-placement="auto" data-toggle="tooltip" title="${p.name}" class="performer"><img data-src="${p.imgPath}"/></div>`
+                    if (i == t.performerIds.length - 1 && i > 5) performers += `<span class="ml-3">${t.performerIds.length - 5} + </span>`
+                }; let status = Factory.getClass("Lang").get(status)
+
+                let manager = Factory.getClass("User").get(t.ownerId)
+                $(this._table).append(`
                 <tr class="table-row todo" data-todo-id="${t.id}">
                     <td>
                         <div class="td-wrapper">
-                            <img data-placement="auto" data-toggle="tooltip" title="${t.manager.name}" data-name="manager" data-src="${t.manager.imgPath}" alt="" />
+                            <img data-placement="auto" data-toggle="tooltip" title="${manager.name}" data-name="manager" data-src="${manager.imgPath}" alt="" />
                             <button title="натисніть для більш детальної інформації" class="name">
                                ${t.name}
                             </button>
@@ -213,13 +198,13 @@
                     this.Alert.render("confirm", "Дату дедлайну буде змінено. Ви впевнені?", {
                         confirm: () => {
                             this.Loader.show("infinity")
-                            this.Http.post("/try", { date: deadline.getDate() }, res => {
+                            this.Http.post("/task/modify/deadline", { date: deadline.getDate(), taskId: t.id }, res => {
                                 this.Loader.hide(() => {
                                     console.log({ date: deadline.getDate() })
                                     if (res.success) {
                                         this.Alert.render("success", "Дату змінено.")
                                     } else {
-                                        this.Alert.render("danger", "Сталася помилка.")
+                                        this.Alert.render("danger", "Сталася помилка." + res.msg.substr(0, 32) + "...")
                                         deadline.set(t.deadlineDate)
                                     }
                                 })
@@ -235,13 +220,13 @@
                     this.Alert.render("confirm", "Дату контролю буде змінено. Ви впевнені?", {
                         confirm: () => {
                             this.Loader.show("infinity")
-                            this.Http.post("/try", { date: control.getDate() }, res => {
+                            this.Http.post("/task/modify/control", { date: control.getDate(), taskId: t.id }, res => {
                                 this.Loader.hide(() => {
                                     console.log({ date: control.getDate() })
                                     if (res.success) {
                                         this.Alert.render("success", "Дату змінено.")
                                     } else {
-                                        this.Alert.render("danger", "Сталася помилка.")
+                                        this.Alert.render("danger", "Сталася помилка." + res.msg.substr(0, 32) + "...")
                                         control.set(t.controlDate)
                                     }
                                 })
@@ -267,7 +252,9 @@
                 },
                 autoDestroy: true,
             });
-            this.Dropdown.init(this._table.closest(".body"), { single: true })
+            this.Data.get("User").then(user => {
+                if (user.role == "MANAGER" || user.role == "G_MANAGER" || user.role == "ADMIN") this.Dropdown.init(this._table.closest(".body"), { single: true })
+            })
             $(this._table).find('[data-toggle="tooltip"]').tooltip()
             this.Loader.hide()
         }

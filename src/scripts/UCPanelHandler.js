@@ -39,14 +39,14 @@
                 if (pass2.value.trim() == "") return this.Alert.render("warning", "Напишіть новий пароль")
                 this.Loader.show("infinity")
 
-                this.Http.post("/try", { pass1: pass1.value, pass2: pass2.value }, res => {
+                this.Http.post("/settings/chagne/password", { oldPasswd: pass1.value, newPasswd: pass2.value }, res => {
                     this.Loader.hide(() => {
                         if (res.success) {
                             this.Alert.render("success", "Пароль змінено")
                             pass1.value = ""
                             pass2.value = ""
                         } else {
-                            this.Alert.render("danger", "Сталася помилка: " + res.msg)
+                            this.Alert.render("danger", "Сталася помилка: " + res.msg.substr(0, 32) + "...")
                         }
                     })
                 })
@@ -58,7 +58,7 @@
             document.querySelector("#userName").innerHTML = user.name
             document.querySelector("#userEmail").innerHTML = user.email
             document.querySelector("#userDepartment").innerHTML = user.department
-            document.querySelector("#userRole").innerHTML = this.Lang.get(user.role[0])
+            document.querySelector("#userRole").innerHTML = this.Lang.get(user.role)
             document.querySelector("#userRegdate").innerHTML = user.regdate
             document.querySelector("#userImg").setAttribute("data-src", user.imgPath)
             $(document).find('[data-src]').Lazy({

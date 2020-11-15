@@ -17,6 +17,7 @@
 
                     if (response.ok) {
                         const result = await response.json()
+                        console.log(result)
                         callback(result)
                     } else console.error("Not al ok...")
                 } catch (error) {
@@ -26,25 +27,26 @@
         }
 
         post(url, body, callback, options = {}) {
-            (async () => {
-                try {
-                    const response = await fetch(url, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json;charset=utf-8"
-                        },
-                        body: JSON.stringify(body),
-                        ...options
-                    })
+            console.log(body)
+                (async () => {
+                    try {
+                        const response = await fetch(url, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json;charset=utf-8"
+                            },
+                            body: JSON.stringify(body),
+                            ...options
+                        })
 
-                    if (response.ok) {
-                        const result = await response.json()
-                        if (callback) callback(result)
-                    } else console.error("Not al ok...")
-                } catch (error) {
-                    throw console.error("Oops! " + error)
-                }
-            })()
+                        if (response.ok) {
+                            const result = await response.json()
+                            if (callback) callback(result)
+                        } else console.error("Not al ok...")
+                    } catch (error) {
+                        throw console.error("Oops! " + error)
+                    }
+                })()
         }
     }
 

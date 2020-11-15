@@ -738,23 +738,23 @@ a:hover {
   margin-right: 20px;
 }
 
-.content-wrapper .content .body table [data-name="status"] .status.completed {
+.content-wrapper .content .body table [data-name="status"] .status.COMPLETED {
   background-color: #1bc943;
 }
 
-.content-wrapper .content .body table [data-name="status"] .status.overdue {
+.content-wrapper .content .body table [data-name="status"] .status.OVERDUE {
   background-color: #f44336;
 }
 
-.content-wrapper .content .body table [data-name="status"] .status.inProgress {
+.content-wrapper .content .body table [data-name="status"] .status.INPRGORESS {
   background-color: #ff9800;
 }
 
-.content-wrapper .content .body table [data-name="status"] .status.new {
+.content-wrapper .content .body table [data-name="status"] .status.NEW {
   background-color: #2196f3;
 }
 
-.content-wrapper .content .body table [data-name="status"] .onhold.new {
+.content-wrapper .content .body table [data-name="status"] .ONHOLD.NEW {
   background: rgba(67, 78, 106, 50%);
 }
 
@@ -1266,19 +1266,19 @@ a:hover {
   width: 8px;
 }
 
-.modal .block-wrapper [data-name="todos"] .status.completed::after {
+.modal .block-wrapper [data-name="todos"] .status.COMPLETED::after {
   background-color: #1bc943;
 }
 
-.modal .block-wrapper [data-name="todos"] .status.overdue::after {
+.modal .block-wrapper [data-name="todos"] .status.OVERDUE::after {
   background-color: #f44336;
 }
 
-.modal .block-wrapper [data-name="todos"] .status.inProgress::after {
+.modal .block-wrapper [data-name="todos"] .status.INPROGRESS::after {
   background-color: #ff9800;
 }
 
-.modal .block-wrapper [data-name="todos"] .status.new::after {
+.modal .block-wrapper [data-name="todos"] .status.NEW::after {
   background-color: #2196f3;
 }
 

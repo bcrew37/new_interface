@@ -19,7 +19,7 @@
                 if (input.value.trim().length == 0) return
                 if (input.value.trim().length > 64) return this.Alert.render("warning", "Назва не більше 64 символів")
                 this.Loader.show("infinity")
-                this.Http.post("/try", { name: input.value.trim() }, res => {
+                this.Http.get(`/departments/create?name=${input.value.trim()}`, res => {
                     input.value = ""
                     this.Loader.hide(() => {
                         if (res.success) {
@@ -56,7 +56,7 @@
                 this.Alert.render("confirm", "Роль буде змінено. Ви впевнені?", {
                     confirm: () => {
                         this.Loader.show("infinity")
-                        this.Http.post("/try", { userId, role }, res => {
+                        this.Http.post("/performers/modify/role", { performerId: userId, role }, res => {
                             this.Loader.hide(() => {
                                 btn.style.pointerEvents = "auto"
                                 console.log({ userId, role })
@@ -80,15 +80,15 @@
 
                 if (btn.closest('td').querySelector('[data-event="toggle"]').innerText.trim() == btn.innerText.trim()) return
 
-                let userId = btn.closest(".department__user").dataset.userId, value = btn.innerText.trim()
+                let userId = btn.closest(".department__user").dataset.userId, value = btn.dataset.depId
 
                 btn.style.pointerEvents = "none"
                 this.Alert.render("confirm", "Відділ буде змінено. Ви впевнені?", {
                     confirm: () => {
                         this.Loader.show("infinity")
-                        this.Http.post("/try", { userId, value }, res => {
+                        this.Http.post("/performers/modify/department", { performerId: userId, departmentId: value }, res => {
                             btn.style.pointerEvents = "auto"
-                            console.log({ userId, value })
+                            console.log({ performerId: userId, value })
                             this.Loader.hide(() => {
                                 if (res.success) {
                                     this.Alert.render("success", "Відділ змінено.")
@@ -111,7 +111,7 @@
                 this.Alert.render("confirm", "Користувача буде видалено з системи. Ви впевнені?", {
                     confirm: () => {
                         this.Loader.show("infinity")
-                        this.Http.post("/try", { userId }, res => {
+                        this.Http.post("/performers/remove", { performerId: userId }, res => {
                             this.Loader.hide(() => {
                                 btn.style.pointerEvents = "auto"
                                 console.log({ userId })
@@ -147,7 +147,7 @@
                 this.Alert.render("confirm", "Відділ буде видалено. Ви впевнені?", {
                     confirm: () => {
                         this.Loader.show("infinity")
-                        this.Http.post("/try", { depId }, res => {
+                        this.Http.get(`/departments/remove?departmentId=${depId}`, res => {
                             btn.style.pointerEvents = "auto"
                             console.log({ depId })
                             this.Loader.hide(() => {
@@ -199,7 +199,7 @@
                     <div class="td-wrapper">
                         <img data-src="${u.imgPath}" alt="">
                         ${u.name}
-                    </div>
+                    </div>>>
                 </td>
                 <td>${u.email ?? '__'}</td>
                 <td>
@@ -208,14 +208,14 @@
                 <td>
                     <div class="drop-down">
                     <button data-event="toggle">
-                        ${this.Lang.get(u.role[0])}
+                        ${this.Lang.get(u.role)}
                     </button>
                     <div class="drop-down_menu">
                         <div class="drop-down__list roleList">
-                            <div data-value="gmanager" class="item">Головний менеджер</div>
-                            <div data-value="manager" class="item">Менеджер</div>
-                            <div data-value="secretary" class="item">Секретар</div>
-                            <div data-value="performer" class="item">Виконавець</div>
+                            <div data-value="GMANAGER" class="item">Головний менеджер</div>
+                            <div data-value="MANAGER" class="item">Менеджер</div>
+                            <div data-value="SECRETARY" class="item">Секретар</div>
+                            <div data-value="PERFORMER" class="item">Виконавець</div>
                         </div>
                     </div>
                 </div>
@@ -239,13 +239,13 @@
                 let user = this._table[0].querySelector(`[data-user-id="${u.id}"]`)
 
                 user.querySelector('.deaprtment__remove-user').onclick = e => removeUser(e)
-                user.querySelector('[data-value="gmanager"]').onclick = e => changeRole(e)
-                user.querySelector('[data-value="manager"]').onclick = e => changeRole(e)
-                user.querySelector('[data-value="secretary"]').onclick = e => changeRole(e)
-                user.querySelector('[data-value="performer"]').onclick = e => changeRole(e)
+                user.querySelector('[data-value="G_MANAGER"]').onclick = e => changeRole(e)
+                user.querySelector('[data-value="MANAGER"]').onclick = e => changeRole(e)
+                user.querySelector('[data-value="SECRETARY"]').onclick = e => changeRole(e)
+                user.querySelector('[data-value="PERFORMER"]').onclick = e => changeRole(e)
             })
 
-            this.Data.get("Departments").then(data => {
+            this.Data.update("Departments").then(data => {
                 let depList = ''
                 data.forEach(d => {
                     let dep = this._table[0].querySelector(`[data-department-id="${d.id}"]`)

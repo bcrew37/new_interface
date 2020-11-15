@@ -9,7 +9,7 @@
 
             google.charts.load('current', { packages: ['corechart', 'bar'] });
 
-            this.Data.get("Performers").then(list => {
+            this.Data.get("Stats").then(list => {
                 google.charts.setOnLoadCallback(() => this.render(list));
             })
         }
@@ -28,16 +28,16 @@
 
             let lastDep,
                 lastData = []
-            list.forEach((p, i) => {
 
+            list.forEach((p, i) => {
                 if (p.department && lastDep !== p.department.name) {
                     lastDep = p.department.name
                     lastData = [['Виконавець', 'Нові', 'В прогреці', 'Просрочені', 'Завершені', 'Відкладені']]
 
-                    lastData.push([p.name, 13, 2, 14, 16, 4])
+                    lastData.push([p.name, p.newStatus, inprogress, overdue, completed, onhold])
                     $(this._table).append(`<div class="chart"></div>`)
                 } else if (p.department && lastDep == p.department.name) {
-                    lastData.push([p.name, 13, 2, 14, 16, 4])
+                    lastData.push([p.name, p.newStatus, inprogress, overdue, completed, onhold])
                 } else if (!p.department) {
                     if (lastDep !== "Не розподілені") {
                         lastData = [['Виконавець', 'Нові', 'В прогреці', 'Просрочені', 'Завершені', 'Відкладені']]
@@ -45,7 +45,7 @@
                         $(this._table).append(`<div class="chart"></div>`)
                     }
 
-                    lastData.push([p.name, 13, 2, 14, 16, 4])
+                    lastData.push([p.name, p.newStatus, inprogress, overdue, completed, onhold])
                 }
 
                 if (!list[i + 1] || list[i + 1].department && list[i + 1].department.name !== lastDep) {

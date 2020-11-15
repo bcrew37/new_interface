@@ -11,25 +11,23 @@
                 btn = this.selector.querySelector('[data-event="toggle"]')
 
             this.Data.get("Notifications").then(data => {
-                let counter = 0
-                let splitData = Factory.getClass("Split").split(data.list, 10)
-
                 const renderNotifications = data => {
                     data.forEach(n => {
+                        let author = Factory.getClass("User").get(n.authorId)
                         $(list).append(`
-                    <div class="notification"}>
-                        <img src="${n.imgPath}" alt="" />
-                        <div class="body">
-                            <div class="name">
-                            ${n.performer}
+                        <div class="notification"}>
+                            <img data-src="${author.imgPath}" alt="" />
+                            <div class="body">
+                                <div class="name">
+                                ${author.name}
+                                </div>
+                                <div class="msg">
+                                    ${(n.task) ? `<a data-todo-id="${n.task.id}" role="button" class="link">${n.task.name.substr(0, 32)}... -</a>` : ""}
+                                    "${n.message.substr(0, 256)}..."
+                                </div>
+                                <div class="meta">${n.date}</div>
                             </div>
-                            <div class="msg">
-                                ${(n.todo) ? `<a data-todo-id="${n.todo.id}" role="button" class="link">${n.todo.name.substr(0, 32)}... -</a>` : ""}
-                                "${n.title.substr(0, 256)}..."
-                            </div>
-                            <div class="meta">${n.date}</div>
-                        </div>
-                    </div>`)
+                        </div>`)
 
 
                         if (n.todo) {
@@ -38,15 +36,29 @@
                             }
                         }
                     })
-                }
 
+                    $(list).find('[data-src]').Lazy({
+                        effect: 'fadeIn',
+                        effectTime: 200,
+                        threshold: list.scrollHeight,
+                        visibleOnly: false,
+                        onError: function (element) {
+                            console.log('error loading ' + element.data('src'));
+                        },
+                        autoDestroy: true,
+                        onFinishedAll: () => {
+                            Loader.hide()
+                        }
+                    });
+                }; renderNotifications(data)
+
+                let counter = 1
                 wrapper.querySelector('[data-event="more"]').onclick = () => {
-                    if (splitData[counter + 1]) {
-                        counter++; renderNotifications(splitData[counter])
-                    }
+                    this.Http.get(`/notifications/list/${counter}`, data => {
+                        renderNotifications(data)
+                        counter++
+                    })
                 }
-
-                renderNotifications(splitData[0])
 
                 if (data.numOfNew) this.selector.dataset.amount = data.numOfNew
             })

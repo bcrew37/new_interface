@@ -20,14 +20,14 @@
                 if (input.value.trim().length == 0) return
                 if (input.value.trim().length > 64) return this.Alert.render("warning", "Назва не більше 64 символів")
                 this.Loader.show("infinity")
-                this.Http.post("/try", { name: input.value.trim() }, res => {
+                this.Http.post("/tenants/create", { companyName: input.value.trim(), tariff: "Free" }, res => {
                     input.value = ""
                     this.Loader.hide(() => {
                         if (res.success) {
-                            this.Alert.render("success", "Відділ створено.")
+                            this.Alert.render("success", " створено.")
                             this.Data.update("Enterprises").then(data => this.render(data))
                             this.Modal.render("tariffs", res.msg)
-                        } else this.Alert.render("danger", "Сталася помилка.")
+                        } else this.Alert.render("danger", "Сталася помилка." + res.msg.substr(0, 32) + "...")
                     })
                 })
             }
@@ -45,9 +45,9 @@
                             </span>
                         </div>
                     </td>
-                    <td data-name="date">${e.performers}</td>
-                    <td data-name="space">${e.date}</td>
-                    <td data-name="space">${e.space.used} / ${e.space.max}Gb</td>
+                    <td data-name="date">${e.number}</td>
+                    <td data-name="space">${e.creationDate}</td>
+                    <td data-name="space">${e.space} / ${e.maxSpace}Gb</td>
                     <td data-name="space">${this.Lang.get(e.tariff)}</td>
                     <td data-name="tools">
                        <div class="drop-down">
@@ -71,7 +71,7 @@
                     let btn = e.target.closest("button")
                     btn.setAttribute("disabled", "true")
                     this.Loader.show("infinity")
-                    this.Http.post("/try", { id: e.id }, res => {
+                    this.Http.get(`/tenants/connect?tenantId=${e.id}`, res => {
                         btn.removeAttribute("disabled")
                         if (res.success) {
                             this.Data.update("Enterprises").then(data => this.render(data))

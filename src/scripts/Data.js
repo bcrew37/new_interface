@@ -9,13 +9,14 @@
             this.keys = new Map([])
 
             this.init({
-                "/test": "Files",
-                "/notifications?list=1": "Notifications",
-                "/todos": "Todos",
-                "/pList": "Performers",
-                "/departments": "Departments",
-                "/enterprises": "Enterprises",
+                "/archive/doc/list/1": "Files",
+                "/notifications/list/1": "Notifications",
+                "/task/list/1": "Todos",
+                "/performers/list": "Performers",
+                "/departments/list": "Departments",
+                "/tenants/com/my/list": "Enterprises",
                 "/myinfo": "User",
+                "/statistics/ALL_TIME": "Stats"
             })
         }
 

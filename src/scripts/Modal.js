@@ -123,26 +123,26 @@
 
                     this.Loader.show("infinity")
 
-                    this.Http.post("/try", {
+                    this.Http.post("/task/create", {
                         name: name.value.trim(),
                         description: description.value.trim(),
-                        performers: performers,
-                        documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId),
-                        control: control.getDate(), deadline: deadline.getDate()
+                        performerList: performers,
+                        docList: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId),
+                        dateControl: control.getDate(), dateDeadline: deadline.getDate()
                     }, res => {
                         this.Loader.hide(); setTimeout(() => {
                             if (res.success) {
                                 this.Alert.render("success", "Задачу створено.")
                             } else {
-                                this.Alert.render("danger", "Сталася помилка.")
+                                this.Alert.render("danger", "Сталася помилка. " + res.msg.substr(0, 32) + "...")
                             }
                         }, 400)
                         console.log({
                             name: name.value.trim(),
                             description: description.value.trim(),
-                            performers: performers,
-                            documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId),
-                            control: control.getDate(), deadline: deadline.getDate()
+                            performerList: performers,
+                            docList: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId),
+                            dateControl: control.getDate(), deadline: dateDeadline.getDate()
                         })
                         $(modal).modal("hide"); name.value = ""; description.innerHTML = ""
                     })
@@ -165,23 +165,7 @@
                     if (clear) todos.innerHTML = ""
 
                     data.forEach(t => {
-                        let status; switch (t.status) {
-                            case "inProgress":
-                                status = "В процесі"
-                                break;
-                            case "new":
-                                status = "Нове"
-                                break;
-                            case "overdue":
-                                status = "Дедлайн простротечнно"
-                                break;
-                            case "completed":
-                                status = "Завершено"
-                                break;
-                            default:
-                                status = "Не відомий статус"
-                                break
-                        }
+                        let status = Factory.getClass("Lang").get(status)
 
                         $(todos).append(`
                         <div class="todo" data-todo-id="${t.id}">
@@ -303,15 +287,15 @@
                         todos.push(key); tList.get(key).checked = false; tList.delete(key)
                     }; $(modal).modal("hide"); this.Loader.show("infinity")
 
-                    this.Http.post("/try", {
-                        todos: todos,
-                        documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId)
+                    this.Http.post("/task/modify/docs", {
+                        todoIds: todos,
+                        docIds: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId)
                     }, res => {
                         this.Loader.hide(); setTimeout(() => {
                             if (res.success) {
                                 this.Alert.render("success", "Файли додано.")
                             } else {
-                                this.Alert.render("danger", "Сталася помилка.")
+                                this.Alert.render("danger", "Сталася помилка." + res.msg.substr(0, 32) + "...")
                             }
                         }, 400)
                         console.log({
@@ -376,12 +360,12 @@
                     data.forEach(f => formData.append("files", f))
                     $(modal).modal("hide"); this.Loader.show("infinity")
 
-                    this.Http.post("/try", formData, res => {
+                    this.Http.post("/archive/doc/upload", formData, res => {
                         this.Loader.hide(); setTimeout(() => {
                             if (res.success) {
                                 this.Alert.render("success", "Файли завантажено.")
                             } else {
-                                this.Alert.render("danger", "Сталася помилка.")
+                                this.Alert.render("danger", "Сталася помилка." + res.msg.substr(0, 32) + "...")
                             }
                         }, 400)
                     }, {
@@ -455,15 +439,15 @@
 
                     $(modal).modal("hide"); this.Loader.show("infinity")
 
-                    this.Http.post("/try", {
-                        documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId), msg: msg.value.trim(), email: email.value.trim()
+                    this.Http.post("/archive/doc/send", {
+                        docList: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId), message: msg.value.trim(), email: email.value.trim()
                     }, res => {
                         this.Loader.hide(); setTimeout(() => {
                             if (res.success) {
                                 this.Alert.render("success", "Файли відправлено.")
-                                console.log({ documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId), msg: msg.value.trim(), email: email.value.trim() })
+                                console.log({ documents: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId), message: msg.value.trim(), email: email.value.trim() })
                             } else {
-                                this.Alert.render("danger", "Сталася помилка.")
+                                this.Alert.render("danger", "Сталася помилка." + res.msg.substr(0, 32) + "...")
                             }
                         }, 400)
                     }, {
@@ -504,6 +488,8 @@
                     pageNum = 0, pagBtn = modal.querySelector('[data-event="pagination"]'),
                     performers = modal.querySelector('[data-role="performers"]'), pList = new Map()
 
+                const User = Factory.getClass("User")
+
                 comments.innerHTML = ""
                 description.value = ""
                 name.value = ""
@@ -519,14 +505,14 @@
                 description.setAttribute("disabled", "true")
                 name.setAttribute("readonly", "true")
 
-                this.Http.get(`/_todos?id="${d.dataset.todoId}"`, t => {
+                this.Http.get(`/task/details?todoId=${d.dataset.todoId}`, t => {
 
                     {   // Name + Description
                         name.value = t.name; description.value = t.description
                     }
 
                     {   // Files - Details
-                        if (t.files) t.files.forEach(f => {
+                        if (t.documents) t.documents.forEach(f => {
                             let fileName = f.name, fileExt = f.extName, fileId = f.id
 
                             $(files).prepend(`
@@ -547,10 +533,10 @@
                                     btn = e.target.closest('[data-event="dismiss"]')
 
                                 btn.setAttribute("disabled", "true")
-                                this.Alert.render("confirm", "Коментар буде видално. Ви впевнені?", {
+                                this.Alert.render("confirm", "Файл буде видално. Ви впевнені?", {
                                     confirm: () => {
                                         this.Loader.show("infinity")
-                                        this.Http.post("/try", { todoId: d.dataset.todoId, fileId }, res => {
+                                        this.Http.post("/task/doc/remove", { taskId: d.dataset.todoId, docId: fileId }, res => {
                                             this.Loader.hide(() => {
                                                 if (res.success) {
                                                     file.slideUp(100, () => file.remove())
@@ -582,18 +568,19 @@
 
                     {   // Comments
                         if (t.comments) t.comments.forEach(c => {
+                            let author = Factory.getClass("User").get(c.authorId)
                             $(comments).prepend(`
                                 <div class="comment" data-comment-id="${c.id}">
-                                    <img data-src="${c.author.imgPath}" alt="" />
+                                    <img data-src="${author.imgPath}" alt="" />
                                     <div class="body">
                                         <div class="name">
-                                        ${c.author.name}
+                                        ${author.name}
                                         <button style="display:none"  data-event="dismiss" class="dismiss">
                                         <i class="fa fa-trash"></i>
                                         </button>
                                         </div>
                                         <div class="text">
-                                            ${c.text}
+                                            ${c.comment}
                                         </div>
                                         <div class="meta"> 
                                             ${c.date} 
@@ -611,7 +598,7 @@
                                 this.Alert.render("confirm", "Коментар буде видално. Ви впевнені?", {
                                     confirm: () => {
                                         this.Loader.show("infinity")
-                                        this.Http.post("/try", { todoId: d.dataset.todoId, commentId }, res => {
+                                        this.Http.post("/task/comment/remove", { taskId: d.dataset.todoId, commentId }, res => {
                                             this.Loader.hide(); setTimeout(() => {
                                                 if (res.success) {
                                                     $(comment).slideUp(100, () => comment.remove())
@@ -649,7 +636,7 @@
                             this.Loader.show("infinity")
                             let comment = commentInput.value
                             commentInput.value = ""
-                            this.Http.post("/try", { comment }, res => {
+                            this.Http.post("/task/comment/add", { taskId: d.dataset.todoId, comment }, res => {
                                 this.Loader.hide(() => {
                                     if (res.success) {
                                         this.Data.get("User").then(u => {
@@ -693,11 +680,11 @@
                     }
 
                     {   // Files - Report
-                        if (t.reportFiles) t.reportFiles.forEach(f => {
+                        if (t.report.documents) t.report.documents.forEach(f => {
                             let fileName = f.name, fileExt = f.extName, fileId = f.id
 
                             $(rFiles).prepend(`
-                                <div class="file" data-file-id="${fileId}">
+                                <div class="file" data-report-id="${t.report.id}" data-file-id="${fileId}">
                                     <img class="img" src="./img/docs-img/${fileExt.substr(1)}.png" alt="" />
                                     <span class="name">
                                         ${fileName}
@@ -710,15 +697,16 @@
 
                             rFiles.querySelector('.file [data-event="dismiss"]').onclick = e => {
                                 let file = $(rFiles).find(e.target.closest(".file")),
-                                    fileId = e.target.closest(".file").dataset.dataId,
+                                    fileId = e.target.closest(".file").dataset.fileId,
                                     btn = e.target.closest('[data-event="dismiss"]')
 
                                 btn.setAttribute("disabled", "true")
-                                this.Alert.render("confirm", "Коментар буде видално. Ви впевнені?", {
+                                this.Alert.render("confirm", "Файл буде видално. Ви впевнені?", {
                                     confirm: () => {
                                         this.Loader.show("infinity")
-                                        this.Http.post("/try", { todoId: d.dataset.todoId, fileId }, res => {
+                                        this.Http.post("/report/doc/remove", { reportId: e.target.closest(".file").dataset.reportId, docId: fileId }, res => {
                                             this.Loader.hide(() => {
+                                                console.log({ reportId: e.target.closest(".file").dataset.reportId, fileId })
                                                 if (res.success) {
                                                     file.slideUp(100, () => file.remove())
                                                     this.Alert.render("success", "Файл прибрано.")
@@ -750,7 +738,7 @@
 
                     {   // User rights
                         this.Data.get("User").then(user => {
-                            if (user.role[0] == "manager" || user.role[0] == "gmanager" || user.role[0] == "admin") {
+                            if (user.role == "MANAGER" || user.role == "G_MANAGER" || user.role == "ADMIN") {
                                 controlBtns.style.display = "flex"
                                 modal.querySelectorAll('[data-event="dismiss"]').forEach(b => b.style.display = "block")
                                 description.removeAttribute("disabled")
@@ -778,7 +766,7 @@
                                                     this.Alert.render("confirm", "Виконавця буде додано до задачі. Ви впевнені?", {
                                                         confirm: () => {
                                                             this.Loader.show("infinity")
-                                                            this.Http.post("/try", { pId }, res => {
+                                                            this.Http.post("/task/performer/add", { taskId: d.dataset.todoId, performerId: pId }, res => {
                                                                 if (res.success) {
                                                                     pList.set(pId, p); pList.get(pId).checked = true; e.target.checked = true
                                                                     this.Alert.render("success", "Виконавця додано.")
@@ -793,7 +781,7 @@
                                                     this.Alert.render("confirm", "Виконавця буде вилучено з задачі. Ви впевнені?", {
                                                         confirm: () => {
                                                             this.Loader.show("infinity")
-                                                            this.Http.post("/try", { pId }, res => {
+                                                            this.Http.post("/task/preformer/remove", { taskId: d.dataset.todoId, performerId: pId }, res => {
                                                                 if (res.success) {
                                                                     pList.get(pId).checked = false; pList.delete(pId); e.target.checked = false;
                                                                     this.Alert.render("success", "Виконавця вилучено.")
@@ -822,7 +810,7 @@
                                     this.Data.get("Performers").then(data => {
 
                                         data.forEach(p => pList.set(p.id, p))
-                                        t.performers.forEach(p => pList.get(p.id).checked = true)
+                                        t.performerList.forEach(id => pList.get(id).checked = true)
 
                                         data.sort((perf1, perf2) => {
                                             let p1 = perf1.checked;
@@ -864,15 +852,19 @@
                                     })
                                 }
                             } else {
-                                t.performers.forEach(p => {
+                                t.performerList.forEach(id => {
+                                    let user = User.get(id)
+
                                     $(performers).append(`
-                                        <div class="performer" data-performer-id="${p.id}">
-                                            <div class="user-block">
-                                                <img class="img" data-src="${p.imgPath}" alt="" />
-                                                <span class="name">${p.name}</span>
-                                            </div>
-                                        </div>`)
-                                }); $(performers).find('[data-src]').Lazy({
+                                    <div class="performer" data-performer-id="${user.id}">
+                                        <div class="user-block">
+                                            <img class="img" data-src="${user.imgPath}" alt="" />
+                                            <span class="name">${user.name}</span>
+                                        </div>
+                                    </div>`)
+                                })
+
+                                $(performers).find('[data-src]').Lazy({
                                     effect: 'fadeIn',
                                     autoDestroy: true,
                                     effectTime: 200,
@@ -884,14 +876,14 @@
                                 })
                             }
 
-                            if (t.status !== "inProgress") {
+                            if (t.status !== "INPROGRESS") {
                                 inProgressBtn.style.display = "block"
                             }
 
                         })
                     }
 
-                    {   // Download filess
+                    {   // Download files
                         downloadFiles.onclick = () =>
                             this.FilesManager.download(Array.from(files.querySelectorAll(".file"))
                                 .map(f => f.dataset.fileId))
@@ -937,10 +929,9 @@
                             let data = { todoId: d.dataset.todoId }
                             if (description.value.trim() !== t.description) { data.description = description.value }
                             if (name.value.trim() !== t.name) { data.name = name.value }
-                            console.log(data)
                             $(modal).modal("hide");
 
-                            this.Http.post("/try", data, res => {
+                            this.Http.post("/task/modify/name", data, res => {
                                 this.Loader.hide(); setTimeout(() => {
                                     if (res.success) {
                                         this.Alert.render("success", "Зміни застосовано.")
@@ -1020,8 +1011,9 @@
                             data.forEach(f => formData.append("files", f))
                             $(modal).modal("hide"); this.Loader.show("infinity")
                             console.log(formData.getAll("files"))
+                            formData.append("taskId", d.dataset.todoId)
 
-                            this.Http.post("/try", formData, res => {
+                            this.Http.post("/report/upload", formData, res => {
                                 this.Loader.hide(); setTimeout(() => {
                                     if (res.success) {
                                         this.Alert.render("success", "Файли завантажено.")
@@ -1045,7 +1037,7 @@
                 {   // Change status
                     const changeStatus = (status) => {
                         $(modal).modal("hide"); this.Loader.show("infinity")
-                        this.Http.post("/try", { todoId: d.dataset.todoId, status }, res => {
+                        this.Http.post("/task/modify/status", { taskId: d.dataset.todoId, status }, res => {
                             this.Loader.hide(() => {
                                 if (res.success) {
                                     this.Alert.render("success", "Статус змінено.")
@@ -1058,11 +1050,11 @@
                         })
                     }
 
-                    completeBtn.onclick = () => changeStatus("complete")
-                    overdueBtn.onclick = () => changeStatus("overdue")
-                    onholdBtn.onclick = () => changeStatus("onhold")
-                    tonewBtn.onclick = () => changeStatus("new")
-                    inProgressBtn.onclick = () => changeStatus("inProgress")
+                    completeBtn.onclick = () => changeStatus("COMPLETED")
+                    overdueBtn.onclick = () => changeStatus("OVERDUE")
+                    onholdBtn.onclick = () => changeStatus("ONHOLD")
+                    tonewBtn.onclick = () => changeStatus("NEW")
+                    inProgressBtn.onclick = () => changeStatus("INPROGRESS")
                 }
 
             }); $('[data-modal="todoInfo"]').on("hidden.bs.modal", () => {
@@ -1091,16 +1083,16 @@
                 // Confirm
                 submit.onclick = () => {
                     this.Loader.show("infinity")
-                    this.Http.get(`/test/${name.value.length > 0 ? `name=${name.value}&` : ``}datefrom=${df.getDate()}&dateto=${dt.getDate()}`, data => {
+                    this.Http.get(`/archive/doc/list?${name.value.length > 0 ? `name=${name.value}&` : ``}startDate=${df.getDate()}&endDate=${dt.getDate()}`, data => {
                         FilesHandler.render(data); $(modal).modal("hide")
-                        Factory.getClass("Pagination").init(".pagination", `/test/${name.value.length > 0 ? `name=${name.value}&` : ``}datefrom=${df.getDate()}&dateto=${dt.getDate()}`, "FilesHandler")
+                        Factory.getClass("Pagination").init(".pagination", `/archive/doc/list?${name.value.length > 0 ? `name=${name.value}&` : ``}startDate=${df.getDate()}&endDate=${dt.getDate()}`, "FilesHandler")
                     })
                 }
             })
 
             this.init("addNewEmployes", document.querySelector('[data-modal="addNewEmployes"]'), () => {
                 return "done"
-            }, () => {
+            }, d => {
                 let modal = this.modals["addNewEmployes"].node,
                     submit = modal.querySelector('[data-event="submit"]'),
                     form = modal.querySelector(".add-employes__input-wrapper"),
@@ -1135,8 +1127,9 @@
                 submit.onclick = () => {
                     if (list.querySelectorAll(".add-employes__item").length == 0) return this.Alert.render("warning", "Додайте адреси.")
                     this.Loader.show("infinity")
-                    this.Http.post("/try", {
-                        employes: Array.from(list.querySelectorAll(".add-employes__item")).map(e => e.querySelector(".add-employes__item-name").innerText.trim())
+                    this.Http.post("/tenants/connect/invite", {
+                        emails: Array.from(list.querySelectorAll(".add-employes__item")).map(e => e.querySelector(".add-employes__item-name").innerText.trim()),
+                        tenantId: d.id
                     }, res => {
                         this.Loader.hide(() => {
                             console.log({ employes: Array.from(list.querySelectorAll(".add-employes__item")).map(e => e.querySelector(".add-employes__item-name").innerText.trim()) })
