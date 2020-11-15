@@ -23,18 +23,22 @@
             if (this.pass1Field.val().length < 8) return this.Alert.render("warning", "Пароль має бути не менше ніж 8 символів");
             if (this.pass1Field.val() !== this.pass2Field.val()) return this.Alert.render("warning", "Паролі не співпадають");
             this.Loader.show("infinity")
-
-            this.Http.post("/try", {
+            let nms = this.SNPField.val().split(" ");
+            let firstName, middleName, lastName
+            if (nms.length > 2) {
+                firstName = nms[0]
+                middleName = nms[1]
+                lastName = nms[2]
+            } else {
+                return this.Alert.render("warning", "Введіть повне ім`я");
+            }
+            this.Http.post("/auth/reg/user", {
                 password: this.pass1Field.val(),
-                fullname: this.SNPField.val(),
+                firstName: firstName,
+                middleName: middleName,
+                lastName: lastName,
                 rememberMe: this.rmme.checked
             }, res => {
-                console.log({
-                    password: this.pass1Field.val(),
-                    fullname: this.SNPField.val(),
-                    rememberMe: this.rmme.checked
-                })
-
                 this.Loader.hide(() => {
                     if (res.success) {
                         window.location.href = "/"

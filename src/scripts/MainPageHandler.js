@@ -46,11 +46,11 @@
             e.preventDefault();
 
             this.Loader.show("infinity")
-            this.Http.post("/try", { email: efield }, res => {
+            this.Http.get(`/auth/reg/send?email=${efield}`, res => {
                 this.Loader.hide(() => {
                     if (res.success) {
                         window.location.href = "/confirm"
-                    } else this.Alert.render("danger", `Сталася помилка: ${res.msg.substr(0, 32)}`)
+                    } else this.Alert.render("danger", `Сталася помилка: ${res.msg.substr(0, 32)}...`)
                 })
             })
 

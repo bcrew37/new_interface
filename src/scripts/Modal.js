@@ -1127,7 +1127,7 @@
                 submit.onclick = () => {
                     if (list.querySelectorAll(".add-employes__item").length == 0) return this.Alert.render("warning", "Додайте адреси.")
                     this.Loader.show("infinity")
-                    this.Http.post("/tenants/connect/invite", {
+                    this.Http.post("/tenants/invite", {
                         emails: Array.from(list.querySelectorAll(".add-employes__item")).map(e => e.querySelector(".add-employes__item-name").innerText.trim()),
                         tenantId: d.id
                     }, res => {

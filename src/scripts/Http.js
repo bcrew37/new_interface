@@ -27,26 +27,26 @@
         }
 
         post(url, body, callback, options = {}) {
-            console.log(body)
-                (async () => {
-                    try {
-                        const response = await fetch(url, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json;charset=utf-8"
-                            },
-                            body: JSON.stringify(body),
-                            ...options
-                        })
+            (async () => {
+                console.log(body)
+                try {
+                    const response = await fetch(url, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json;charset=utf-8"
+                        },
+                        body: JSON.stringify(body),
+                        ...options
+                    })
 
-                        if (response.ok) {
-                            const result = await response.json()
-                            if (callback) callback(result)
-                        } else console.error("Not al ok...")
-                    } catch (error) {
-                        throw console.error("Oops! " + error)
-                    }
-                })()
+                    if (response.ok) {
+                        const result = await response.json()
+                        if (callback) callback(result)
+                    } else console.error("Not al ok...")
+                } catch (error) {
+                    throw console.error("Oops! " + error)
+                }
+            })()
         }
     }
 

@@ -39,6 +39,9 @@ app.get("/uconfig", (req, res) => {
 app.get("/charts", (req, res) => {
     res.render("index")
 })
+app.get("/signin", (req, res) => {
+    res.render("signin")
+})
 
 // Get + Post
 app.use("/test", (req, res) => {
