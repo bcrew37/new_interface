@@ -19,24 +19,24 @@
 
             this.Data = Factory.getClass("Data")
             this.Data.get("Files").then(data => this.render(data))
-            Factory.getClass("Pagination").init(".pagination", "/archive/doc/list", "FilesHandler")
+            Factory.getClass("Pagination").init(".pagination", "/com/archive/doc/list", "FilesHandler")
 
             Factory.getClass("Notifications").render(document.querySelector(".tool-bar .notifications"))
             this._table.closest(".body").querySelector("thead #sortByData i").onclick = e => {
                 let btn = e.target
                 if (btn.classList.contains("fa-caret-down")) {
-                    this.Http.get("/archive/doc/list/1?reverse=true", data => {
+                    this.Http.get("/com/archive/doc/list/1?reverse=true", data => {
                         btn.classList.remove("fa-caret-down")
                         btn.classList.add("fa-caret-up")
                         this.render(data)
-                        Factory.getClass("Pagination").init(".pagination", "/archive/doc/list?reverse=true", "FilesHandler")
+                        Factory.getClass("Pagination").init(".pagination", "/com/archive/doc/list?reverse=true", "FilesHandler")
                     })
                 } else {
                     this.Data.get("Files").then(data => {
                         btn.classList.remove("fa-caret-up")
                         btn.classList.add("fa-caret-down")
                         this.render(data)
-                        Factory.getClass("Pagination").init(".pagination", "/archive/doc/list", "FilesHandler")
+                        Factory.getClass("Pagination").init(".pagination", "/com/archive/doc/list", "FilesHandler")
                     })
                 }
             }

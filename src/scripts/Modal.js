@@ -123,7 +123,7 @@
 
                     this.Loader.show("infinity")
 
-                    this.Http.post("/task/create", {
+                    this.Http.post("/com/task/create", {
                         name: name.value.trim(),
                         description: description.value.trim(),
                         performerList: performers,
@@ -287,7 +287,7 @@
                         todos.push(key); tList.get(key).checked = false; tList.delete(key)
                     }; $(modal).modal("hide"); this.Loader.show("infinity")
 
-                    this.Http.post("/task/modify/docs", {
+                    this.Http.post("/com/task/modify/docs", {
                         todoIds: todos,
                         docIds: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId)
                     }, res => {
@@ -360,7 +360,7 @@
                     data.forEach(f => formData.append("files", f))
                     $(modal).modal("hide"); this.Loader.show("infinity")
 
-                    this.Http.post("/archive/doc/upload", formData, res => {
+                    this.Http.post("/com/archive/doc/upload", formData, res => {
                         this.Loader.hide(); setTimeout(() => {
                             if (res.success) {
                                 this.Alert.render("success", "Файли завантажено.")
@@ -439,7 +439,7 @@
 
                     $(modal).modal("hide"); this.Loader.show("infinity")
 
-                    this.Http.post("/archive/doc/send", {
+                    this.Http.post("/com/archive/doc/send", {
                         docList: Array.from(files.querySelectorAll(".file"), f => f.dataset.fileId), message: msg.value.trim(), email: email.value.trim()
                     }, res => {
                         this.Loader.hide(); setTimeout(() => {
@@ -505,7 +505,7 @@
                 description.setAttribute("disabled", "true")
                 name.setAttribute("readonly", "true")
 
-                this.Http.get(`/task/details?todoId=${d.dataset.todoId}`, t => {
+                this.Http.get(`/com/task/details?todoId=${d.dataset.todoId}`, t => {
 
                     {   // Name + Description
                         name.value = t.name; description.value = t.description
@@ -536,7 +536,7 @@
                                 this.Alert.render("confirm", "Файл буде видално. Ви впевнені?", {
                                     confirm: () => {
                                         this.Loader.show("infinity")
-                                        this.Http.post("/task/doc/remove", { taskId: d.dataset.todoId, docId: fileId }, res => {
+                                        this.Http.post("/com/task/doc/remove", { taskId: d.dataset.todoId, docId: fileId }, res => {
                                             this.Loader.hide(() => {
                                                 if (res.success) {
                                                     file.slideUp(100, () => file.remove())
@@ -598,7 +598,7 @@
                                 this.Alert.render("confirm", "Коментар буде видално. Ви впевнені?", {
                                     confirm: () => {
                                         this.Loader.show("infinity")
-                                        this.Http.post("/task/comment/remove", { taskId: d.dataset.todoId, commentId }, res => {
+                                        this.Http.post("/com/task/comment/remove", { taskId: d.dataset.todoId, commentId }, res => {
                                             this.Loader.hide(); setTimeout(() => {
                                                 if (res.success) {
                                                     $(comment).slideUp(100, () => comment.remove())
@@ -636,7 +636,7 @@
                             this.Loader.show("infinity")
                             let comment = commentInput.value
                             commentInput.value = ""
-                            this.Http.post("/task/comment/add", { taskId: d.dataset.todoId, comment }, res => {
+                            this.Http.post("/com/task/comment/add", { taskId: d.dataset.todoId, comment }, res => {
                                 this.Loader.hide(() => {
                                     if (res.success) {
                                         this.Data.get("User").then(u => {
@@ -704,7 +704,7 @@
                                 this.Alert.render("confirm", "Файл буде видално. Ви впевнені?", {
                                     confirm: () => {
                                         this.Loader.show("infinity")
-                                        this.Http.post("/report/doc/remove", { reportId: e.target.closest(".file").dataset.reportId, docId: fileId }, res => {
+                                        this.Http.post("/com/report/doc/remove", { reportId: e.target.closest(".file").dataset.reportId, docId: fileId }, res => {
                                             this.Loader.hide(() => {
                                                 console.log({ reportId: e.target.closest(".file").dataset.reportId, fileId })
                                                 if (res.success) {
@@ -766,7 +766,7 @@
                                                     this.Alert.render("confirm", "Виконавця буде додано до задачі. Ви впевнені?", {
                                                         confirm: () => {
                                                             this.Loader.show("infinity")
-                                                            this.Http.post("/task/performer/add", { taskId: d.dataset.todoId, performerId: pId }, res => {
+                                                            this.Http.post("/com/task/performer/add", { taskId: d.dataset.todoId, performerId: pId }, res => {
                                                                 if (res.success) {
                                                                     pList.set(pId, p); pList.get(pId).checked = true; e.target.checked = true
                                                                     this.Alert.render("success", "Виконавця додано.")
@@ -781,7 +781,7 @@
                                                     this.Alert.render("confirm", "Виконавця буде вилучено з задачі. Ви впевнені?", {
                                                         confirm: () => {
                                                             this.Loader.show("infinity")
-                                                            this.Http.post("/task/preformer/remove", { taskId: d.dataset.todoId, performerId: pId }, res => {
+                                                            this.Http.post("/com/task/preformer/remove", { taskId: d.dataset.todoId, performerId: pId }, res => {
                                                                 if (res.success) {
                                                                     pList.get(pId).checked = false; pList.delete(pId); e.target.checked = false;
                                                                     this.Alert.render("success", "Виконавця вилучено.")
@@ -931,7 +931,7 @@
                             if (name.value.trim() !== t.name) { data.name = name.value }
                             $(modal).modal("hide");
 
-                            this.Http.post("/task/modify/name", data, res => {
+                            this.Http.post("/com/task/modify/name", data, res => {
                                 this.Loader.hide(); setTimeout(() => {
                                     if (res.success) {
                                         this.Alert.render("success", "Зміни застосовано.")
@@ -1013,7 +1013,7 @@
                             console.log(formData.getAll("files"))
                             formData.append("taskId", d.dataset.todoId)
 
-                            this.Http.post("/report/upload", formData, res => {
+                            this.Http.post("/com/report/upload", formData, res => {
                                 this.Loader.hide(); setTimeout(() => {
                                     if (res.success) {
                                         this.Alert.render("success", "Файли завантажено.")
@@ -1037,7 +1037,7 @@
                 {   // Change status
                     const changeStatus = (status) => {
                         $(modal).modal("hide"); this.Loader.show("infinity")
-                        this.Http.post("/task/modify/status", { taskId: d.dataset.todoId, status }, res => {
+                        this.Http.post("/com/task/modify/status", { taskId: d.dataset.todoId, status }, res => {
                             this.Loader.hide(() => {
                                 if (res.success) {
                                     this.Alert.render("success", "Статус змінено.")
@@ -1083,7 +1083,7 @@
                 // Confirm
                 submit.onclick = () => {
                     this.Loader.show("infinity")
-                    this.Http.get(`/archive/doc/list?${name.value.length > 0 ? `name=${name.value}&` : ``}startDate=${df.getDate()}&endDate=${dt.getDate()}`, data => {
+                    this.Http.get(`/com/archive/doc/list?${name.value.length > 0 ? `name=${name.value}&` : ``}startDate=${df.getDate()}&endDate=${dt.getDate()}`, data => {
                         FilesHandler.render(data); $(modal).modal("hide")
                         Factory.getClass("Pagination").init(".pagination", `/archive/doc/list?${name.value.length > 0 ? `name=${name.value}&` : ``}startDate=${df.getDate()}&endDate=${dt.getDate()}`, "FilesHandler")
                     })
@@ -1127,7 +1127,7 @@
                 submit.onclick = () => {
                     if (list.querySelectorAll(".add-employes__item").length == 0) return this.Alert.render("warning", "Додайте адреси.")
                     this.Loader.show("infinity")
-                    this.Http.post("/tenants/invite", {
+                    this.Http.post("/com/tenants/invite", {
                         emails: Array.from(list.querySelectorAll(".add-employes__item")).map(e => e.querySelector(".add-employes__item-name").innerText.trim()),
                         tenantId: d.id
                     }, res => {

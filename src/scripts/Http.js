@@ -26,18 +26,21 @@
             })()
         }
 
-        post(url, body, callback, options = {}) {
+        post(url, body, callback, _options = {}) {
             (async () => {
                 console.log(body)
                 try {
-                    const response = await fetch(url, {
+                    let options = {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json;charset=utf-8"
                         },
                         body: JSON.stringify(body),
-                        ...options
-                    })
+                    }
+
+                    Object.assign(options, _options)
+
+                    const response = await fetch(url, options)
 
                     if (response.ok) {
                         const result = await response.json()

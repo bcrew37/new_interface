@@ -20,7 +20,7 @@
                 if (input.value.trim().length == 0) return
                 if (input.value.trim().length > 64) return this.Alert.render("warning", "Назва не більше 64 символів")
                 this.Loader.show("infinity")
-                this.Http.post("/tenants/create", { companyName: input.value.trim(), tariff: "Free" }, res => {
+                this.Http.post("/main/tenants/create", { companyName: input.value.trim(), tariff: "Free" }, res => {
                     input.value = ""
                     this.Loader.hide(() => {
                         if (res.success) {
@@ -71,7 +71,7 @@
                     let btn = e.target.closest("button")
                     btn.setAttribute("disabled", "true")
                     this.Loader.show("infinity")
-                    this.Http.get(`/tenants/connect?tenantId=${e.id}`, res => {
+                    this.Http.get(`/main/tenants/connect?tenantId=${e.id}`, res => {
                         btn.removeAttribute("disabled")
                         if (res.success) {
                             this.Data.update("Enterprises").then(data => this.render(data))
@@ -85,7 +85,7 @@
                     let btn = e.target.closest("button")
                     btn.setAttribute("disabled", "true")
                     this.Loader.show("infinity")
-                    this.Http.post("/try", { id: e.id }, res => {
+                    this.Http.get(`/main/tenants/remove?tenantId=${e.id}`, res => {
                         btn.removeAttribute("disabled")
                         if (res.success) {
                             this.Data.update("Enterprises").then(data => this.render(data))

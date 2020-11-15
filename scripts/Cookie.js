@@ -9,11 +9,11 @@
         }
 
         set(name, value, _options = {}) {
-            options = {
+            let options = {
                 path: '/',
             };
 
-            Object.assign(options, _options);
+            Object.assign(options, _options)
 
             if (options.expires instanceof Date) {
                 options.expires = options.expires.toUTCString();

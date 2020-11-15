@@ -19,7 +19,7 @@
                 if (input.value.trim().length == 0) return
                 if (input.value.trim().length > 64) return this.Alert.render("warning", "Назва не більше 64 символів")
                 this.Loader.show("infinity")
-                this.Http.get(`/departments/create?name=${input.value.trim()}`, res => {
+                this.Http.get(`/com/departments/create?name=${input.value.trim()}`, res => {
                     input.value = ""
                     this.Loader.hide(() => {
                         if (res.success) {
@@ -56,7 +56,7 @@
                 this.Alert.render("confirm", "Роль буде змінено. Ви впевнені?", {
                     confirm: () => {
                         this.Loader.show("infinity")
-                        this.Http.post("/performers/modify/role", { performerId: userId, role }, res => {
+                        this.Http.post("/com/performers/modify/role", { performerId: userId, role }, res => {
                             this.Loader.hide(() => {
                                 btn.style.pointerEvents = "auto"
                                 console.log({ userId, role })
@@ -86,7 +86,7 @@
                 this.Alert.render("confirm", "Відділ буде змінено. Ви впевнені?", {
                     confirm: () => {
                         this.Loader.show("infinity")
-                        this.Http.post("/performers/modify/department", { performerId: userId, departmentId: value }, res => {
+                        this.Http.post("/com/performers/modify/department", { performerId: userId, departmentId: value }, res => {
                             btn.style.pointerEvents = "auto"
                             console.log({ performerId: userId, value })
                             this.Loader.hide(() => {
@@ -111,7 +111,7 @@
                 this.Alert.render("confirm", "Користувача буде видалено з системи. Ви впевнені?", {
                     confirm: () => {
                         this.Loader.show("infinity")
-                        this.Http.post("/performers/remove", { performerId: userId }, res => {
+                        this.Http.post("/com/performers/remove", { performerId: userId }, res => {
                             this.Loader.hide(() => {
                                 btn.style.pointerEvents = "auto"
                                 console.log({ userId })
@@ -147,7 +147,7 @@
                 this.Alert.render("confirm", "Відділ буде видалено. Ви впевнені?", {
                     confirm: () => {
                         this.Loader.show("infinity")
-                        this.Http.get(`/departments/remove?departmentId=${depId}`, res => {
+                        this.Http.get(`/com/departments/remove?departmentId=${depId}`, res => {
                             btn.style.pointerEvents = "auto"
                             console.log({ depId })
                             this.Loader.hide(() => {
@@ -201,7 +201,7 @@
                         ${u.name}
                     </div>>>
                 </td>
-                <td>${u.email}</td>
+                <td>${u.email ?? '__'}</td>
                 <td>
                     ${u.registrationDate}
                 </td>

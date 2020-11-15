@@ -39,6 +39,7 @@
                     }
 
                     Object.assign(options, _options)
+
                     const response = await fetch(url, options)
 
                     if (response.ok) {

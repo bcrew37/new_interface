@@ -20,7 +20,7 @@
                     let formdata = new FormData
                     formdata.append("file", file)
                     this.Loader.show("infinity")
-                    this.Http.post("/try", formdata, res => {
+                    this.Http.post("/com/settings/chagne/img", formdata, res => {
                         if (res.success) {
                             this.Data.update("User")
                             window.location = window.location
@@ -39,7 +39,7 @@
                 if (pass2.value.trim() == "") return this.Alert.render("warning", "Напишіть новий пароль")
                 this.Loader.show("infinity")
 
-                this.Http.post("/settings/chagne/password", { oldPasswd: pass1.value, newPasswd: pass2.value }, res => {
+                this.Http.post("/com/settings/chagne/password", { oldPasswd: pass1.value, newPasswd: pass2.value }, res => {
                     this.Loader.hide(() => {
                         if (res.success) {
                             this.Alert.render("success", "Пароль змінено")

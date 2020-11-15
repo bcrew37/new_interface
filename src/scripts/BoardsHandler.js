@@ -14,7 +14,7 @@
             this.init("#newTodo", () => this.Modal.render("newTodo"))
             this.Data.get("Todos").then(data => this.render(data))
 
-            Factory.getClass("Pagination").init(".pagination", "/task/list", "BoardsHandler")
+            Factory.getClass("Pagination").init(".pagination", "/com//task/list", "BoardsHandler")
             Factory.getClass("Notifications").render(document.querySelector(".tool-bar .notifications"))
 
             this.Data.get("Departments").then(data => {
@@ -25,21 +25,21 @@
                     `); list.querySelector(".dropdown-item").onclick = () => {
                         this.Loader.show("infinity")
                         list.closest(".dropdown").querySelector("#selected-option").innerHTML = d.name
-                        this.Http.get(`/task/list/1?depId=${d.id}`, data => this.render(data))
-                        Factory.getClass("Pagination").init(".pagination", `/task/list?depId=${d.id}`, "BoardsHandler")
+                        this.Http.get(`/com/task/list/1?depId=${d.id}`, data => this.render(data))
+                        Factory.getClass("Pagination").init(".pagination", `/com/task/list?depId=${d.id}`, "BoardsHandler")
                     }
                 })
                 list.querySelector('[data-event="alldeps"]').onclick = () => {
                     this.Loader.show("infinity")
                     list.closest(".dropdown").querySelector("#selected-option").innerHTML = "Усі"
                     this.Data.get("Todos").then(data => this.render(data))
-                    Factory.getClass("Pagination").init(".pagination", "/task/list", "BoardsHandler")
+                    Factory.getClass("Pagination").init(".pagination", "/com/task/list", "BoardsHandler")
                 }
             })
 
             const filterByStatus = (status) => {
-                this.Http.get(`/task/list${status ? `/${status}` : ``}`, data => this.render(data))
-                Factory.getClass("Pagination").init(".pagination", `/task/list${status ? `/${status}` : ``}`, "BoardsHandler")
+                this.Http.get(`/com/task/list${status ? `/${status}` : ``}`, data => this.render(data))
+                Factory.getClass("Pagination").init(".pagination", `/com/task/list${status ? `/${status}` : ``}`, "BoardsHandler")
             }
 
             let statusFilter = this._table.closest(".body").querySelector("thead #boardFilterByStatus")
@@ -198,7 +198,7 @@
                     this.Alert.render("confirm", "Дату дедлайну буде змінено. Ви впевнені?", {
                         confirm: () => {
                             this.Loader.show("infinity")
-                            this.Http.post("/task/modify/deadline", { date: deadline.getDate(), taskId: t.id }, res => {
+                            this.Http.post("/com/task/modify/deadline", { date: deadline.getDate(), taskId: t.id }, res => {
                                 this.Loader.hide(() => {
                                     console.log({ date: deadline.getDate() })
                                     if (res.success) {
@@ -220,7 +220,7 @@
                     this.Alert.render("confirm", "Дату контролю буде змінено. Ви впевнені?", {
                         confirm: () => {
                             this.Loader.show("infinity")
-                            this.Http.post("/task/modify/control", { date: control.getDate(), taskId: t.id }, res => {
+                            this.Http.post("/com/task/modify/control", { date: control.getDate(), taskId: t.id }, res => {
                                 this.Loader.hide(() => {
                                     console.log({ date: control.getDate() })
                                     if (res.success) {

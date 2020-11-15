@@ -8,11 +8,12 @@
             return matches ? decodeURIComponent(matches[1]) : undefined;
         }
 
-        set(name, value, options = {}) {
-            options = {
+        set(name, value, _options = {}) {
+            let options = {
                 path: '/',
-                ...options
             };
+
+            Object.assign(options, _options)
 
             if (options.expires instanceof Date) {
                 options.expires = options.expires.toUTCString();

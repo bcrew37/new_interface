@@ -9,6 +9,11 @@
             $("#scrollTCB").on("click", () => this.scrollTo("#CB"))
             $("#scrollTCP").on("click", () => this.scrollTo("#CP"))
             $("#scrollTPL").on("click", () => this.scrollTo("#PL"))
+            document.querySelectorAll(".prices__list-item__button").forEach(btn => {
+                btn.onclick = () => {
+                    this.scrollTo(".signup-form__main-block")
+                }
+            })
         }
 
         scrollTo(element) {
@@ -46,10 +51,10 @@
             e.preventDefault();
 
             this.Loader.show("infinity")
-            this.Http.get(`/auth/reg/send?email=${efield}`, res => {
+            this.Http.get(`/main/auth/reg/send?email=${efield}`, res => {
                 this.Loader.hide(() => {
                     if (res.success) {
-                        window.location.href = "/confirm"
+                        window.location.href = "/main/confirm"
                     } else this.Alert.render("danger", `Сталася помилка: ${res.msg.substr(0, 32)}...`)
                 })
             })

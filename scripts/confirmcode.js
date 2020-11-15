@@ -22,11 +22,13 @@
             if (this.confirmcode.val().length == 0) return this.Alert.render("warning", "Введіть код");
             this.Loader.show("infinity")
 
-            this.Http.get(`/auth/verify?verificationCode=${this.confirmcode.val()}`, res => {
+            this.Http.get(`/main/auth/verify?verificationCode=${this.confirmcode.val()}`, res => {
                 this.Loader.hide(() => {
                     if (res.success) {
                         sessionStorage.setItem("confirm", true)
-                        window.location.href = "/signup"
+                        if (sessionStorage.getItem("signin")) {
+                            window.location.href = "/com"
+                        } else window.location.href = "/main/signup"
                     } else this.Alert.render("danger", `Сталася помилка ${res.msg.substr(0, 32)}...`)
                 })
             })

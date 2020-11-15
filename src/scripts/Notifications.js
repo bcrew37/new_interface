@@ -54,7 +54,7 @@
 
                 let counter = 1
                 wrapper.querySelector('[data-event="more"]').onclick = () => {
-                    this.Http.get(`/notifications/list/${counter}`, data => {
+                    this.Http.get(`/com/notifications/list/${counter}`, data => {
                         renderNotifications(data)
                         counter++
                     })
@@ -74,7 +74,7 @@
             target.classList.add("active")
             if (this.selector.dataset.amount) {
                 this.selector.removeAttribute("data-amount")
-                this.Http.post("/test", { read: true })
+                this.Http.get("/com/notifications/see/all")
                 this.Data.get("Notifications").then(data => {
                     data.numOfNew = 0
                     sessionStorage.setItem("Notifications", JSON.stringify(data))

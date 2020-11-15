@@ -7,41 +7,41 @@
             this.Content = Factory.getClass("Content")
 
             this.Content.init({
-                "/charts": document.querySelector('templates [data-content="charts"]'),
-                "/files": document.querySelector('templates [data-content="files"]'),
-                "/boards": document.querySelector('templates [data-content="boards"]'),
-                "/clPanel": document.querySelector('templates [data-content="clPanel"]'),
-                "/econfig": document.querySelector('templates [data-content="econfig"]'),
-                "/uconfig": document.querySelector('templates [data-content="uconfig"]'),
-                "/charts": document.querySelector('templates [data-content="charts"]'),
+                "/com/charts": document.querySelector('templates [data-content="charts"]'),
+                "/com/files": document.querySelector('templates [data-content="files"]'),
+                "/com/boards": document.querySelector('templates [data-content="boards"]'),
+                "/com/clPanel": document.querySelector('templates [data-content="clPanel"]'),
+                "/com/econfig": document.querySelector('templates [data-content="econfig"]'),
+                "/com/uconfig": document.querySelector('templates [data-content="uconfig"]'),
+                "/com/charts": document.querySelector('templates [data-content="charts"]'),
             })
 
             this.Navbar.elements["files"].sub(
-                () => this.push({ title: "Файли", url: "/files" }),
+                () => this.push({ title: "Файли", url: "/com/files" }),
             )
 
             this.Navbar.elements["boards"].sub(
-                () => this.push({ title: "Дошки", url: "/boards" }),
+                () => this.push({ title: "Дошки", url: "/com/boards" }),
             )
 
             this.Navbar.elements["clPanel"].sub(
-                () => this.push({ title: "Панель управління", url: "/clPanel" }),
+                () => this.push({ title: "Панель управління", url: "/com/clPanel" }),
             )
 
             this.Navbar.elements["econfig"].sub(
-                () => this.push({ title: "Кабінет підприємства", url: "/econfig" }),
+                () => this.push({ title: "Кабінет підприємства", url: "/main/econfig" }),
             )
 
             this.Navbar.elements["uconfig"].sub(
-                () => this.push({ title: "Кабінет користувача", url: "/uconfig" }),
+                () => this.push({ title: "Кабінет користувача", url: "/com/uconfig" }),
             )
 
             this.Navbar.elements["charts"].sub(
-                () => this.push({ title: "Статистика", url: "/charts" }),
+                () => this.push({ title: "Статистика", url: "/com/charts" }),
             )
 
             if (history.state == null) {
-                this.set({ title: "Дошки", url: "/boards" })
+                this.set({ title: "Дошки", url: "/com/boards" })
             } else this.set(history.state)
 
             window.onpopstate = (e) => {

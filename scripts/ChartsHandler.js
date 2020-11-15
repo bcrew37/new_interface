@@ -14,7 +14,7 @@
             })
         }
 
-        render(list) {
+        render(list = []) {
             this._table.innerHTML = ""
             list.sort((a, b) => {
                 let nameA = a.department ? a.department.name : a.department,

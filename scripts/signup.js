@@ -32,7 +32,7 @@
             } else {
                 return this.Alert.render("warning", "Введіть повне ім`я");
             }
-            this.Http.post("/auth/reg/user", {
+            this.Http.post("/main/auth/reg/user", {
                 password: this.pass1Field.val(),
                 firstName: firstName,
                 middleName: middleName,
@@ -41,12 +41,13 @@
             }, res => {
                 this.Loader.hide(() => {
                     if (res.success) {
-                        window.location.href = "/"
+                        window.location.href = "/com"
                     } else this.Alert.render("danger", `Сталася помилка ${res.msg.substr(0, 32)}`)
                 })
             })
 
         }
+
     }
 
     Factory.setSingletone("Signup", Signup)

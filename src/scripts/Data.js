@@ -9,14 +9,14 @@
             this.keys = new Map([])
 
             this.init({
-                "/archive/doc/list/1": "Files",
-                "/notifications/list/1": "Notifications",
-                "/task/list/1": "Todos",
-                "/performers/list": "Performers",
-                "/departments/list": "Departments",
-                "/tenants/com/my/list": "Enterprises",
-                "/myinfo": "User",
-                "/statistics/ALL_TIME": "Stats"
+                "/com/archive/doc/list/1": "Files",
+                "/com/notifications/list/1": "Notifications",
+                "/com/task/list/1": "Todos",
+                "/com/performers/list": "Performers",
+                "/com/departments/list": "Departments",
+                "/main/tenants/com/my/list": "Enterprises",
+                "/com/myinfo": "User",
+                "/com//statistics/ALL_TIME": "Stats"
             })
         }
 
